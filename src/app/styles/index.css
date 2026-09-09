@@ -3,20 +3,20 @@
 @import 'shadcn/tailwind.css';
 
 @font-face {
-  font-family: 'Manrope Variable';
+  font-family: 'Karla Variable';
   font-style: normal;
   font-display: swap;
   font-weight: 200 800;
-  src: url('@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2')
+  src: url('@fontsource-variable/karla/files/karla-latin-wght-normal.woff2')
     format('woff2-variations');
 }
 
 @font-face {
-  font-family: 'Newsreader Variable';
+  font-family: 'Bricolage Grotesque Variable';
   font-style: normal;
   font-display: swap;
   font-weight: 200 800;
-  src: url('@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2')
+  src: url('@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2')
     format('woff2-variations');
 }
 
@@ -51,9 +51,11 @@
   --color-book-coral: var(--book-coral);
   --color-book-gold: var(--book-gold);
   --color-book-blue: var(--book-blue);
+  --color-book-teal: var(--book-teal);
   --color-book-rose: var(--book-rose);
-  --color-book-plum: var(--book-plum);
-  --color-book-jade: var(--book-jade);
+  --color-book-wine: var(--book-wine);
+  --color-book-olive: var(--book-olive);
+  --color-book-sand: var(--book-sand);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -79,50 +81,58 @@
 }
 
 :root {
-  --font-sans-family: 'Manrope Variable', sans-serif;
-  --font-display-family: 'Newsreader Variable', Georgia, serif;
+  --font-sans-family: 'Karla Variable', sans-serif;
+  --font-display-family: 'Bricolage Grotesque Variable', sans-serif;
 
-  --background: oklch(0.97 0.019 88);
-  --foreground: oklch(0.275 0.052 164);
-  --card: oklch(0.992 0.008 88);
-  --card-foreground: oklch(0.275 0.052 164);
-  --popover: oklch(0.992 0.008 88);
-  --popover-foreground: oklch(0.275 0.052 164);
-  --primary: oklch(0.39 0.079 164);
-  --primary-foreground: oklch(0.985 0.01 88);
-  --secondary: oklch(0.845 0.13 83);
-  --secondary-foreground: oklch(0.275 0.052 164);
-  --muted: oklch(0.93 0.025 91);
-  --muted-foreground: oklch(0.49 0.035 164);
-  --accent: oklch(0.88 0.073 162);
-  --accent-foreground: oklch(0.275 0.052 164);
-  --destructive: oklch(0.58 0.2 28);
-  --border: oklch(0.82 0.025 87);
-  --input: oklch(0.82 0.025 87);
-  --ring: oklch(0.53 0.102 164);
+  --background: #f4f0e4;
+  --foreground: #202923;
+  --card: #fffdf6;
+  --card-foreground: #202923;
+  --popover: #fffdf6;
+  --popover-foreground: #202923;
+  --primary: #2c7771;
+  --primary-foreground: #fffdf6;
+  --secondary: #d68a00;
+  --secondary-foreground: #202923;
+  --muted: #e9e2d1;
+  --muted-foreground: #667169;
+  --accent: #d98591;
+  --accent-foreground: #202923;
+  --destructive: #b7312c;
+  --border: #cfc8b7;
+  --input: #cfc8b7;
+  --ring: #2c7771;
   --radius: 0.75rem;
 
-  --paper: oklch(0.992 0.008 88);
-  --ink: oklch(0.275 0.052 164);
-  --ink-soft: oklch(0.355 0.064 164);
-  --ink-grid: oklch(0.275 0.052 164 / 0.045);
-  --book-coral: oklch(0.65 0.173 35);
-  --book-gold: oklch(0.79 0.139 82);
-  --book-blue: oklch(0.51 0.105 244);
-  --book-rose: oklch(0.63 0.156 7);
-  --book-plum: oklch(0.43 0.081 335);
-  --book-jade: oklch(0.58 0.087 166);
+  --paper: #fffdf6;
+  --ink: #202923;
+  --ink-soft: #34443a;
+  --book-coral: #d85832;
+  --book-gold: #d68a00;
+  --book-blue: #315d83;
+  --book-teal: #2c7771;
+  --book-rose: #d98591;
+  --book-wine: #701f3c;
+  --book-olive: #667539;
+  --book-sand: #e9c79f;
+  --shelf-back: #292b24;
+  --wood: #8b5a35;
+  --wood-light: #aa7042;
+  --wood-shadow: #5d3824;
+  --plant-shadow: #284f32;
+  --ladder: #b8d7e2;
+  --ladder-shadow: #425762;
 
   --chart-1: var(--book-coral);
   --chart-2: var(--book-gold);
   --chart-3: var(--book-blue);
   --chart-4: var(--book-rose);
-  --chart-5: var(--book-jade);
-  --sidebar: oklch(0.956 0.022 88);
+  --chart-5: var(--book-teal);
+  --sidebar: #eee8d9;
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--ink);
   --sidebar-primary-foreground: var(--paper);
-  --sidebar-accent: oklch(0.9 0.068 163);
+  --sidebar-accent: #cbded5;
   --sidebar-accent-foreground: var(--ink);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);

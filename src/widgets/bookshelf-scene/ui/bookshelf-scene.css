@@ -1,0 +1,393 @@
+.bookshelf-scene {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--shelf-back);
+  container-type: inline-size;
+}
+
+.bookshelf-scene__shelves {
+  display: grid;
+  position: absolute;
+  inset: 0;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+}
+
+.book-shelf {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.book-shelf__books {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  align-items: flex-end;
+  gap: clamp(2px, 0.48cqw, 6px);
+  padding: 0 clamp(0.5rem, 2cqw, 1.5rem);
+}
+
+.book-shelf__group {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-basis: 0;
+  align-items: flex-end;
+  gap: clamp(2px, 0.48cqw, 6px);
+}
+
+.shelf-book {
+  display: block;
+  position: relative;
+  min-width: clamp(8px, 1.45cqw, 11px);
+  max-width: clamp(2rem, 7cqw, 4.5rem);
+  height: var(--book-height);
+  transform: rotate(var(--book-lean));
+  transform-origin: bottom center;
+  flex: var(--book-weight) 1 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--shelf-back), transparent 68%);
+  border-radius: 2px 3px 0 0;
+  background: var(--book-color);
+  box-shadow:
+    inset -4px 0 color-mix(in srgb, var(--shelf-back), transparent 80%),
+    inset 2px 0 color-mix(in srgb, white, transparent 86%);
+  will-change: transform, filter;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 320ms ease-out;
+}
+
+.shelf-book::after {
+  position: absolute;
+  right: 12%;
+  bottom: 7%;
+  left: 12%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--book-accent);
+  content: '';
+  opacity: 0.72;
+}
+
+.shelf-book--round {
+  border-radius: 45% 45% 2px 2px / 9% 9% 2px 2px;
+}
+
+.shelf-book--soft {
+  border-radius: 0.55rem 0.55rem 2px 2px;
+}
+
+.shelf-book:hover {
+  z-index: 3;
+  transform: translateY(-0.55rem) rotate(var(--book-lean));
+  filter: saturate(1.06) brightness(1.05);
+}
+
+@keyframes shelf-book-reveal {
+  from {
+    opacity: 0;
+    filter: brightness(0.55) saturate(0.55);
+  }
+
+  to {
+    opacity: 1;
+    filter: brightness(1) saturate(1);
+  }
+}
+
+.shelf-book__detail {
+  position: absolute;
+  color: var(--book-accent);
+}
+
+.shelf-book__detail--line {
+  top: 17%;
+  right: 18%;
+  left: 18%;
+  height: 2px;
+  background: currentColor;
+}
+
+.shelf-book__detail--frame {
+  top: 13%;
+  right: 23%;
+  left: 23%;
+  height: 24%;
+  border: 2px solid currentColor;
+  border-radius: 999px 999px 2px 2px;
+  background: color-mix(in srgb, var(--book-color), white 9%);
+}
+
+.shelf-book__detail--dot {
+  top: 18%;
+  left: 50%;
+  width: min(0.6rem, 45%);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border: 1px solid color-mix(in srgb, var(--shelf-back), transparent 30%);
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 22%);
+}
+
+.shelf-book__detail--bands {
+  top: 13%;
+  right: 0;
+  left: 0;
+  height: 4px;
+  background: currentColor;
+  box-shadow: 0 9px currentColor;
+}
+
+.shelf-book__title {
+  display: flex;
+  position: absolute;
+  bottom: 13%;
+  left: 50%;
+  width: min(0.95rem, calc(100% - 0.35rem));
+  height: 38%;
+  transform: translateX(-50%);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--shelf-back), transparent 58%);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper), transparent 8%);
+  color: var(--shelf-back);
+  font-size: clamp(0.3rem, 0.8cqw, 0.48rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-orientation: mixed;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+.shelf-plant {
+  position: relative;
+  width: clamp(3rem, 10cqw, 6.6rem);
+  height: 82%;
+  flex: 0 0 auto;
+  align-self: flex-end;
+}
+
+.shelf-plant__foliage {
+  position: absolute;
+  inset: 0 0 25%;
+}
+
+.shelf-plant__leaf {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 28%;
+  height: 72%;
+  transform-origin: bottom center;
+  border: 1px solid var(--plant-shadow);
+  border-radius: 100% 0 100% 0;
+  background: var(--plant);
+  box-shadow: inset 3px 0 rgb(255 255 255 / 12%);
+}
+
+.shelf-plant__leaf:nth-child(1) {
+  height: 58%;
+  transform: translateX(-50%) rotate(-58deg);
+}
+
+.shelf-plant__leaf:nth-child(2) {
+  height: 82%;
+  transform: translateX(-50%) rotate(-34deg);
+}
+
+.shelf-plant__leaf:nth-child(3) {
+  height: 95%;
+  transform: translateX(-50%) rotate(-12deg);
+}
+
+.shelf-plant__leaf:nth-child(4) {
+  height: 100%;
+  transform: translateX(-50%) rotate(12deg) scaleX(-1);
+}
+
+.shelf-plant__leaf:nth-child(5) {
+  height: 79%;
+  transform: translateX(-50%) rotate(36deg) scaleX(-1);
+}
+
+.shelf-plant__leaf:nth-child(6) {
+  height: 55%;
+  transform: translateX(-50%) rotate(58deg) scaleX(-1);
+}
+
+.shelf-plant__pot {
+  position: absolute;
+  right: 18%;
+  bottom: 0;
+  left: 18%;
+  height: 30%;
+  border: 2px solid var(--plant-shadow);
+  border-radius: 0.15rem 0.15rem 45% 45%;
+  background: var(--pot);
+  box-shadow: inset -5px -4px rgb(0 0 0 / 10%);
+}
+
+.shelf-plant__pot::before {
+  position: absolute;
+  top: -0.28rem;
+  right: -13%;
+  left: -13%;
+  height: 0.42rem;
+  border: 2px solid var(--plant-shadow);
+  border-radius: 999px;
+  background: inherit;
+  content: '';
+}
+
+.shelf-plant--blue {
+  --plant: #69934d;
+  --pot: #63a7bd;
+}
+
+.shelf-plant--cream {
+  --plant: #7daa50;
+  --pot: #e7d6b0;
+}
+
+.horizontal-stack {
+  display: flex;
+  position: relative;
+  width: clamp(4.8rem, 16cqw, 10.5rem);
+  height: 70%;
+  flex: 0 0 auto;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 1px;
+}
+
+.horizontal-stack__book {
+  position: relative;
+  width: var(--stack-width);
+  height: 15%;
+  min-height: 0.7rem;
+  transform: translateX(var(--stack-offset));
+  border: 1px solid var(--wood-shadow);
+  border-radius: 0.45rem 0.12rem 0.12rem 0.45rem;
+  background: var(--stack-color);
+  box-shadow:
+    inset 0 -3px color-mix(in srgb, var(--shelf-back), transparent 80%),
+    inset 0 2px rgb(255 255 255 / 16%);
+}
+
+.horizontal-stack__book::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.48rem;
+  width: 0.16rem;
+  border-inline: 1px solid
+    color-mix(in srgb, var(--shelf-back), transparent 58%);
+  background: color-mix(in srgb, var(--stack-color), white 16%);
+  content: '';
+}
+
+.book-shelf__board {
+  display: block;
+  z-index: 2;
+  width: 100%;
+  height: clamp(0.72rem, 2cqw, 1.35rem);
+  border-top: 2px solid var(--wood-light);
+  border-bottom: 4px solid var(--wood-shadow);
+  background:
+    repeating-linear-gradient(
+      4deg,
+      transparent 0 18px,
+      color-mix(in srgb, var(--wood-shadow), transparent 70%) 19px 20px
+    ),
+    var(--wood);
+  box-shadow: 0 0.65rem 0.9rem rgb(12 14 11 / 24%);
+}
+
+.bookshelf-ladder {
+  position: absolute;
+  right: 8%;
+  bottom: -4%;
+  z-index: 3;
+  width: clamp(4.8rem, 14cqw, 9rem);
+  height: 48%;
+  transform: rotate(9deg);
+  transform-origin: bottom center;
+}
+
+.bookshelf-ladder__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(0.25rem, 0.7cqw, 0.48rem);
+  border-radius: 999px;
+  background: var(--ladder);
+  box-shadow:
+    inset -2px 0 var(--ladder-shadow),
+    0 0 0 1px var(--ladder-shadow);
+}
+
+.bookshelf-ladder__rail--left {
+  left: 0;
+}
+
+.bookshelf-ladder__rail--right {
+  right: 0;
+}
+
+.bookshelf-ladder__step {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: clamp(0.24rem, 0.68cqw, 0.44rem);
+  border-radius: 999px;
+  background: var(--ladder);
+  box-shadow:
+    0 2px var(--ladder-shadow),
+    0 0 0 1px var(--ladder-shadow);
+}
+
+.bookshelf-ladder__step:nth-of-type(3) {
+  top: 10%;
+}
+
+.bookshelf-ladder__step:nth-of-type(4) {
+  top: 27%;
+}
+
+.bookshelf-ladder__step:nth-of-type(5) {
+  top: 44%;
+}
+
+.bookshelf-ladder__step:nth-of-type(6) {
+  top: 61%;
+}
+
+.bookshelf-ladder__step:nth-of-type(7) {
+  top: 78%;
+}
+
+.bookshelf-ladder__step:nth-of-type(8) {
+  top: 95%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shelf-book {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shelf-book {
+    animation: shelf-book-reveal 0.55s cubic-bezier(0.22, 1, 0.36, 1)
+      var(--book-delay) backwards;
+  }
+}

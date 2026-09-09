@@ -24,6 +24,25 @@ describe('loginSchema', () => {
     expect(result.success).toBe(false)
   })
 
+  it('exibe somente a orientação necessária para campos vazios', () => {
+    const result = loginSchema.safeParse({ email: '', password: '' })
+
+    expect(result.success).toBe(false)
+
+    if (!result.success) {
+      expect(result.error.issues).toEqual([
+        expect.objectContaining({
+          path: ['email'],
+          message: 'Digite o email usado para acessar o Libris.',
+        }),
+        expect.objectContaining({
+          path: ['password'],
+          message: 'Digite sua senha para entrar na sua estante.',
+        }),
+      ])
+    }
+  })
+
   it(`rejeita senhas com menos de ${LOGIN_PASSWORD_MIN_LENGTH} caracteres`, () => {
     const result = loginSchema.safeParse({
       email: 'leitora@example.com',
@@ -31,5 +50,14 @@ describe('loginSchema', () => {
     })
 
     expect(result.success).toBe(false)
+
+    if (!result.success) {
+      expect(result.error.issues).toEqual([
+        expect.objectContaining({
+          path: ['password'],
+          message: `Sua senha precisa ter pelo menos ${LOGIN_PASSWORD_MIN_LENGTH} caracteres.`,
+        }),
+      ])
+    }
   })
 })

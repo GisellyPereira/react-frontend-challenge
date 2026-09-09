@@ -15,9 +15,13 @@ describe('LoginForm', () => {
     await user.type(screen.getByLabelText('Senha'), '123456')
     await user.click(screen.getByRole('button', { name: 'Entrar' }))
 
-    expect(await screen.findByText('Informe um email válido.')).toBeVisible()
     expect(
-      screen.getByText('A senha deve ter pelo menos 7 caracteres.'),
+      await screen.findByText(
+        'Confira o email: ele deve estar completo, como nome@exemplo.com.',
+      ),
+    ).toBeVisible()
+    expect(
+      screen.getByText('Sua senha precisa ter pelo menos 7 caracteres.'),
     ).toBeVisible()
     expect(handleSubmit).not.toHaveBeenCalled()
   })

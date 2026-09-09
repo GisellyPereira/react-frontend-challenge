@@ -1,10 +1,10 @@
 import { useForm } from '@tanstack/react-form'
-import { ArrowUpRight, Eye, EyeOff, LockKeyhole, Mail } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 
-import { Button } from '@/shared/ui/button'
 import { Input } from '@/shared/ui/input'
 import { Label } from '@/shared/ui/label'
+import { RadialFillButton } from '@/shared/ui/radial-fill-button'
 
 import {
   loginSchema,
@@ -53,7 +53,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
 
   return (
     <form
-      className="mt-5 space-y-4"
+      className="mt-7 max-w-[25rem] space-y-5"
       noValidate
       onSubmit={(event) => {
         event.preventDefault()
@@ -68,21 +68,16 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
           const errorId = `${field.name}-error`
 
           return (
-            <div className="space-y-2.5" data-form-field>
+            <div className="space-y-2" data-form-field>
               <Label
-                className="font-sans text-[0.72rem] font-bold tracking-[0.12em] text-ink uppercase"
+                className="text-[0.64rem] font-extrabold tracking-[0.17em] text-ink uppercase"
                 htmlFor={field.name}
               >
                 Email
               </Label>
-              <div className="group relative">
-                <Mail
-                  aria-hidden="true"
-                  className="pointer-events-none absolute top-1/2 left-4 size-[1.05rem] -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary"
-                  strokeWidth={1.8}
-                />
+              <div className="group relative rounded-xl border border-ink/20 bg-paper/65 transition-[border-color,box-shadow,background-color] focus-within:border-book-coral focus-within:bg-paper focus-within:shadow-[0_0_0_4px_rgb(216_88_50_/_0.08)]">
                 <Input
-                  className="h-11 rounded-2xl border-ink/15 bg-white/55 pr-4 pl-11 text-[0.9rem] text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] placeholder:text-ink/38 hover:border-ink/30 focus-visible:border-primary focus-visible:ring-primary/15"
+                  className="h-12 rounded-xl border-0 bg-transparent px-4 text-sm font-medium text-ink shadow-none placeholder:text-ink/35 focus-visible:border-0 focus-visible:ring-0"
                   id={field.name}
                   name={field.name}
                   type="email"
@@ -122,21 +117,16 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
           const errorId = `${field.name}-error`
 
           return (
-            <div className="space-y-2.5" data-form-field>
+            <div className="space-y-2" data-form-field>
               <Label
-                className="font-sans text-[0.72rem] font-bold tracking-[0.12em] text-ink uppercase"
+                className="text-[0.64rem] font-extrabold tracking-[0.17em] text-ink uppercase"
                 htmlFor={field.name}
               >
                 Senha
               </Label>
-              <div className="group relative">
-                <LockKeyhole
-                  aria-hidden="true"
-                  className="pointer-events-none absolute top-1/2 left-4 size-[1.05rem] -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary"
-                  strokeWidth={1.8}
-                />
+              <div className="group relative rounded-xl border border-ink/20 bg-paper/65 transition-[border-color,box-shadow,background-color] focus-within:border-book-coral focus-within:bg-paper focus-within:shadow-[0_0_0_4px_rgb(216_88_50_/_0.08)]">
                 <Input
-                  className="h-11 rounded-2xl border-ink/15 bg-white/55 pr-12 pl-11 text-[0.9rem] text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] placeholder:text-ink/38 hover:border-ink/30 focus-visible:border-primary focus-visible:ring-primary/15"
+                  className="h-12 rounded-xl border-0 bg-transparent px-4 pr-12 text-sm font-medium text-ink shadow-none placeholder:text-ink/35 focus-visible:border-0 focus-visible:ring-0"
                   id={field.name}
                   name={field.name}
                   type={isPasswordVisible ? 'text' : 'password'}
@@ -151,7 +141,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
                   onChange={(event) => field.handleChange(event.target.value)}
                 />
                 <button
-                  className="absolute top-1/2 right-2.5 flex size-8 -translate-y-1/2 items-center justify-center rounded-xl text-ink/48 transition-colors hover:bg-ink/6 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary"
+                  className="absolute top-1/2 right-2 flex size-8 -translate-y-1/2 items-center justify-center rounded-full text-ink/45 transition-colors hover:bg-book-coral/10 hover:text-book-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-book-coral"
                   type="button"
                   aria-label={
                     isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'
@@ -186,16 +176,13 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
 
       <form.Subscribe selector={(state) => state.isSubmitting}>
         {(isSubmitting) => (
-          <Button
-            className="group mt-1 h-11 w-full rounded-2xl bg-ink px-5 text-[0.78rem] font-bold tracking-[0.08em] text-paper uppercase shadow-[0_7px_0_var(--book-gold)] transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-ink-soft hover:shadow-[0_9px_0_var(--book-gold)] active:translate-y-1 active:shadow-[0_3px_0_var(--book-gold)]"
+          <RadialFillButton
+            className="mt-2 h-12 w-full rounded-md border-transparent bg-book-coral px-5 text-sm font-bold text-paper shadow-none hover:border-transparent hover:bg-book-coral focus-visible:border-transparent focus-visible:ring-book-coral/35"
             type="submit"
             disabled={isSubmitting}
           >
-            <span>{isSubmitting ? 'Entrando…' : 'Entrar'}</span>
-            <span className="ml-auto flex size-7 items-center justify-center rounded-full bg-paper text-ink transition-transform duration-300 group-hover:rotate-45">
-              <ArrowUpRight aria-hidden="true" className="size-4" />
-            </span>
-          </Button>
+            {isSubmitting ? 'Entrando…' : 'Entrar'}
+          </RadialFillButton>
         )}
       </form.Subscribe>
     </form>

@@ -8,7 +8,7 @@ import { createAppRouter } from '@/app/router'
 import '@/app/styles/index.css'
 
 const queryClient = createQueryClient()
-const router = createAppRouter(queryClient)
+const router = createAppRouter({ queryClient })
 const rootElement = document.getElementById('root')
 
 if (!rootElement) {

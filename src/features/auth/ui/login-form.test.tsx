@@ -39,4 +39,28 @@ describe('LoginForm', () => {
       })
     })
   })
+
+  it('permite visualizar e ocultar a senha', async () => {
+    const user = userEvent.setup()
+
+    render(<LoginForm onSubmit={vi.fn()} />)
+
+    const passwordInput = screen.getByLabelText('Senha')
+    const visibilityButton = screen.getByRole('button', {
+      name: 'Mostrar senha',
+    })
+
+    expect(passwordInput).toHaveAttribute('type', 'password')
+
+    await user.click(visibilityButton)
+
+    expect(passwordInput).toHaveAttribute('type', 'text')
+    expect(
+      screen.getByRole('button', { name: 'Ocultar senha' }),
+    ).toHaveAttribute('aria-pressed', 'true')
+
+    await user.click(screen.getByRole('button', { name: 'Ocultar senha' }))
+
+    expect(passwordInput).toHaveAttribute('type', 'password')
+  })
 })

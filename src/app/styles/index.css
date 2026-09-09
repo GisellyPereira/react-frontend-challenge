@@ -1,1 +1,191 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@font-face {
+  font-family: 'Manrope Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2')
+    format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Newsreader Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2')
+    format('woff2-variations');
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-sans-family);
+  --font-display: var(--font-display-family);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-book-coral: var(--book-coral);
+  --color-book-gold: var(--book-gold);
+  --color-book-blue: var(--book-blue);
+  --color-book-rose: var(--book-rose);
+  --color-book-plum: var(--book-plum);
+  --color-book-jade: var(--book-jade);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --font-sans-family: 'Manrope Variable', sans-serif;
+  --font-display-family: 'Newsreader Variable', Georgia, serif;
+
+  --background: oklch(0.97 0.019 88);
+  --foreground: oklch(0.275 0.052 164);
+  --card: oklch(0.992 0.008 88);
+  --card-foreground: oklch(0.275 0.052 164);
+  --popover: oklch(0.992 0.008 88);
+  --popover-foreground: oklch(0.275 0.052 164);
+  --primary: oklch(0.39 0.079 164);
+  --primary-foreground: oklch(0.985 0.01 88);
+  --secondary: oklch(0.845 0.13 83);
+  --secondary-foreground: oklch(0.275 0.052 164);
+  --muted: oklch(0.93 0.025 91);
+  --muted-foreground: oklch(0.49 0.035 164);
+  --accent: oklch(0.88 0.073 162);
+  --accent-foreground: oklch(0.275 0.052 164);
+  --destructive: oklch(0.58 0.2 28);
+  --border: oklch(0.82 0.025 87);
+  --input: oklch(0.82 0.025 87);
+  --ring: oklch(0.53 0.102 164);
+  --radius: 0.75rem;
+
+  --paper: oklch(0.992 0.008 88);
+  --ink: oklch(0.275 0.052 164);
+  --ink-soft: oklch(0.355 0.064 164);
+  --ink-grid: oklch(0.275 0.052 164 / 0.045);
+  --book-coral: oklch(0.65 0.173 35);
+  --book-gold: oklch(0.79 0.139 82);
+  --book-blue: oklch(0.51 0.105 244);
+  --book-rose: oklch(0.63 0.156 7);
+  --book-plum: oklch(0.43 0.081 335);
+  --book-jade: oklch(0.58 0.087 166);
+
+  --chart-1: var(--book-coral);
+  --chart-2: var(--book-gold);
+  --chart-3: var(--book-blue);
+  --chart-4: var(--book-rose);
+  --chart-5: var(--book-jade);
+  --sidebar: oklch(0.956 0.022 88);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: var(--paper);
+  --sidebar-accent: oklch(0.9 0.068 163);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+.dark {
+  --background: oklch(0.205 0.035 164);
+  --foreground: oklch(0.95 0.02 88);
+  --card: oklch(0.255 0.045 164);
+  --card-foreground: oklch(0.95 0.02 88);
+  --popover: oklch(0.255 0.045 164);
+  --popover-foreground: oklch(0.95 0.02 88);
+  --primary: oklch(0.72 0.1 164);
+  --primary-foreground: oklch(0.19 0.034 164);
+  --secondary: oklch(0.71 0.13 82);
+  --secondary-foreground: oklch(0.19 0.034 164);
+  --muted: oklch(0.3 0.038 164);
+  --muted-foreground: oklch(0.74 0.025 88);
+  --accent: oklch(0.41 0.068 164);
+  --accent-foreground: oklch(0.95 0.02 88);
+  --destructive: oklch(0.68 0.19 28);
+  --border: oklch(0.95 0.02 88 / 0.15);
+  --input: oklch(0.95 0.02 88 / 0.2);
+  --ring: oklch(0.68 0.088 164);
+
+  --paper: oklch(0.94 0.018 88);
+  --ink: oklch(0.2 0.038 164);
+  --ink-soft: oklch(0.27 0.052 164);
+  --ink-grid: oklch(0.95 0.02 88 / 0.04);
+
+  --sidebar: oklch(0.225 0.038 164);
+  --sidebar-foreground: oklch(0.95 0.02 88);
+  --sidebar-primary: var(--book-gold);
+  --sidebar-primary-foreground: oklch(0.19 0.034 164);
+  --sidebar-accent: oklch(0.31 0.052 164);
+  --sidebar-accent-foreground: oklch(0.95 0.02 88);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--book-gold), transparent 25%);
+    color: var(--ink);
+  }
+}

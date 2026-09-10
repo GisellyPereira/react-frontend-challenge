@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 188 84" fill="none">
+  <g id="discover-daily-stories" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 14c17 1 31 8 43 18 10 8 18 15 30 18" stroke="#29483f" stroke-width="2.1"/>
+    <path d="m76 41 10 9-12 5" stroke="#29483f" stroke-width="2.1"/>
+    <path d="M25 24c11 2 20 7 28 14" stroke="#71867e" stroke-width="1.25" opacity=".5"/>
+
+    <text x="96" y="36" fill="#3f5e54" font-family="Arial Narrow, Arial, sans-serif" font-size="10.6" font-stretch="condensed" font-weight="700" letter-spacing="1.7">
+      <tspan x="96" dy="0">NOVAS</tspan>
+      <tspan x="96" dy="14">HISTÓRIAS</tspan>
+      <tspan x="96" dy="14">TODO DIA</tspan>
+    </text>
+  </g>
+</svg>

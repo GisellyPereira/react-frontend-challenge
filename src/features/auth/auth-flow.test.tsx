@@ -22,7 +22,9 @@ describe('fluxo de autenticação', () => {
       expect(router.state.location.pathname).toBe('/discover')
     })
     expect(
-      screen.getByRole('heading', { name: 'Descobrir livros' }),
+      screen.getByRole('heading', {
+        name: 'Que livro entra na sua estante agora?',
+      }),
     ).toBeVisible()
     expect(useAuthStore.getState().session?.email).toBe('leitora@example.com')
     expect(localStorage.getItem(AUTH_STORAGE_KEY)).not.toBeNull()

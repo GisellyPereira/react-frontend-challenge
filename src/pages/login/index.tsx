@@ -68,19 +68,19 @@ export function LoginPage() {
                   De volta à sua estante
                 </p>
                 <h1
-                  className="mt-3 max-w-[17ch] font-display text-[clamp(1.75rem,2.8vw,2.75rem)] leading-[1.02] font-semibold tracking-[-0.045em] text-ink"
+                  className="mt-3 max-w-[17ch] font-display text-[clamp(1.75rem,2.8vw,2.75rem)] leading-[1.02] font-semibold tracking-[-0.045em] text-foreground"
                   id="login-title"
                 >
                   Acesse o Libris
                 </h1>
-                <p className="mt-3 max-w-[38ch] text-sm leading-6 text-ink/62">
+                <p className="mt-3 max-w-[38ch] text-sm leading-6 text-muted-foreground">
                   Encontre novas leituras e organize os livros que fazem parte
                   da sua história.
                 </p>
 
                 <LoginForm onSubmit={handleLogin} />
 
-                <p className="mt-4 flex max-w-[25rem] items-start gap-3 text-xs leading-5 text-ink/58">
+                <p className="mt-4 flex max-w-[25rem] items-start gap-3 text-xs leading-5 text-muted-foreground">
                   <span
                     aria-hidden="true"
                     className="mt-[0.45rem] size-1.5 shrink-0 rounded-full bg-book-gold"
@@ -95,7 +95,7 @@ export function LoginPage() {
           </div>
 
           <footer
-            className="mx-auto flex w-full max-w-[27rem] items-center justify-end text-[0.55rem] font-bold tracking-[0.13em] text-ink/45 uppercase md:mx-0"
+            className="mx-auto flex w-full max-w-[27rem] items-center justify-end text-[0.55rem] font-bold tracking-[0.13em] text-muted-foreground uppercase md:mx-0"
             data-login-reveal
           >
             <span>© {new Date().getFullYear()} Libris</span>

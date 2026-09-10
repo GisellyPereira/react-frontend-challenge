@@ -11,8 +11,12 @@ node_modules
 dist
 dist-ssr
 coverage
+.vitest/
 src/routeTree.gen.ts
 *.local
+.env
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*

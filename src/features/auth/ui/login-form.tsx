@@ -70,7 +70,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
           return (
             <div className="space-y-2" data-form-field>
               <Label
-                className="text-[0.64rem] font-extrabold tracking-[0.17em] text-ink uppercase"
+                className="text-[0.64rem] font-extrabold tracking-[0.17em] text-foreground uppercase"
                 htmlFor={field.name}
               >
                 Email
@@ -119,7 +119,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
           return (
             <div className="space-y-2" data-form-field>
               <Label
-                className="text-[0.64rem] font-extrabold tracking-[0.17em] text-ink uppercase"
+                className="text-[0.64rem] font-extrabold tracking-[0.17em] text-foreground uppercase"
                 htmlFor={field.name}
               >
                 Senha

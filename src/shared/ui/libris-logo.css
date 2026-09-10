@@ -10,3 +10,7 @@
 .libris-logo--display {
   width: clamp(7.75rem, 10vw, 10rem);
 }
+
+.dark .libris-logo {
+  filter: invert(1) hue-rotate(180deg) saturate(0.92) brightness(1.06);
+}

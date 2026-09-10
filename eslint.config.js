@@ -11,8 +11,8 @@ export default tseslint.config(
       'coverage',
       'dist',
       'node_modules',
+      '.vitest',
       'src/routeTree.gen.ts',
-      '.tmp-libris-scaffold',
     ],
   },
   {

@@ -1,0 +1,68 @@
+/* The results share the shell's paper and use a loose, hand-drawn book grid. */
+.discover-catalog--results {
+  max-width: 80rem;
+  padding: clamp(1.7rem, 3vw, 3rem) clamp(1.25rem, 3.2vw, 2.8rem) 5rem;
+}
+
+.discover-results-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 1.75rem;
+  align-items: center;
+  padding-bottom: 0;
+  border: 0;
+}
+
+.discover-results-header__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  cursor: pointer;
+}
+.discover-results-header__back:hover {
+  color: var(--book-coral);
+}
+.discover-results-header__back:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 5px;
+  border-radius: 0.2rem;
+}
+.discover-results-header__back svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke-width: 1.5;
+}
+
+.discover-results-header__title {
+  font-size: clamp(2.1rem, 4.3vw, 3.7rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  max-width: none;
+  color: var(--foreground);
+}
+
+.discover-results-header__search {
+  min-width: 0;
+}
+.discover-results-header__description {
+  color: var(--foreground);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 0.65rem;
+}
+
+@media (max-width: 699px) {
+  .discover-results-header {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.3rem;
+  }
+}
+
+.discover-results-anchor {
+  scroll-margin-top: 1rem;
+}

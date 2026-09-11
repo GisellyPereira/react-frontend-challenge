@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Saúde e bem-estar — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#e8e9c7" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#246465"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#e8e9c7" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#e8e9c7" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><path d="M115 137C80 132 63 111 61 88C81 88 103 103 115 137ZM115 137C149 133 166 111 169 88C143 92 125 107 115 137ZM115 133C85 109 88 74 115 50C142 74 145 109 115 133ZM115 64V128M71 99 104 128M158 101 126 129" /><circle cx="115" cy="88" r="52" stroke-dasharray="1 6" opacity=".35"/><path d="M84 146Q116 154 147 146" /><path d="M164 40Q164 45 169 45Q164 45 164 50Q164 45 159 45Q164 45 164 40Z" fill="currentColor" stroke="none"/></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

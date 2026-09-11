@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Filosofia — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#e8e9c7" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#246465"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#e8e9c7" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#e8e9c7" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><path d="M62 132 114 42 169 132ZM75 124H156L115 55Z" /><circle cx="115" cy="102" r="27" /><path d="M65 87H169M115 42V145" opacity=".35"/><circle cx="115" cy="102" r="12" /><path d="M111 97C111 90 123 90 123 97C123 103 115 101 115 108M115 113V114" /><path d="M64 46Q64 51 69 51Q64 51 64 56Q64 51 59 51Q64 51 64 46Z" fill="currentColor" stroke="none"/><circle cx="168" cy="59" r="4" /></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

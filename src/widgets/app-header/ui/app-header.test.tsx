@@ -20,7 +20,9 @@ const session: AuthSession = {
   token: 'token-ficticio',
 }
 
-async function renderHeaderAt(path: '/discover' | '/shelf') {
+async function renderHeaderAt(
+  path: '/discover' | '/shelf' | '/discover?q=Romance',
+) {
   const rootRoute = createRootRoute({
     component: () => (
       <>
@@ -55,6 +57,18 @@ describe('AppHeader', () => {
   beforeEach(() => {
     useAuthStore.setState({ session })
     useAuthStore.persist.clearStorage()
+  })
+
+  it('mantém Descobrir ativo quando a URL contém uma pesquisa', async () => {
+    await renderHeaderAt('/discover?q=Romance')
+
+    expect(screen.getByRole('link', { name: 'Descobrir' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    )
+    expect(
+      screen.getByRole('link', { name: 'Minha estante' }),
+    ).not.toHaveAttribute('aria-current')
   })
 
   it('atualiza o marcador ativo durante a navegação', async () => {

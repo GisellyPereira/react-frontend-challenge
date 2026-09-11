@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Romance — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#f8dfbd" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#285271"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#f8dfbd" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#f8dfbd" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><path d="M115 136C101 121 64 97 65 70C66 39 101 39 115 61C132 36 168 43 168 71C168 98 134 119 115 136Z" /><path d="M115 126C97 109 75 92 75 72C75 51 99 48 115 70C131 48 158 51 158 72C158 91 135 112 115 126" opacity=".5"/><g transform="translate(73 135) rotate(-25) scale(0.5)"><path d="M0 0C-24-12-24-40 0-58C24-40 24-12 0 0ZM0 0V-53M0-12-12-26M0-24 13-39M0-34-9-43" /></g><g transform="translate(155 135) rotate(25) scale(0.5)"><path d="M0 0C-24-12-24-40 0-58C24-40 24-12 0 0ZM0 0V-53M0-12-12-26M0-24 13-39M0-34-9-43" /></g><path d="M115 34Q115 39 120 39Q115 39 115 44Q115 39 110 39Q115 39 115 34Z" fill="currentColor" stroke="none"/><circle cx="115" cy="98" r="9" /><path d="M115 88V107M107 98H123" /></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

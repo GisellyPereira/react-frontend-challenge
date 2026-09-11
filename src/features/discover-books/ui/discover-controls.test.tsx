@@ -8,6 +8,7 @@ describe('DiscoverControls', () => {
   it('envia o valor atual da busca sem espaços nas extremidades', async () => {
     const user = userEvent.setup()
     const onQueryChange = vi.fn()
+    const onSearchSubmit = vi.fn()
 
     render(
       <DiscoverControls
@@ -19,12 +20,14 @@ describe('DiscoverControls', () => {
         }}
         onFiltersChange={vi.fn()}
         onQueryChange={onQueryChange}
+        onSearchSubmit={onSearchSubmit}
       />,
     )
 
     await user.click(screen.getByRole('button', { name: 'Buscar' }))
 
-    expect(onQueryChange).toHaveBeenCalledWith('Clarice Lispector')
+    expect(onSearchSubmit).toHaveBeenCalledWith('Clarice Lispector')
+    expect(onQueryChange).not.toHaveBeenCalled()
   })
 
   it('permite limpar a pesquisa sem alterar os filtros', async () => {
@@ -42,6 +45,7 @@ describe('DiscoverControls', () => {
         }}
         onFiltersChange={onFiltersChange}
         onQueryChange={onQueryChange}
+        onSearchSubmit={vi.fn()}
       />,
     )
 
@@ -50,5 +54,4 @@ describe('DiscoverControls', () => {
     expect(onQueryChange).toHaveBeenCalledWith('')
     expect(onFiltersChange).not.toHaveBeenCalled()
   })
-
 })

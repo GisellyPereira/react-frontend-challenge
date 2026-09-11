@@ -64,11 +64,11 @@ export function LoginPage() {
               </div>
 
               <div className="mt-8 sm:mt-10" data-login-reveal>
-                <p className="text-[0.62rem] font-extrabold tracking-[0.2em] text-book-coral uppercase">
+                <p className="text-[0.62rem] font-bold tracking-[0.2em] text-book-coral uppercase">
                   De volta à sua estante
                 </p>
                 <h1
-                  className="mt-3 max-w-[17ch] font-display text-[clamp(1.75rem,2.8vw,2.75rem)] leading-[1.02] font-semibold tracking-[-0.045em] text-foreground"
+                  className="mt-3 max-w-[17ch] text-[clamp(1.75rem,2.8vw,2.75rem)] leading-[1.02] font-semibold tracking-[-0.045em] text-foreground"
                   id="login-title"
                 >
                   Acesse o Libris

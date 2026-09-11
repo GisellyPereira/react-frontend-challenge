@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const BOOKS_PER_PAGE = 12
+export const BOOKS_PER_PAGE = 15
 
 export const bookPrintTypeSchema = z.enum(['all', 'books', 'magazines'])
 export const bookOrderBySchema = z.enum(['relevance', 'newest'])

@@ -159,7 +159,7 @@
   background: color-mix(in srgb, var(--paper), transparent 8%);
   color: var(--shelf-back);
   font-size: clamp(0.3rem, 0.8cqw, 0.48rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1;
   letter-spacing: 0.1em;
   text-orientation: mixed;

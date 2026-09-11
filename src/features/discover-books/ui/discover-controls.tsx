@@ -22,6 +22,8 @@ import {
 
 import type { DiscoverSearch } from '../model/discover-search'
 
+import './discover-controls.css'
+
 interface DiscoverFilters {
   orderBy: BookOrderBy
   printType: BookPrintType
@@ -30,7 +32,9 @@ interface DiscoverFilters {
 interface DiscoverControlsProps {
   onFiltersChange: (filters: Partial<DiscoverFilters>) => void
   onQueryChange: (query: string) => void
+  onSearchSubmit: (query: string) => void
   search: DiscoverSearch
+  variant?: 'home' | 'results'
 }
 
 const popularSearches = [
@@ -44,7 +48,9 @@ const popularSearches = [
 export function DiscoverControls({
   onFiltersChange,
   onQueryChange,
+  onSearchSubmit,
   search,
+  variant = 'home',
 }: DiscoverControlsProps) {
   const form = useForm({
     defaultValues: {
@@ -61,7 +67,10 @@ export function DiscoverControls({
   }, [form, search.orderBy, search.printType])
 
   return (
-    <section aria-label="Busca e filtros" className="discover-controls">
+    <section
+      aria-label="Busca e filtros"
+      className={`discover-controls discover-controls--${variant}`}
+    >
       <form
         className="discover-search"
         role="search"
@@ -69,7 +78,7 @@ export function DiscoverControls({
           event.preventDefault()
           const query = new FormData(event.currentTarget).get('q')
 
-          onQueryChange(typeof query === 'string' ? query.trim() : '')
+          onSearchSubmit(typeof query === 'string' ? query.trim() : '')
         }}
       >
         <div className="discover-search__field">
@@ -109,29 +118,31 @@ export function DiscoverControls({
         </RadialFillButton>
       </form>
 
-      <div
-        aria-label="Buscas populares"
-        className="discover-popular-searches"
-        role="group"
-      >
-        <span className="discover-popular-searches__label">
-          Buscas populares:
-        </span>
-        <div className="discover-popular-searches__list">
-          {popularSearches.map((term) => (
-            <Button
-              className="discover-popular-searches__button"
-              key={term}
-              size="sm"
-              type="button"
-              variant="outline"
-              onClick={() => onQueryChange(term)}
-            >
-              {term}
-            </Button>
-          ))}
+      {variant === 'home' ? (
+        <div
+          aria-label="Buscas populares"
+          className="discover-popular-searches"
+          role="group"
+        >
+          <span className="discover-popular-searches__label">
+            Buscas populares:
+          </span>
+          <div className="discover-popular-searches__list">
+            {popularSearches.map((term) => (
+              <Button
+                className="discover-popular-searches__button"
+                key={term}
+                size="sm"
+                type="button"
+                variant="outline"
+                onClick={() => onSearchSubmit(term)}
+              >
+                {term}
+              </Button>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <fieldset className="discover-filters">
         <legend className="sr-only">Filtros da pesquisa</legend>

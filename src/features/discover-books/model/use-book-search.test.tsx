@@ -160,7 +160,7 @@ describe('useBookSearch', () => {
     })
 
     expect(search.mock.calls[0]?.[0]).toEqual({
-      maxResults: 12,
+      maxResults: 15,
       orderBy: 'newest',
       printType: 'books',
       query: 'clean architecture',

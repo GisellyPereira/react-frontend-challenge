@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Terror — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#382630" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#c77d8b"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#382630" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#382630" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><circle cx="139" cy="53" r="22" fill="currentColor" fill-opacity=".08"/><path d="M149 33A21 21 0 1 0 160 64A24 24 0 0 1 149 33ZM82 140V91L116 61 151 91V140M76 94 116 54 158 94M95 140V114H109V140M126 140V114H141V140M109 91A7 7 0 0 1 123 91V99H109ZM65 139V90L58 75M65 106 77 89M165 140V82L174 69M165 100 155 85M57 145H177" /><path d="M88 51 95 48 102 51M54 65 60 62 66 65" opacity=".6"/></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

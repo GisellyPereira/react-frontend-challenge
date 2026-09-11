@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Culinária — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#f6d5bd" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#792640"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#f6d5bd" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#f6d5bd" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><path d="M65 99H164C161 124 141 140 115 140C88 140 68 124 65 99ZM83 142H146M74 106H154M94 85C80 72 105 66 93 52M114 86C99 72 127 61 113 44M136 85C123 73 145 67 135 56M166 99 174 52" stroke-width="1.5"/><g transform="translate(66 91) rotate(-25) scale(0.43)"><path d="M0 0C-24-12-24-40 0-58C24-40 24-12 0 0ZM0 0V-53M0-12-12-26M0-24 13-39M0-34-9-43" /></g><circle cx="173" cy="47" r="7" /><path d="M79 116Q84 125 92 128" opacity=".5"/></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

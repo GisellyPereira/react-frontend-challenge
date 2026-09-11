@@ -25,5 +25,4 @@ describe('LoginForm', () => {
     ).toBeVisible()
     expect(handleSubmit).not.toHaveBeenCalled()
   })
-
 })

@@ -30,12 +30,12 @@ export function AppHeader() {
         >
           {navigationItems.map((item) => (
             <Link
-              activeOptions={{ exact: true }}
+              activeOptions={{ exact: true, includeSearch: false }}
               className="app-header__navigation-link"
               key={item.to}
               to={item.to}
             >
-              {item.label}
+              <span className="app-header__navigation-label">{item.label}</span>
             </Link>
           ))}
         </nav>
@@ -46,7 +46,9 @@ export function AppHeader() {
               className="app-header__account"
               aria-label={`Conta conectada: ${session.email}`}
             >
-              <span className="app-header__account-label">Conta</span>
+              <span aria-hidden="true" className="app-header__account-avatar">
+                {session.email.charAt(0)}
+              </span>
               <span className="app-header__account-email" title={session.email}>
                 {session.email}
               </span>

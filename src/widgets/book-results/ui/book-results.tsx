@@ -1,10 +1,18 @@
-import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react'
+import { RotateCcw } from 'lucide-react'
 import { useRef } from 'react'
 
 import { BookCard, BOOKS_PER_PAGE, type Book } from '@/entities/book'
 import { useBookSearch, type DiscoverSearch } from '@/features/discover-books'
 import { gsap, useGSAP } from '@/shared/lib/gsap'
 import { Button } from '@/shared/ui/button'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+} from '@/shared/ui/pagination'
 import { Skeleton } from '@/shared/ui/skeleton'
 
 import './book-results.css'
@@ -19,7 +27,7 @@ function BookResultsSkeleton() {
     <div aria-label="Buscando livros" className="book-results" role="status">
       <span className="sr-only">Buscando livros no catálogo…</span>
       <div aria-hidden="true" className="book-results-grid">
-        {Array.from({ length: 10 }, (_, index) => (
+        {Array.from({ length: BOOKS_PER_PAGE }, (_, index) => (
           <div className="min-w-0" key={index}>
             <Skeleton className="aspect-[2/3] w-full rounded-[0.35rem] bg-foreground/10" />
             <Skeleton className="mt-5 h-4 w-4/5 rounded-none bg-foreground/10" />
@@ -71,16 +79,25 @@ function LoadedBookGrid({ books, isUpdating }: LoadedBookGridProps) {
       className={`book-results-grid ${isUpdating ? 'book-results-grid--updating' : ''}`}
       ref={gridRef}
     >
-      {books.map((book, index) => (
-        <li
-          className={index === 0 ? 'book-results-grid__featured' : undefined}
-          data-book-result
-          key={book.id}
-        >
-          <BookCard book={book} featured={index === 0} position={index + 1} />
+      {books.map((book) => (
+        <li data-book-result key={book.id}>
+          <BookCard book={book} variant="compact" />
         </li>
       ))}
     </ul>
+  )
+}
+
+function getVisiblePages(currentPage: number, totalPages: number) {
+  const visiblePageCount = Math.min(3, totalPages)
+  const firstPage = Math.min(
+    Math.max(1, currentPage - 1),
+    totalPages - visiblePageCount + 1,
+  )
+
+  return Array.from(
+    { length: visiblePageCount },
+    (_, index) => firstPage + index,
   )
 }
 
@@ -139,9 +156,18 @@ export function BookResults({ onPageChange, search }: BookResultsProps) {
 
   const currentPage =
     Math.floor(result.data.startIndex / result.data.pageSize) + 1
+  const reportedTotalPages = Math.max(
+    currentPage,
+    Math.ceil(result.data.totalItems / result.data.pageSize),
+  )
+  const totalPages =
+    result.data.nextStartIndex === null
+      ? currentPage
+      : Math.max(currentPage + 1, reportedTotalPages)
+  const visiblePages = getVisiblePages(currentPage, totalPages)
   const previousStartIndex = Math.max(
     0,
-    result.data.startIndex - BOOKS_PER_PAGE,
+    result.data.startIndex - result.data.pageSize,
   )
   const resultCount = new Intl.NumberFormat('pt-BR').format(
     result.data.totalItems,
@@ -156,10 +182,12 @@ export function BookResults({ onPageChange, search }: BookResultsProps) {
       <header className="book-results__header">
         <div>
           <p aria-live="polite" className="book-results__count">
-            {resultCount} resultados encontrados
+            {result.isPlaceholderData
+              ? 'Atualizando resultados…'
+              : `${resultCount} ${result.data.totalItems === 1 ? 'resultado informado' : 'resultados informados'} pelo Google Books`}
           </p>
           <h2 className="book-results__title" id="book-results-title">
-            Resultados para <span>“{search.q.trim()}”</span>
+            Sua busca: <span>{search.q.trim()}</span>
           </h2>
         </div>
         <div className="book-results__status">
@@ -176,42 +204,55 @@ export function BookResults({ onPageChange, search }: BookResultsProps) {
         isUpdating={result.isPlaceholderData}
       />
 
-      <nav
+      <Pagination
         aria-label="Paginação dos resultados"
         className="book-results__pagination"
       >
-        <Button
-          className="book-results__page-button"
-          disabled={result.isFetching || result.data.startIndex === 0}
-          type="button"
-          variant="outline"
-          onClick={() => onPageChange(previousStartIndex)}
-        >
-          <ArrowLeft aria-hidden="true" />
-          Anterior
-        </Button>
-
-        <span className="book-results__page-label">Página {currentPage}</span>
-
-        <Button
-          className="book-results__page-button"
-          disabled={
-            result.isFetching ||
-            result.isPlaceholderData ||
-            result.data.nextStartIndex === null
-          }
-          type="button"
-          variant="outline"
-          onClick={() => {
-            if (result.data.nextStartIndex !== null) {
-              onPageChange(result.data.nextStartIndex)
-            }
-          }}
-        >
-          Próxima
-          <ArrowRight aria-hidden="true" />
-        </Button>
-      </nav>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              text="Anterior"
+              aria-label="Página anterior"
+              disabled={
+                result.isFetching ||
+                result.isPlaceholderData ||
+                result.data.startIndex === 0
+              }
+              onClick={() => onPageChange(previousStartIndex)}
+            />
+          </PaginationItem>
+          {visiblePages.map((page) => (
+            <PaginationItem key={page}>
+              <PaginationLink
+                aria-label={`Página ${page}`}
+                isActive={page === currentPage}
+                disabled={result.isFetching || result.isPlaceholderData}
+                onClick={() => {
+                  if (page !== currentPage)
+                    onPageChange((page - 1) * result.data.pageSize)
+                }}
+              >
+                {page}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationNext
+              text="Próxima"
+              aria-label="Próxima página"
+              disabled={
+                result.isFetching ||
+                result.isPlaceholderData ||
+                result.data.nextStartIndex === null
+              }
+              onClick={() => {
+                if (result.data.nextStartIndex !== null)
+                  onPageChange(result.data.nextStartIndex)
+              }}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </section>
   )
 }

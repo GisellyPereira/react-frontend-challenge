@@ -48,6 +48,47 @@ function firstValidUrl(...values: (string | undefined)[]) {
   return null
 }
 
+function normalizeCoverUrl(value: string | undefined, googleZoom?: number) {
+  const normalizedUrl = normalizeUrl(value)
+
+  if (!normalizedUrl) {
+    return null
+  }
+
+  const url = new URL(normalizedUrl)
+  const isGoogleBooksCover =
+    (url.hostname === 'books.google.com' ||
+      url.hostname.endsWith('.googleusercontent.com')) &&
+    url.pathname.includes('/books/content')
+
+  if (!isGoogleBooksCover) {
+    return normalizedUrl
+  }
+
+  url.searchParams.delete('edge')
+
+  if (googleZoom) {
+    url.searchParams.set('zoom', String(googleZoom))
+  }
+
+  return url.toString()
+}
+
+function firstValidCoverUrl(
+  values: (string | undefined)[],
+  googleZoom?: number,
+) {
+  for (const value of values) {
+    const normalizedUrl = normalizeCoverUrl(value, googleZoom)
+
+    if (normalizedUrl) {
+      return normalizedUrl
+    }
+  }
+
+  return null
+}
+
 function normalizeDescription(value: string | undefined) {
   const normalizedValue = normalizeText(value)
 
@@ -99,22 +140,39 @@ export function mapGoogleVolume(volume: GoogleBookVolume): Book {
 
   return {
     authors: normalizeList(volumeInfo?.authors),
+    identifiers: volumeInfo?.industryIdentifiers ?? [],
+    reading: {
+      embeddable: volume.accessInfo?.embeddable === true,
+      viewability: normalizeText(volume.accessInfo?.viewability),
+      pdf: volume.accessInfo?.pdf?.isAvailable
+        ? normalizeUrl(volume.accessInfo.pdf.downloadLink)
+        : null,
+      epub: volume.accessInfo?.epub?.isAvailable
+        ? normalizeUrl(volume.accessInfo.epub.downloadLink)
+        : null,
+    },
     averageRating: volumeInfo?.averageRating ?? null,
     categories: normalizeList(volumeInfo?.categories),
     cover: {
-      large: firstValidUrl(
-        imageLinks?.extraLarge,
-        imageLinks?.large,
-        imageLinks?.medium,
+      large:
+        firstValidCoverUrl([
+          imageLinks?.extraLarge,
+          imageLinks?.large,
+          imageLinks?.medium,
+        ]) ??
+        firstValidCoverUrl(
+          [
+            imageLinks?.small,
+            imageLinks?.thumbnail,
+            imageLinks?.smallThumbnail,
+          ],
+          3,
+        ),
+      small: firstValidCoverUrl([
         imageLinks?.small,
         imageLinks?.thumbnail,
         imageLinks?.smallThumbnail,
-      ),
-      small: firstValidUrl(
-        imageLinks?.thumbnail,
-        imageLinks?.small,
-        imageLinks?.smallThumbnail,
-      ),
+      ]),
     },
     description: normalizeDescription(volumeInfo?.description),
     id: volume.id,

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Mistério e suspense — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#f6d5bd" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#792640"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#f6d5bd" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#f6d5bd" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><path d="M56 87Q113 27 173 87Q115 146 56 87Z" /><circle cx="115" cy="87" r="24" /><circle cx="115" cy="87" r="12" /><circle cx="120" cy="81" r="4" fill="currentColor"/><path d="M170.1612779451189 68.16718427000252l8.559508646656381 -2.7811529493745266" /><path d="M161.92298567374695 54.78630788996129l7.281152949374527 -5.2900672706322585" /><path d="M149.09154463296343 44.16718427000252l5.2900672706322585 -7.281152949374527" /><path d="M132.92298567374695 37.34928721783263l2.781152949374527 -8.559508646656381" /><path d="M115 35l5.51091059616309e-16 -9" /><path d="M97.07701432625305 37.349287217832625l-2.781152949374526 -8.559508646656383" /><path d="M80.90845536703657 44.16718427000252l-5.290067270632258 -7.281152949374527" /><path d="M68.07701432625305 54.786307889961286l-7.281152949374526 -5.290067270632259" /><path d="M59.838722054881096 68.16718427000252l-8.559508646656381 -2.7811529493745275" /><path d="M109 127A7 7 0 1 1 120 132L124 145H106L110 132" /><path d="M62 126Q62 130 66 130Q62 130 62 134Q62 130 58 130Q62 130 62 126Z" fill="currentColor" stroke="none"/></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

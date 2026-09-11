@@ -4,6 +4,13 @@ export interface BookCover {
 }
 
 export interface Book {
+  readonly reading?: {
+    readonly embeddable: boolean
+    readonly viewability: string | null
+    readonly pdf: string | null
+    readonly epub: string | null
+  }
+  readonly identifiers?: readonly { type: string; identifier: string }[]
   readonly authors: readonly string[]
   readonly averageRating: number | null
   readonly categories: readonly string[]

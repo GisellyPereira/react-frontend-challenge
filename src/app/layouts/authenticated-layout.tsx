@@ -4,7 +4,7 @@ import { AppHeader } from '@/widgets/app-header'
 
 export function AuthenticatedLayout() {
   return (
-    <div className="min-h-svh bg-background text-foreground">
+    <div className="authenticated-shell min-h-svh text-foreground">
       <AppHeader />
       <Outlet />
     </div>

@@ -9,8 +9,8 @@ import './book-card.css'
 interface BookCardProps {
   readonly book: Book
   readonly className?: string
-  readonly featured?: boolean
   readonly position?: number
+  readonly variant?: 'default' | 'compact'
 }
 
 function getPublishedLabel(publishedDate: string | null) {
@@ -26,8 +26,8 @@ function getPublishedLabel(publishedDate: string | null) {
 export function BookCard({
   book,
   className,
-  featured = false,
   position,
+  variant = 'default',
 }: BookCardProps) {
   const title = book.title?.trim() || 'Título não informado'
   const authors = book.authors.length
@@ -37,7 +37,11 @@ export function BookCard({
 
   return (
     <article
-      className={cn('book-card', featured && 'book-card--featured', className)}
+      className={cn(
+        'book-card',
+        variant === 'compact' && 'book-card--compact',
+        className,
+      )}
     >
       <Link
         aria-label={`Ver detalhes de ${title}`}
@@ -50,14 +54,13 @@ export function BookCard({
             book={book}
             className="book-card__cover"
             decorative
-            preferredSize={featured ? 'large' : 'small'}
             sizes={
-              featured
-                ? '(max-width: 639px) 58vw, (max-width: 1023px) 34vw, 18rem'
-                : '(max-width: 639px) 44vw, (max-width: 1023px) 30vw, 18vw'
+              variant === 'compact'
+                ? '(min-width: 1280px) 216px, (min-width: 700px) 17vw, 44vw'
+                : '(max-width: 639px) 44vw, (max-width: 1023px) 30vw, (max-width: 1439px) 22vw, 16vw'
             }
           />
-          {position ? (
+          {position && variant === 'default' ? (
             <span aria-hidden="true" className="book-card__position">
               {String(position).padStart(2, '0')}
             </span>
@@ -65,16 +68,20 @@ export function BookCard({
         </div>
 
         <div className="book-card__content">
-          {category ? <p className="book-card__category">{category}</p> : null}
+          {category && variant === 'default' ? (
+            <p className="book-card__category">{category}</p>
+          ) : null}
           <h2 className="book-card__title">{title}</h2>
-          <div className="book-card__meta">
-            <p className="book-card__authors">{authors}</p>
-            <span aria-hidden="true" className="book-card__separator" />
-            <span className="book-card__date">
-              <span className="sr-only">Publicação: </span>
-              {getPublishedLabel(book.publishedDate)}
-            </span>
-          </div>
+          {variant === 'default' ? (
+            <div className="book-card__meta">
+              <p className="book-card__authors">{authors}</p>
+              <span aria-hidden="true" className="book-card__separator" />
+              <span className="book-card__date">
+                <span className="sr-only">Publicação: </span>
+                {getPublishedLabel(book.publishedDate)}
+              </span>
+            </div>
+          ) : null}
         </div>
       </Link>
     </article>

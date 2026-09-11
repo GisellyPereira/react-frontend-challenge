@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Clássicos — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#544532" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#ddbd95"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#544532" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#544532" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><path d="M57 66 115 38 173 66ZM67 69H163V77H67ZM63 138H167V145H63M69 131H162V138H69" /><g transform="translate(77 0)"><path d="M-5 82H9V126H-5ZM-8 78H12V83H-8ZM-8 126H12V131H-8M0 87V122M4 87V122" /></g><g transform="translate(101 0)"><path d="M-5 82H9V126H-5ZM-8 78H12V83H-8ZM-8 126H12V131H-8M0 87V122M4 87V122" /></g><g transform="translate(125 0)"><path d="M-5 82H9V126H-5ZM-8 78H12V83H-8ZM-8 126H12V131H-8M0 87V122M4 87V122" /></g><g transform="translate(149 0)"><path d="M-5 82H9V126H-5ZM-8 78H12V83H-8ZM-8 126H12V131H-8M0 87V122M4 87V122" /></g><path d="M80 60 115 45 150 60Z" opacity=".45"/><circle cx="115" cy="55" r="4" /></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

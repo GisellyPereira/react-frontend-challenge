@@ -6,6 +6,44 @@ import {
 } from './map-google-volume'
 
 describe('parseGoogleVolume', () => {
+  it('preserva permissões de leitura e somente downloads disponíveis com URL segura', () => {
+    const book = parseGoogleVolume({
+      id: 'readable',
+      accessInfo: {
+        embeddable: true,
+        viewability: 'ALL_PAGES',
+        pdf: {
+          isAvailable: true,
+          downloadLink: 'http://books.google.com/download.pdf',
+        },
+        epub: { isAvailable: true, downloadLink: 'javascript:alert(1)' },
+      },
+      volumeInfo: {
+        industryIdentifiers: [{ type: 'ISBN_13', identifier: '9780000000000' }],
+      },
+    })
+    expect(book.reading).toEqual({
+      embeddable: true,
+      viewability: 'ALL_PAGES',
+      pdf: 'https://books.google.com/download.pdf',
+      epub: null,
+    })
+    expect(book.identifiers).toEqual([
+      { type: 'ISBN_13', identifier: '9780000000000' },
+    ])
+    expect(
+      parseGoogleVolume({
+        id: 'unavailable',
+        accessInfo: {
+          pdf: {
+            isAvailable: false,
+            downloadLink: 'https://books.google.com/download.pdf',
+          },
+          epub: { isAvailable: true },
+        },
+      }).reading,
+    ).toMatchObject({ pdf: null, epub: null })
+  })
   it('transforma um volume completo no modelo limpo do Libris', () => {
     const book = parseGoogleVolume({
       accessInfo: {
@@ -38,12 +76,14 @@ describe('parseGoogleVolume', () => {
     })
 
     expect(book).toEqual({
+      identifiers: [],
+      reading: { embeddable: false, viewability: null, pdf: null, epub: null },
       authors: ['Robert C. Martin'],
       averageRating: 4.7,
       categories: ['Computação', 'Engenharia de software'],
       cover: {
         large: 'https://images.example.com/extra-large.jpg',
-        small: 'https://images.example.com/thumbnail.jpg',
+        small: 'https://images.example.com/small.jpg',
       },
       description: 'Um guia sobre código sustentável.',
       id: 'volume-1',
@@ -61,6 +101,8 @@ describe('parseGoogleVolume', () => {
 
   it('representa campos ausentes com null e listas vazias', () => {
     expect(parseGoogleVolume({ id: 'volume-minimo' })).toEqual({
+      identifiers: [],
+      reading: { embeddable: false, viewability: null, pdf: null, epub: null },
       authors: [],
       averageRating: null,
       categories: [],
@@ -123,6 +165,25 @@ describe('parseGoogleVolume', () => {
       large: 'https://images.example.com/capa-grande.jpg',
       small: 'https://images.example.com/capa-pequena.jpg',
     })
+  })
+
+  it('solicita uma capa maior do Google quando só existem miniaturas', () => {
+    const book = parseGoogleVolume({
+      id: 'volume-miniatura',
+      volumeInfo: {
+        imageLinks: {
+          thumbnail:
+            'http://books.google.com/books/content?id=volume-miniatura&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+        },
+      },
+    })
+
+    expect(book.cover.large).toBe(
+      'https://books.google.com/books/content?id=volume-miniatura&printsec=frontcover&img=1&zoom=3&source=gbs_api',
+    )
+    expect(book.cover.small).toBe(
+      'https://books.google.com/books/content?id=volume-miniatura&printsec=frontcover&img=1&zoom=1&source=gbs_api',
+    )
   })
 
   it('usa a primeira URL válida quando uma opção prioritária está quebrada', () => {
@@ -271,17 +332,17 @@ describe('parseGoogleBooksSearchResponse', () => {
     })
   })
 
-  it.each([
-    {},
-    { items: null, totalItems: 0 },
-  ])('rejeita um contrato de busca inválido', (payload) => {
-    expect(() =>
-      parseGoogleBooksSearchResponse(payload, {
-        maxResults: 12,
-        startIndex: 0,
-      }),
-    ).toThrow()
-  })
+  it.each([{}, { items: null, totalItems: 0 }])(
+    'rejeita um contrato de busca inválido',
+    (payload) => {
+      expect(() =>
+        parseGoogleBooksSearchResponse(payload, {
+          maxResults: 12,
+          startIndex: 0,
+        }),
+      ).toThrow()
+    },
+  )
 
   it('encerra a paginação quando a API devolve menos itens que o solicitado', () => {
     const result = parseGoogleBooksSearchResponse(

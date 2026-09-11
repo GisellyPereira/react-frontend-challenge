@@ -35,7 +35,7 @@ const book: Book = {
 
 async function renderBookCard(
   selectedBook: Book,
-  options: { featured?: boolean; position?: number } = {},
+  options: { position?: number; variant?: 'default' | 'compact' } = {},
 ) {
   const rootRoute = createRootRoute({ component: Outlet })
   const cardRoute = createRoute({
@@ -58,8 +58,20 @@ async function renderBookCard(
 }
 
 describe('BookCard', () => {
+  it('mantém título e navegação no card compacto sem renderizar metadados', async () => {
+    await renderBookCard(book, { position: 1, variant: 'compact' })
+
+    expect(
+      screen.getByRole('link', { name: `Ver detalhes de ${book.title}` }),
+    ).toHaveAttribute('href', '/book/volume-1')
+    expect(screen.getByRole('heading', { name: book.title! })).toBeVisible()
+    expect(screen.queryByText('Ursula K. Le Guin')).not.toBeInTheDocument()
+    expect(screen.queryByText('Ficção científica')).not.toBeInTheDocument()
+    expect(screen.queryByText('1969')).not.toBeInTheDocument()
+    expect(screen.queryByText('01')).not.toBeInTheDocument()
+  })
   it('apresenta os metadados e usa um link real para os detalhes', async () => {
-    await renderBookCard(book, { featured: true, position: 1 })
+    await renderBookCard(book, { position: 1 })
 
     const detailsLink = screen.getByRole('link', {
       name: 'Ver detalhes de A mão esquerda da escuridão',

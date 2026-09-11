@@ -9,7 +9,7 @@ import { BookResults } from './book-results'
 
 vi.mock('@/entities/book', () => {
   return {
-    BOOKS_PER_PAGE: 12,
+    BOOKS_PER_PAGE: 15,
     BookCard: () => null,
   }
 })
@@ -84,11 +84,11 @@ function createLoadedPage(
 ): BookSearchResult {
   return {
     books: [firstBook, secondBook],
-    nextStartIndex: 12,
-    pageSize: 12,
+    nextStartIndex: 15,
+    pageSize: 15,
     receivedItems: 2,
     startIndex: 0,
-    totalItems: 24,
+    totalItems: 30,
     ...overrides,
   }
 }
@@ -124,26 +124,84 @@ describe('BookResults', () => {
     useBookSearchMock.mockReturnValue(
       createResult({
         data: createLoadedPage({
-          nextStartIndex: 24,
-          startIndex: 12,
-          totalItems: 36,
+          nextStartIndex: 30,
+          startIndex: 15,
+          totalItems: 45,
         }),
       }),
     )
 
     render(
       <BookResults
-        search={createSearch({ startIndex: 12 })}
+        search={createSearch({ startIndex: 15 })}
         onPageChange={onPageChange}
       />,
     )
 
-    expect(screen.getAllByText('Página 2')).not.toHaveLength(0)
+    expect(screen.getByRole('button', { name: 'Página 2' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    )
 
-    await user.click(screen.getByRole('button', { name: 'Anterior' }))
-    await user.click(screen.getByRole('button', { name: 'Próxima' }))
+    await user.click(screen.getByRole('button', { name: 'Página anterior' }))
+    await user.click(screen.getByRole('button', { name: 'Próxima página' }))
+    await user.click(screen.getByRole('button', { name: 'Página 3' }))
 
     expect(onPageChange).toHaveBeenNthCalledWith(1, 0)
-    expect(onPageChange).toHaveBeenNthCalledWith(2, 24)
+    expect(onPageChange).toHaveBeenNthCalledWith(2, 30)
+    expect(onPageChange).toHaveBeenNthCalledWith(3, 30)
+  })
+  it.each([1, 27, 300, 1247])(
+    'exibe o total %i retornado pela API',
+    (totalItems) => {
+      useBookSearchMock.mockReturnValue(
+        createResult({ data: createLoadedPage({ totalItems }) }),
+      )
+      render(<BookResults search={createSearch()} onPageChange={vi.fn()} />)
+      expect(
+        screen.getByText(
+          new RegExp(
+            new Intl.NumberFormat('pt-BR').format(totalItems) + ' resultado',
+          ),
+        ),
+      ).toHaveTextContent('pelo Google Books')
+    },
+  )
+  it('impede avançar quando a API encerra os resultados', async () => {
+    const onPageChange = vi.fn()
+    useBookSearchMock.mockReturnValue(
+      createResult({ data: createLoadedPage({ nextStartIndex: null }) }),
+    )
+    render(<BookResults search={createSearch()} onPageChange={onPageChange} />)
+    expect(
+      screen.getByRole('button', { name: 'Página anterior' }),
+    ).toBeDisabled()
+    expect(
+      screen.getByRole('button', { name: 'Próxima página' }),
+    ).toBeDisabled()
+    expect(
+      screen.queryByRole('button', { name: 'Página 2' }),
+    ).not.toBeInTheDocument()
+    await userEvent.click(
+      screen.getByRole('button', { name: 'Próxima página' }),
+    )
+    expect(onPageChange).not.toHaveBeenCalled()
+  })
+  it('não atribui o total anterior à nova busca enquanto carrega', () => {
+    useBookSearchMock.mockReturnValue(
+      createResult({
+        data: createLoadedPage(),
+        isPlaceholderData: true,
+        isFetching: true,
+      }),
+    )
+    render(
+      <BookResults
+        search={createSearch({ q: 'nova busca' })}
+        onPageChange={vi.fn()}
+      />,
+    )
+    expect(screen.queryByText(/30 resultados/)).not.toBeInTheDocument()
+    expect(screen.getByText('Atualizando resultados…')).toBeInTheDocument()
   })
 })

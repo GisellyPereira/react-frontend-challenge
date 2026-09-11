@@ -13,3 +13,4 @@ export {
 } from './model/book-search'
 export type { BookSearchResult } from './model/book-search-result'
 export { BookCard } from './ui/book-card'
+export { BookCoverImage } from './ui/book-cover'

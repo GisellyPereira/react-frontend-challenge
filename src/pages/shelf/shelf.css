@@ -1,0 +1,62 @@
+.personal-shelf {
+  max-width: 76rem;
+  margin: auto;
+  padding: 3rem clamp(1.25rem, 4vw, 4rem) 6rem;
+  color: var(--ink);
+}
+.personal-shelf h1 {
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.personal-shelf__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+.personal-shelf__local {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+.personal-shelf__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+  margin-top: 3rem;
+  padding-bottom: 3rem;
+  background: url('../../shared/assets/book-detail-shelf.svg') bottom center /
+    100% 32px no-repeat;
+}
+.personal-shelf__grid > div {
+  min-width: 0;
+}
+.personal-shelf__grid button {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  white-space: normal;
+}
+.personal-shelf__empty {
+  padding: 4rem 1rem;
+  margin-top: 2rem;
+  text-align: center;
+  background: url('../../shared/assets/book-detail-shelf.svg') bottom center /
+    100% 32px no-repeat;
+}
+.personal-shelf__empty p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 760px) {
+  .personal-shelf__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 480px) {
+  .personal-shelf__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

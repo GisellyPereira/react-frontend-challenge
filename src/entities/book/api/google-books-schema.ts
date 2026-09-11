@@ -23,10 +23,22 @@ const googleBookImageLinksSchema = z.object({
   thumbnail: optionalStringSchema,
 })
 
+const downloadSchema = z
+  .object({
+    isAvailable: z.boolean().optional().catch(false),
+    downloadLink: optionalStringSchema,
+  })
+  .optional()
+  .catch(undefined)
+
 export const googleBookVolumeSchema = z.object({
   accessInfo: z
     .object({
       webReaderLink: optionalStringSchema,
+      embeddable: z.boolean().optional().catch(false),
+      viewability: optionalStringSchema,
+      pdf: downloadSchema,
+      epub: downloadSchema,
     })
     .optional()
     .catch(undefined),
@@ -34,6 +46,10 @@ export const googleBookVolumeSchema = z.object({
   volumeInfo: z
     .object({
       authors: z.array(z.unknown()).optional().catch([]),
+      industryIdentifiers: z
+        .array(z.object({ type: z.string(), identifier: z.string() }))
+        .optional()
+        .catch([]),
       averageRating: optionalRatingSchema,
       categories: z.array(z.unknown()).optional().catch([]),
       description: optionalStringSchema,

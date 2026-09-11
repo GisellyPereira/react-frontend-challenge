@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Contos — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#fff0c9" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#bc472f"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#fff0c9" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#fff0c9" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><path d="M61 111Q91 100 113 115Q137 100 166 111V139Q137 129 113 144Q87 130 61 139ZM113 115V144M67 117Q89 110 105 119M67 124Q88 117 105 126M121 119Q140 110 160 117M121 126Q141 117 160 124"/><path d="M113 105Q82 82 84 61Q106 62 113 92Q119 61 144 52Q151 82 121 103M113 109V69M94 82 102 73M130 82 135 68" /><path d="M68 51Q68 56 73 56Q68 56 68 61Q68 56 63 56Q68 56 68 51Z" fill="currentColor" stroke="none"/><path d="M155 82Q155 88 161 88Q155 88 155 94Q155 88 149 88Q155 88 155 82Z" fill="currentColor" stroke="none"/><circle cx="118" cy="47" r="10" opacity=".55"/><path d="M71 148H160" opacity=".4"/></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

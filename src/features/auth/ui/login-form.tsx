@@ -70,14 +70,14 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
           return (
             <div className="space-y-2" data-form-field>
               <Label
-                className="text-[0.64rem] font-extrabold tracking-[0.17em] text-foreground uppercase"
+                className="text-[0.64rem] font-bold tracking-[0.17em] text-foreground uppercase"
                 htmlFor={field.name}
               >
                 Email
               </Label>
               <div className="group relative rounded-xl border border-ink/20 bg-paper/65 transition-[border-color,box-shadow,background-color] focus-within:border-book-coral focus-within:bg-paper focus-within:shadow-[0_0_0_4px_rgb(216_88_50_/_0.08)]">
                 <Input
-                  className="h-12 rounded-xl border-0 bg-transparent px-4 text-sm font-medium text-ink shadow-none placeholder:text-ink/35 focus-visible:border-0 focus-visible:ring-0"
+                  className="h-12 rounded-xl border-0 bg-transparent px-4 text-sm font-semibold text-ink shadow-none placeholder:text-ink/35 focus-visible:border-0 focus-visible:ring-0"
                   id={field.name}
                   name={field.name}
                   type="email"
@@ -119,14 +119,14 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
           return (
             <div className="space-y-2" data-form-field>
               <Label
-                className="text-[0.64rem] font-extrabold tracking-[0.17em] text-foreground uppercase"
+                className="text-[0.64rem] font-bold tracking-[0.17em] text-foreground uppercase"
                 htmlFor={field.name}
               >
                 Senha
               </Label>
               <div className="group relative rounded-xl border border-ink/20 bg-paper/65 transition-[border-color,box-shadow,background-color] focus-within:border-book-coral focus-within:bg-paper focus-within:shadow-[0_0_0_4px_rgb(216_88_50_/_0.08)]">
                 <Input
-                  className="h-12 rounded-xl border-0 bg-transparent px-4 pr-12 text-sm font-medium text-ink shadow-none placeholder:text-ink/35 focus-visible:border-0 focus-visible:ring-0"
+                  className="h-12 rounded-xl border-0 bg-transparent px-4 pr-12 text-sm font-semibold text-ink shadow-none placeholder:text-ink/35 focus-visible:border-0 focus-visible:ring-0"
                   id={field.name}
                   name={field.name}
                   type={isPasswordVisible ? 'text' : 'password'}

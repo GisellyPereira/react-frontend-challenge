@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Infantojuvenil — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#f8dfbd" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#285271"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#f8dfbd" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#f8dfbd" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><path d="M102 109C91 78 111 49 135 37C147 65 143 98 119 117ZM103 86 86 94 83 120 103 108M135 101 139 119 119 132 119 115M102 119 98 138 114 125" /><circle cx="122" cy="71" r="9" /><circle cx="122" cy="71" r="5" fill="currentColor" fill-opacity=".2"/><path d="M67 46Q67 53 74 53Q67 53 67 60Q67 53 60 53Q67 53 67 46Z" fill="currentColor" stroke="none"/><path d="M165 79Q165 84 170 84Q165 84 165 89Q165 84 160 84Q165 84 165 79Z" fill="currentColor" stroke="none"/><path d="M153 130Q153 135 158 135Q153 135 153 140Q153 135 148 135Q153 135 153 130Z" fill="currentColor" stroke="none"/><circle cx="73" cy="105" r="3" /><path d="M91 129 77 145M90 140 86 147" opacity=".5"/></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

@@ -27,9 +27,10 @@
 
 .book-card__position {
   align-items: center;
-  background: var(--paper);
+  background: var(--card);
   bottom: 0.65rem;
-  box-shadow: 0.2rem 0.2rem 0 color-mix(in oklch, var(--ink), transparent 70%);
+  box-shadow: 0.2rem 0.2rem 0
+    color-mix(in oklch, var(--shadow-ink), transparent 70%);
   color: var(--ink);
   display: flex;
   font-size: 0.58rem;
@@ -49,7 +50,7 @@
 }
 
 .book-card__category {
-  color: var(--book-coral);
+  color: var(--text-coral);
   font-size: 0.59rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -133,8 +134,8 @@
 @media (hover: hover) and (pointer: fine) {
   .book-card__link:hover .book-card__cover {
     box-shadow:
-      0.48rem 0.58rem 0 color-mix(in oklch, var(--ink), transparent 87%),
-      0 1.45rem 2.5rem color-mix(in oklch, var(--ink), transparent 81%);
+      0.48rem 0.58rem 0 color-mix(in oklch, var(--shadow-ink), transparent 87%),
+      0 1.45rem 2.5rem color-mix(in oklch, var(--shadow-ink), transparent 81%);
     transform: translateY(-0.48rem);
   }
 

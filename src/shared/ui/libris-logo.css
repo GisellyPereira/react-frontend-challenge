@@ -12,5 +12,5 @@
 }
 
 .dark .libris-logo {
-  filter: invert(1) hue-rotate(180deg) saturate(0.92) brightness(1.06);
+  content: url('../assets/libris-logo-dark.svg');
 }

@@ -1,4 +1,7 @@
 import './discover-topics.css'
+import { useEffect, useState } from 'react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { Button } from '@/shared/ui/button'
 
 interface DiscoverTopicsProps {
   onQueryChange: (query: string) => void
@@ -157,6 +160,31 @@ const SEARCH_SUGGESTIONS = [
 ]
 
 export function DiscoverTopics({ onQueryChange }: DiscoverTopicsProps) {
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(12)
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return
+    const queries = [479, 639, 1023].map((width) =>
+      window.matchMedia(`(max-width: ${width}px)`),
+    )
+    const update = () => {
+      setPageSize(
+        queries[0]?.matches
+          ? 4
+          : queries[1]?.matches
+            ? 6
+            : queries[2]?.matches
+              ? 8
+              : 12,
+      )
+      setPage(0)
+    }
+    update()
+    queries.forEach((query) => query.addEventListener('change', update))
+    return () =>
+      queries.forEach((query) => query.removeEventListener('change', update))
+  }, [])
+  const pageCount = Math.ceil(SEARCH_SUGGESTIONS.length / pageSize)
   return (
     <section
       aria-labelledby="subject-suggestions-title"
@@ -167,40 +195,71 @@ export function DiscoverTopics({ onQueryChange }: DiscoverTopicsProps) {
         Assuntos para explorar
       </h2>
 
-      <div className="discover-suggestions">
-        {SEARCH_SUGGESTIONS.map((suggestion, index) => (
-          <button
-            aria-label={`Pesquisar por ${suggestion.label}`}
-            className="discover-suggestion"
-            data-tone={suggestion.tone}
-            key={suggestion.label}
-            type="button"
-            onClick={() => onQueryChange(suggestion.label)}
+      <div className="discover-topics__navigation">
+        <span>Um assunto puxa outro.</span>
+        <div>
+          <span aria-live="polite">
+            {page + 1} de {pageCount}
+          </span>
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label="Temas anteriores"
+            disabled={page === 0}
+            onClick={() => setPage(page - 1)}
           >
-            <img
-              alt=""
-              aria-hidden="true"
-              className="discover-suggestion__artwork"
-              draggable={false}
-              height={280}
-              src={
-                COVER_ASSETS[
-                  `/src/shared/assets/topic-covers/${suggestion.cover}.svg`
-                ]
-              }
-              width={220}
-            />
-            <span aria-hidden="true" className="discover-suggestion__number">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <span className="discover-suggestion__label">
-              {suggestion.label}
-            </span>
-            <span aria-hidden="true" className="discover-suggestion__subtitle">
-              {suggestion.subtitle}
-            </span>
-          </button>
-        ))}
+            <ArrowLeft size={18} />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label="Próximos temas"
+            disabled={page === pageCount - 1}
+            onClick={() => setPage(page + 1)}
+          >
+            <ArrowRight size={18} />
+          </Button>
+        </div>
+      </div>
+      <div className="discover-suggestions" key={`${page}-${pageSize}`}>
+        {SEARCH_SUGGESTIONS.slice(page * pageSize, (page + 1) * pageSize).map(
+          (suggestion, index) => (
+            <button
+              aria-label={`Pesquisar por ${suggestion.label}`}
+              className="discover-suggestion"
+              data-tone={suggestion.tone}
+              key={suggestion.label}
+              type="button"
+              onClick={() => onQueryChange(suggestion.label)}
+            >
+              <img
+                alt=""
+                aria-hidden="true"
+                className="discover-suggestion__artwork"
+                draggable={false}
+                height={280}
+                src={
+                  COVER_ASSETS[
+                    `/src/shared/assets/topic-covers/${suggestion.cover}.svg`
+                  ]
+                }
+                width={220}
+              />
+              <span aria-hidden="true" className="discover-suggestion__number">
+                {String(page * pageSize + index + 1).padStart(2, '0')}
+              </span>
+              <span className="discover-suggestion__label">
+                {suggestion.label}
+              </span>
+              <span
+                aria-hidden="true"
+                className="discover-suggestion__subtitle"
+              >
+                {suggestion.subtitle}
+              </span>
+            </button>
+          ),
+        )}
       </div>
     </section>
   )

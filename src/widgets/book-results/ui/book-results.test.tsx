@@ -65,10 +65,8 @@ function createResult(
 ): UseBookSearchResult {
   return {
     data: undefined,
-    debouncedQuery: 'ficção',
     error: null,
     hasSearchTerm: true,
-    isDebouncing: false,
     isError: false,
     isFetching: false,
     isPending: false,

@@ -78,7 +78,7 @@ function parseResponse<T>(parser: () => T) {
 export function createGoogleBooksClient({
   apiKey,
   baseUrl = GOOGLE_BOOKS_BASE_URL,
-  fetcher = globalThis.fetch,
+  fetcher,
 }: GoogleBooksClientOptions = {}): BookRepository {
   const normalizedApiKey = apiKey?.trim()
   const normalizedBaseUrl = baseUrl.replace(/\/+$/, '')
@@ -106,7 +106,7 @@ export function createGoogleBooksClient({
         requestInit.signal = signal
       }
 
-      response = await fetcher(url, requestInit)
+      response = await (fetcher ?? globalThis.fetch)(url, requestInit)
     } catch (error) {
       if (isAbortError(error)) {
         throw error
@@ -166,10 +166,12 @@ export function createGoogleBooksClient({
         maxResults: String(normalizedParams.maxResults),
         orderBy: normalizedParams.orderBy,
         printType: normalizedParams.printType,
-        projection: 'lite',
+        projection: normalizedParams.projection ?? 'lite',
         q: normalizedParams.query,
         startIndex: String(normalizedParams.startIndex),
       })
+      if (normalizedParams.langRestrict)
+        searchParams.set('langRestrict', normalizedParams.langRestrict)
       const payload = await request('/volumes', searchParams, signal)
 
       return parseResponse(() =>

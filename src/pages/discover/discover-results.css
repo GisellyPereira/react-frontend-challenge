@@ -23,7 +23,7 @@
   cursor: pointer;
 }
 .discover-results-header__back:hover {
-  color: var(--book-coral);
+  color: var(--text-coral);
 }
 .discover-results-header__back:focus-visible {
   outline: 2px solid var(--ring);

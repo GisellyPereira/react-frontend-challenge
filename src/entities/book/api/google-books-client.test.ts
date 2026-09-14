@@ -24,6 +24,21 @@ function jsonResponse(payload: Record<string, unknown>) {
 }
 
 describe('createGoogleBooksClient', () => {
+  it('solicita dados completos e idioma para as seleções da home', async () => {
+    server.use(
+      http.get(`${baseUrl}/volumes`, ({ request }) => {
+        const url = new URL(request.url)
+        expect(url.searchParams.get('projection')).toBe('full')
+        expect(url.searchParams.get('langRestrict')).toBe('pt')
+        return jsonResponse({ items: [volumePayload], totalItems: 1 })
+      }),
+    )
+    await createGoogleBooksClient({ baseUrl }).search({
+      query: 'subject:fiction',
+      projection: 'full',
+      langRestrict: 'pt',
+    })
+  })
   it('envia os parâmetros normalizados da busca e a chave configurada', async () => {
     const capturedRequest: {
       acceptHeader: string | null

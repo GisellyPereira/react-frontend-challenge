@@ -39,6 +39,10 @@
   --color-book-wine: var(--book-wine);
   --color-book-olive: var(--book-olive);
   --color-book-sand: var(--book-sand);
+  --color-text-teal: var(--text-teal);
+  --color-text-coral: var(--text-coral);
+  --color-action: var(--action-background);
+  --color-action-foreground: var(--action-foreground);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -86,7 +90,7 @@
 
   ::selection {
     background: color-mix(in oklch, var(--book-gold), transparent 25%);
-    color: var(--ink);
+    color: var(--illustration-ink);
   }
 }
 
@@ -101,4 +105,12 @@
   background-repeat: repeat;
   background-size: 100% auto;
   box-shadow: inset 0 0 0 1px rgb(94 72 46 / 7%);
+}
+
+.dark .authenticated-shell {
+  background-image:
+    linear-gradient(rgb(28 36 33 / 94%), rgb(28 36 33 / 94%)),
+    url('../../shared/assets/brown-paper-texture.png');
+  background-blend-mode: normal;
+  box-shadow: none;
 }

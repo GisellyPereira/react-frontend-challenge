@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 280" fill="none">
+  <defs><pattern id="cloth" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 2h6M2 0v6" stroke="#fffdf6" opacity=".1" stroke-width=".6"/></pattern></defs>
+  <g stroke="#4c5744" stroke-width="1.7" stroke-linejoin="round">
+    <path d="M49 34h89q7 0 7 8v211H49Z" fill="#2c7771"/>
+    <path d="M49 34h89q7 0 7 8v211H49Z" fill="url(#cloth)" stroke="none"/>
+    <path d="M59 35v217" stroke="#98aca1" stroke-width="1"/>
+    <path d="M78 80h41m-41 5h29M78 204h41m-41 5h29" stroke="#dfd7b9" stroke-width="1"/>
+    <path d="M159 12h99q7 0 7 8v233H159Z" fill="#e6caa1"/>
+    <path d="M169 13v239" stroke="#b09673" stroke-width="1"/>
+    <path d="M194 61h47m-47 6h34M194 218h44" stroke="#847d5e" stroke-width="1"/>
+    <path d="M291 62h91q7 0 7 8v183h-98Z" fill="#bf654b"/>
+    <path d="M291 62h91q7 0 7 8v183h-98Z" fill="url(#cloth)" stroke="none"/>
+    <path d="M301 64v188" stroke="#e7b28c" stroke-width="1"/>
+    <path d="M322 95h42m-42 5h25m-25 122h42" stroke="#f0dab1" stroke-width="1"/>
+  </g>
+  <path d="M82 149c0-20 22-29 37-13-17 15-17 29-16 40m0-18c-18 0-29-10-24-24 15 1 21 11 24 24" stroke="#c7d5b4" stroke-width="1.5"/>
+  <path d="m214 109 5 17 17 5-17 5-5 17-5-17-17-5 17-5Z" fill="#a3925a"/>
+  <path d="M327 172c0-16 21-19 25-4 4-15 25-12 25 4 0 11-25 26-25 26s-25-15-25-26Z" stroke="#f2d1ae" stroke-width="1.5"/>
+  <path d="m233 13 15 0v58l-7-6-8 6Z" fill="#d85832"/>
+</svg>

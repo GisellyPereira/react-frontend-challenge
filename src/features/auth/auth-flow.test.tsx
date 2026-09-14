@@ -1,5 +1,7 @@
 import { screen, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { http, HttpResponse } from 'msw'
+import { server } from '@/shared/config/test/mocks/server'
 
 import { renderAppAt } from '@/app/testing/render-app'
 
@@ -7,6 +9,11 @@ import { AUTH_STORAGE_KEY, useAuthStore } from './model/auth-store'
 
 describe('fluxo de autenticação', () => {
   beforeEach(() => {
+    server.use(
+      http.get('https://www.googleapis.com/books/v1/volumes', () =>
+        HttpResponse.json({ totalItems: 0, items: [] }),
+      ),
+    )
     useAuthStore.setState({ session: null })
     useAuthStore.persist.clearStorage()
   })

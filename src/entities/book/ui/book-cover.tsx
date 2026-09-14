@@ -4,12 +4,14 @@ import { Skeleton } from '@/shared/ui/skeleton'
 import { cn } from '@/shared/lib/cn'
 
 import type { Book } from '../model/book'
+import { loadedBookCovers, rememberBookCover } from '../lib/loaded-book-covers'
 import './book-cover.css'
 
 type CoverBook = Pick<Book, 'cover' | 'id' | 'title'>
 
 interface BookCoverProps {
   readonly book: CoverBook
+  readonly appearance?: 'book' | 'flat'
   readonly className?: string
   readonly decorative?: boolean
   readonly loading?: 'eager' | 'lazy'
@@ -40,6 +42,7 @@ function getMonogram(title: string) {
 }
 
 function CoverArtwork({
+  bookId,
   src,
   alt,
   className,
@@ -47,6 +50,7 @@ function CoverArtwork({
   sizes,
   onFailure,
 }: {
+  bookId: string
   src: string
   alt: string
   className?: string | undefined
@@ -61,12 +65,29 @@ function CoverArtwork({
     if (!image) return
     let cancelled = false
     const fail = () => {
-      if (!cancelled) onFailure()
+      if (!cancelled) {
+        if (loadedBookCovers.get(bookId) === src)
+          loadedBookCovers.delete(bookId)
+        onFailure()
+      }
     }
     const reveal = async () => {
       try {
         if (typeof image.decode === 'function') await image.decode()
-        if (!cancelled) setReady(true)
+        if (cancelled) return
+        // Reject extreme strips/spine scans, but keep portrait, square and
+        // ordinary landscape covers in their original proportions.
+        const ratio = image.naturalWidth / image.naturalHeight
+        if (
+          Number.isFinite(ratio) &&
+          ratio > 0 &&
+          (ratio > 2 || ratio < 0.25)
+        ) {
+          fail()
+          return
+        }
+        rememberBookCover(bookId, src)
+        setReady(true)
       } catch {
         fail()
       }
@@ -85,7 +106,7 @@ function CoverArtwork({
       image.removeEventListener('load', onLoad)
       image.removeEventListener('error', fail)
     }
-  }, [src, onFailure])
+  }, [bookId, src, onFailure])
   return (
     <div
       className={cn('book-cover', className)}
@@ -93,7 +114,10 @@ function CoverArtwork({
       data-loading={!ready || undefined}
     >
       {!ready && (
-        <Skeleton aria-hidden="true" className="book-cover__skeleton" />
+        <Skeleton aria-hidden="true" className="book-cover__skeleton">
+          <span className="book-cover__skeleton-mark" />
+          <span className="book-cover__skeleton-lines" />
+        </Skeleton>
       )}
       <img
         ref={imageRef}
@@ -110,6 +134,7 @@ function CoverArtwork({
 
 export function BookCoverImage({
   book,
+  appearance = 'book',
   className,
   decorative = false,
   loading = 'lazy',
@@ -117,10 +142,14 @@ export function BookCoverImage({
 }: BookCoverProps) {
   const sources = useMemo(
     () =>
-      [...new Set([book.cover.large, book.cover.small])].filter(
-        (source): source is string => Boolean(source),
-      ),
-    [book.cover.large, book.cover.small],
+      [
+        ...new Set([
+          loadedBookCovers.get(book.id),
+          book.cover.large,
+          book.cover.small,
+        ]),
+      ].filter((source): source is string => Boolean(source)),
+    [book.id, book.cover.large, book.cover.small],
   )
   const displayTitle = getDisplayTitle(book.title)
   const sourceSignature = `${book.id}:${sources.join('|')}`
@@ -139,10 +168,11 @@ export function BookCoverImage({
   if (imageSource) {
     return (
       <CoverArtwork
+        bookId={book.id}
         key={sourceSignature + imageSource}
         src={imageSource}
         alt={decorative ? '' : `Capa de “${displayTitle}”`}
-        className={className}
+        className={cn(appearance === 'flat' && 'book-cover--flat', className)}
         loading={loading}
         sizes={sizes}
         onFailure={() => {
@@ -168,7 +198,11 @@ export function BookCoverImage({
       aria-label={
         decorative ? undefined : `Capa indisponível para “${displayTitle}”`
       }
-      className={cn('book-cover book-cover--fallback', className)}
+      className={cn(
+        'book-cover book-cover--fallback',
+        appearance === 'flat' && 'book-cover--flat',
+        className,
+      )}
       data-cover-variant={variant}
       role={decorative ? undefined : 'img'}
     >

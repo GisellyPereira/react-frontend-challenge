@@ -9,6 +9,9 @@ import { DiscoverPage } from './index'
 vi.mock('@/widgets/book-results', () => ({
   BookResults: () => <div data-testid="book-results" />,
 }))
+vi.mock('@/widgets/discover-home', () => ({
+  DiscoverHome: () => <div data-testid="discover-home-sections" />,
+}))
 
 const defaultSearch: DiscoverSearch = {
   orderBy: 'relevance',

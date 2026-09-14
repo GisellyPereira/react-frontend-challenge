@@ -1,18 +1,22 @@
 import { ArrowLeft } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { getRouteApi } from '@tanstack/react-router'
 
 import {
   DiscoverControls,
   DiscoverTopics,
+  useDiscoverInput,
+  type SearchSubmitOptions,
   type DiscoverSearch,
 } from '@/features/discover-books'
 import heroBookStoriesUrl from '@/shared/assets/discover-hero-book-stories.svg'
 import heroBookmarksUrl from '@/shared/assets/discover-hero-bookmarks.svg'
 import heroDailyStoriesUrl from '@/shared/assets/discover-hero-daily-stories.svg'
 import discoverShelfAccentUrl from '@/shared/assets/discover-shelf-accent.svg'
+import discoverShelfMobileUrl from '@/shared/assets/discover-shelf-accent-mobile.svg'
 import { gsap, useGSAP } from '@/shared/lib/gsap'
 import { BookResults } from '@/widgets/book-results'
+import { DiscoverHome } from '@/widgets/discover-home'
 
 import './discover.css'
 import './discover-results.css'
@@ -24,7 +28,7 @@ interface DiscoverPageProps {
     filters: Partial<Pick<DiscoverSearch, 'orderBy' | 'printType'>>,
   ) => void
   onPageChange: (startIndex: number) => void
-  onSearchSubmit: (query: string) => void
+  onSearchSubmit: (query: string, options?: SearchSubmitOptions) => void
   resultsScrollRequest: number
   search: DiscoverSearch
 }
@@ -63,39 +67,19 @@ export function DiscoverRoutePage() {
           search: (previous) => ({ ...previous, startIndex }),
         }).then(requestResultsScroll)
       }}
-      onSearchSubmit={(query) => {
+      onSearchSubmit={(query, options) => {
         const q = query.trim()
 
         void navigate({
+          replace: options?.automatic ?? false,
           search: (previous) => ({ ...previous, q, startIndex: 0 }),
         }).then(() => {
-          if (q.length > 0) {
+          if (q.length > 0 && !options?.automatic) {
             requestResultsScroll()
           }
         })
       }}
       resultsScrollRequest={resultsScrollRequest}
-    />
-  )
-}
-
-function DiscoverSearchForm({
-  search,
-  onFiltersChange,
-  onSearchSubmit,
-  variant = 'home',
-}: Pick<DiscoverPageProps, 'search' | 'onFiltersChange' | 'onSearchSubmit'> & {
-  variant?: 'home' | 'results'
-}) {
-  const [query, setQuery] = useState(search.q)
-
-  return (
-    <DiscoverControls
-      onFiltersChange={onFiltersChange}
-      onQueryChange={setQuery}
-      onSearchSubmit={onSearchSubmit}
-      search={{ ...search, q: query }}
-      variant={variant}
     />
   )
 }
@@ -109,9 +93,27 @@ export function DiscoverPage({
 }: DiscoverPageProps) {
   const pageRef = useRef<HTMLElement>(null)
   const hasSearch = search.q.trim().length > 0
+  const restoreInputFocus = useRef(false)
+  const { query, changeQuery, submitQuery } = useDiscoverInput(
+    search.q,
+    (value, options) => {
+      restoreInputFocus.current = Boolean(
+        options?.automatic && document.activeElement?.id === 'book-search',
+      )
+      if (options) onSearchSubmit(value, options)
+      else onSearchSubmit(value)
+    },
+  )
+
+  useLayoutEffect(() => {
+    if (restoreInputFocus.current) {
+      document.getElementById('book-search')?.focus({ preventScroll: true })
+      restoreInputFocus.current = false
+    }
+  }, [search.q])
 
   useEffect(() => {
-    if (resultsScrollRequest === 0 || search.q.trim().length === 0) {
+    if (resultsScrollRequest === 0) {
       return
     }
 
@@ -122,7 +124,7 @@ export function DiscoverPage({
     document
       .getElementById('discover-results-heading')
       ?.focus({ preventScroll: true })
-  }, [resultsScrollRequest, search.q])
+  }, [resultsScrollRequest])
 
   useGSAP(
     () => {
@@ -175,7 +177,7 @@ export function DiscoverPage({
               <button
                 className="discover-results-header__back"
                 type="button"
-                onClick={() => onSearchSubmit('')}
+                onClick={() => submitQuery('')}
               >
                 <ArrowLeft aria-hidden="true" /> Voltar para descobrir
               </button>
@@ -191,11 +193,11 @@ export function DiscoverPage({
               </p>
             </div>
             <div className="discover-results-header__search">
-              <DiscoverSearchForm
-                key={search.q}
+              <DiscoverControls
                 onFiltersChange={onFiltersChange}
-                onSearchSubmit={onSearchSubmit}
-                search={search}
+                onQueryChange={changeQuery}
+                onSearchSubmit={submitQuery}
+                search={{ ...search, q: query }}
                 variant="results"
               />
             </div>
@@ -232,11 +234,11 @@ export function DiscoverPage({
             </header>
 
             <div className="discover-hero__controls" data-discover-reveal>
-              <DiscoverSearchForm
-                key={search.q}
+              <DiscoverControls
                 onFiltersChange={onFiltersChange}
-                onSearchSubmit={onSearchSubmit}
-                search={search}
+                onQueryChange={changeQuery}
+                onSearchSubmit={submitQuery}
+                search={{ ...search, q: query }}
               />
             </div>
           </div>
@@ -262,15 +264,23 @@ export function DiscoverPage({
       <div className="discover-catalog">
         <section aria-label="Estante de sugestões" className="discover-browser">
           <div className="discover-browser__shelf">
-            <img
-              alt="Sua próxima leitura pode estar aqui."
-              className="discover-browser__shelf-artwork"
-              decoding="async"
-              draggable="false"
-              height="280"
-              src={discoverShelfAccentUrl}
-              width="1406"
-            />
+            <picture>
+              <source
+                media="(max-width: 600px)"
+                srcSet={discoverShelfMobileUrl}
+                width="720"
+                height="280"
+              />
+              <img
+                alt="Sua próxima leitura pode estar aqui."
+                className="discover-browser__shelf-artwork"
+                decoding="async"
+                draggable="false"
+                height="280"
+                src={discoverShelfAccentUrl}
+                width="1406"
+              />
+            </picture>
           </div>
           <header className="discover-browser__intro" data-discover-reveal>
             <h2 className="discover-browser__title">
@@ -284,7 +294,8 @@ export function DiscoverPage({
           </header>
         </section>
 
-        <DiscoverTopics onQueryChange={onSearchSubmit} />
+        <DiscoverTopics onQueryChange={submitQuery} />
+        <DiscoverHome />
       </div>
     </main>
   )

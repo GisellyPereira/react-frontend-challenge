@@ -16,7 +16,7 @@ export function LogoutButton() {
 
   return (
     <Button
-      className="h-11 gap-2 rounded-md px-2.5 text-xs font-bold tracking-[0.06em] text-muted-foreground uppercase hover:bg-book-coral/8 hover:text-book-coral focus-visible:border-book-coral focus-visible:ring-book-coral/25 sm:px-3"
+      className="h-11 gap-2 rounded-md px-2.5 text-xs font-bold tracking-[0.06em] text-muted-foreground uppercase hover:bg-book-coral/8 hover:text-text-coral focus-visible:border-book-coral focus-visible:ring-book-coral/25 sm:px-3"
       type="button"
       variant="ghost"
       aria-label="Sair"

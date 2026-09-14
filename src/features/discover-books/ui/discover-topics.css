@@ -7,11 +7,47 @@
   display: grid;
   gap: clamp(0.75rem, 1.7vw, 1.35rem);
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  margin-top: clamp(2.25rem, 4vw, 3.75rem);
+  margin-top: 1rem;
   padding: 0 0.5rem 1.2rem 0;
+}
+.discover-topics__navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--ink-soft);
+}
+.discover-topics__navigation > span {
+  font-size: 1.1rem;
+}
+.discover-topics__navigation > div {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.discover-topics__navigation > div > span {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .discover-suggestions {
+    animation: topics-arrive 240ms ease-out;
+  }
+  @keyframes topics-arrive {
+    from {
+      opacity: 0.3;
+      transform: translateX(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }
 
 .discover-suggestion {
+  --ink: var(--illustration-ink);
   --suggestion-background: var(--book-coral);
   --suggestion-foreground: var(--paper);
   aspect-ratio: 11 / 14;
@@ -20,8 +56,8 @@
   border: 1px solid color-mix(in oklch, var(--ink), transparent 58%);
   border-radius: 0.2rem 0.75rem 0.75rem 0.2rem;
   box-shadow:
-    0.4rem 0.5rem 0 color-mix(in oklch, var(--ink), transparent 88%),
-    0 1rem 2rem color-mix(in oklch, var(--ink), transparent 91%);
+    0.4rem 0.5rem 0 color-mix(in oklch, var(--shadow-ink), transparent 88%),
+    0 1rem 2rem color-mix(in oklch, var(--shadow-ink), transparent 91%);
   color: var(--suggestion-foreground);
   display: flex;
   flex-direction: column;
@@ -118,8 +154,8 @@
 @media (hover: hover) and (pointer: fine) {
   .discover-suggestion:hover {
     box-shadow:
-      0.52rem 0.65rem 0 color-mix(in oklch, var(--ink), transparent 84%),
-      0 1.5rem 2.6rem color-mix(in oklch, var(--ink), transparent 87%);
+      0.52rem 0.65rem 0 color-mix(in oklch, var(--shadow-ink), transparent 84%),
+      0 1.5rem 2.6rem color-mix(in oklch, var(--shadow-ink), transparent 87%);
     transform: translateY(-0.7rem);
   }
 }

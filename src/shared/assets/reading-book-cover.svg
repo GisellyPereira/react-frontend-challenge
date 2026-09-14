@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 560" fill="none" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fffaf0"/>
+      <stop offset="1" stop-color="#f1e5ce"/>
+    </linearGradient>
+    <linearGradient id="cloth">
+      <stop stop-color="#1f504e"/>
+      <stop offset=".3" stop-color="#367873"/>
+      <stop offset="1" stop-color="#235c58"/>
+    </linearGradient>
+    <pattern id="weave" width="5" height="5" patternUnits="userSpaceOnUse">
+      <path d="M0 1h5M1 0v5" stroke="#fff" stroke-opacity=".1" stroke-width=".5"/>
+    </pattern>
+  </defs>
+  <!-- One continuous closed cover; the page block is visible only along the bottom. -->
+  <path d="M25 28h1390q15 0 15 16v482q0 20-20 20H27Q8 546 8 527V48q0-20 17-20Z" fill="#244f4a"/>
+  <path d="M42 40h1373v487q0 10-12 10H44Z" fill="#e9dfcb" stroke="#948774" stroke-width="1"/>
+  <g stroke="#b6aa94" stroke-width=".8" opacity=".7">
+    <path d="M46 520h1363M46 525h1363M46 530h1360"/>
+  </g>
+  <path d="M24 9h1390q17 0 17 18v483q0 13-15 13H25Q7 523 7 505V27Q7 9 24 9Z" fill="url(#paper)" stroke="#9c947f" stroke-width="1.3"/>
+  <path d="M26 9h35v514H26Q7 523 7 505V27Q7 9 26 9Z" fill="url(#cloth)"/>
+  <path d="M26 9h35v514H26Q7 523 7 505V27Q7 9 26 9Z" fill="url(#weave)"/>
+  <path d="M61 11v510M68 11v510" stroke="#284f46" stroke-opacity=".23"/>
+  <path d="M25 13v506" stroke="#96afa0" stroke-opacity=".4"/>
+  <path d="M86 28h1319v473H86" stroke="#b6a787" stroke-width=".7" opacity=".32"/>
+  <path d="M97 39h1297v451H97" stroke="#b6a787" stroke-width=".5" opacity=".16"/>
+</svg>

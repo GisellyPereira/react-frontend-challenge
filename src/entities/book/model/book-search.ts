@@ -6,6 +6,11 @@ export const bookPrintTypeSchema = z.enum(['all', 'books', 'magazines'])
 export const bookOrderBySchema = z.enum(['relevance', 'newest'])
 
 export const bookSearchParamsSchema = z.object({
+  projection: z.enum(['lite', 'full']).optional(),
+  langRestrict: z
+    .string()
+    .regex(/^[a-z]{2}$/)
+    .optional(),
   maxResults: z.number().int().min(1).max(40).default(BOOKS_PER_PAGE),
   orderBy: bookOrderBySchema.default('relevance'),
   printType: bookPrintTypeSchema.default('all'),

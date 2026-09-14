@@ -1,8 +1,9 @@
 import { act, fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { Book } from '../model/book'
 import { BookCoverImage } from './book-cover'
+import { loadedBookCovers } from '../lib/loaded-book-covers'
 
 type CoverBook = Pick<Book, 'cover' | 'id' | 'title'>
 
@@ -16,6 +17,134 @@ const book: CoverBook = {
 }
 
 describe('BookCover', () => {
+  beforeEach(() => loadedBookCovers.clear())
+  it('tenta a alternativa para uma faixa e usa a capa padrão se ambas forem recortes extremos', async () => {
+    render(<BookCoverImage book={book} />)
+    for (const [width, height] of [
+      [800, 100],
+      [20, 200],
+    ]) {
+      const image = screen.getByRole('img')
+      Object.defineProperties(image, {
+        naturalWidth: { value: width },
+        naturalHeight: { value: height },
+      })
+      await act(async () => {
+        fireEvent.load(image)
+        await Promise.resolve()
+      })
+    }
+    expect(screen.getByRole('img', { name: /Capa indisponível/ })).toBeVisible()
+  })
+  it.each([
+    [200, 300],
+    [300, 300],
+    [450, 300],
+  ])('preserva uma capa válida de %i por %i', async (width, height) => {
+    render(<BookCoverImage book={book} />)
+    const image = screen.getByRole('img')
+    Object.defineProperties(image, {
+      naturalWidth: { value: width },
+      naturalHeight: { value: height },
+    })
+    await act(async () => {
+      fireEvent.load(image)
+      await Promise.resolve()
+    })
+    expect(image.parentElement).toHaveAttribute('aria-busy', 'false')
+    expect(image).toHaveAttribute('src', book.cover.large)
+  })
+  it('não rejeita uma capa do Google somente por medir 575 por 750', async () => {
+    render(
+      <BookCoverImage
+        book={{
+          ...book,
+          cover: {
+            large: 'https://books.google.com/books/content?id=test&zoom=3',
+            small: 'https://books.google.com/books/content?id=test&zoom=1',
+          },
+        }}
+      />,
+    )
+    const large = screen.getByRole('img')
+    Object.defineProperties(large, {
+      naturalWidth: { value: 575 },
+      naturalHeight: { value: 750 },
+    })
+    await act(async () => {
+      fireEvent.load(large)
+      await Promise.resolve()
+    })
+    expect(large.parentElement).toHaveAttribute('aria-busy', 'false')
+    expect(large).toHaveAttribute('src', expect.stringContaining('zoom=3'))
+  })
+  it('preserva nos detalhes a capa carregada na listagem mesmo sem imageLinks', async () => {
+    const catalog = render(<BookCoverImage book={book} />)
+    await act(async () => {
+      fireEvent.load(screen.getByRole('img'))
+      await Promise.resolve()
+    })
+    catalog.unmount()
+    render(
+      <BookCoverImage
+        book={{ ...book, cover: { large: null, small: null } }}
+      />,
+    )
+    expect(screen.getByRole('img')).toHaveAttribute('src', book.cover.large)
+  })
+  it('tenta as novas alternativas se a capa lembrada falhar', async () => {
+    const catalog = render(<BookCoverImage book={book} />)
+    await act(async () => {
+      fireEvent.load(screen.getByRole('img'))
+      await Promise.resolve()
+    })
+    catalog.unmount()
+    render(
+      <BookCoverImage
+        book={{
+          ...book,
+          cover: {
+            large: 'https://images.example.com/details.jpg',
+            small: null,
+          },
+        }}
+      />,
+    )
+    expect(screen.getByRole('img')).toHaveAttribute('src', book.cover.large)
+    fireEvent.error(screen.getByRole('img'))
+    expect(screen.getByRole('img')).toHaveAttribute(
+      'src',
+      'https://images.example.com/details.jpg',
+    )
+    fireEvent.error(screen.getByRole('img'))
+    expect(screen.getByRole('img', { name: /Capa indisponível/ })).toBeVisible()
+  })
+  it('não rejeita uma miniatura real somente por medir 128 por 170', async () => {
+    render(
+      <BookCoverImage
+        book={{
+          ...book,
+          cover: {
+            large: null,
+            small: 'https://books.google.com/books/content?id=test&zoom=1',
+          },
+        }}
+      />,
+    )
+    const image = screen.getByRole('img')
+    Object.defineProperties(image, {
+      naturalWidth: { value: 128 },
+      naturalHeight: { value: 170 },
+    })
+    await act(async () => {
+      fireEvent.load(image)
+      await Promise.resolve()
+    })
+    expect(image.parentElement).toHaveAttribute('aria-busy', 'false')
+    expect(
+      screen.queryByRole('img', { name: /Capa indisponível/ }),
+    ).not.toBeInTheDocument()
+  })
   it('tenta a capa menor antes de apresentar o fallback', () => {
     render(<BookCoverImage book={book} />)
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { getRouteApi, Link } from '@tanstack/react-router'
+import { getRouteApi, useCanGoBack, useRouter } from '@tanstack/react-router'
 import {
   ArrowLeft,
   Download,
@@ -13,53 +13,65 @@ import {
   BookCard,
   BookCoverImage,
   bookQueryKeys,
-  bookSearchParamsSchema,
   googleBooksClient,
   type Book,
 } from '@/entities/book'
 import { BookPreview } from '@/features/read-book'
-import { AddToShelf } from '@/features/manage-shelf'
+import { findSuggestedBooks } from '@/features/discover-books'
+import { ShelfToggle } from '@/features/manage-shelf'
 import { useAuthStore } from '@/features/auth'
 import shelfUrl from '@/shared/assets/book-detail-shelf.svg'
 import marksUrl from '@/shared/assets/book-detail-marks.svg'
 import arrowUrl from '@/shared/assets/book-detail-arrow.svg'
+import noteArrowUrl from '@/shared/assets/book-detail-note-arrow.svg'
 import { Button } from '@/shared/ui/button'
+import { BookLoading } from '@/shared/ui/book-loading'
 import './book-details.css'
 
 const route = getRouteApi('/_authenticated/book/$bookId')
 
+function BackButton() {
+  const router = useRouter()
+  const canGoBack = useCanGoBack()
+
+  return (
+    <Button
+      variant="ghost"
+      className="book-details__back"
+      onClick={() => {
+        if (canGoBack) router.history.back()
+        else void router.navigate({ to: '/discover', replace: true })
+      }}
+    >
+      <ArrowLeft size={22} aria-hidden="true" /> Voltar
+    </Button>
+  )
+}
+
 function RelatedBooks({ book }: { book: Book }) {
-  const subject = book.categories[0]
-  const author = book.authors[0]
-  const term = (subject || author || '').replace(/["\\]/g, ' ').trim()
-  const params = bookSearchParamsSchema.parse({
-    query: `${subject ? 'subject' : 'inauthor'}:"${term}"`,
-    maxResults: 12,
-  })
+  const { id, categories, authors } = book
   const related = useQuery({
-    queryKey: bookQueryKeys.search(params),
-    queryFn: ({ signal }) => googleBooksClient.search(params, signal),
-    enabled: Boolean(term),
+    queryKey: ['books', 'suggestions', id, categories, authors],
+    queryFn: ({ signal }) =>
+      findSuggestedBooks(
+        { id, categories, authors },
+        (params, searchSignal) =>
+          googleBooksClient.search(params, searchSignal),
+        signal,
+      ),
+    retry: false,
   })
-  const books = [
-    ...new Map(
-      (related.data?.books ?? [])
-        .filter((item) => item.id !== book.id)
-        .map((item) => [item.id, item]),
-    ).values(),
-  ].slice(0, 5)
+  const books = related.data?.books ?? []
   return (
     <section className="book-details__related" aria-labelledby="related-title">
       <p className="book-details__eyebrow">Continue pela estante</p>
       <h2 id="related-title">Mais páginas para descobrir.</h2>
       <p className="book-details__muted">
-        {subject
-          ? `Outras leituras sobre ${subject}.`
-          : author
-            ? `Mais livros de ${author}.`
-            : 'Ainda não há informações suficientes para encontrar leituras relacionadas.'}
+        {related.data?.broadened || (!categories.length && !authors.length)
+          ? 'Um assunto puxa outro. Conheça também estas leituras.'
+          : 'Outras histórias, assuntos e autores para continuar descobrindo.'}
       </p>
-      {term && related.isPending && (
+      {related.isPending && (
         <p role="status">Procurando leituras que combinam com esta…</p>
       )}
       {related.isError && (
@@ -71,7 +83,12 @@ function RelatedBooks({ book }: { book: Book }) {
         </div>
       )}
       {related.isSuccess && books.length === 0 && (
-        <p>Nenhum outro título foi encontrado para este assunto.</p>
+        <div role="status">
+          <p>O catálogo não retornou sugestões desta vez.</p>
+          <Button variant="outline" onClick={() => void related.refetch()}>
+            Buscar sugestões novamente
+          </Button>
+        </div>
       )}
       <div className="book-details__related-grid">
         {books.map((item) => (
@@ -112,24 +129,24 @@ export function BookDetailsContent({ book }: { book: Book }) {
   ].filter((item): item is [string, string] => Boolean(item[1]))
   return (
     <>
-      <Link className="book-details__back" to="/discover">
-        <ArrowLeft size={22} aria-hidden="true" /> Voltar para descobrir
-      </Link>
+      <BackButton />
       <article aria-labelledby="book-title">
         <div className="book-details__feature">
           <div className="book-details__cover-stage">
-            <img
-              className="book-details__marks"
-              src={marksUrl}
-              alt=""
-              aria-hidden="true"
-            />
-            <BookCoverImage
-              book={book}
-              className="book-details__cover"
-              loading="eager"
-              sizes="(max-width: 680px) 60vw, 300px"
-            />
+            <div className="book-details__cover-art">
+              <img
+                className="book-details__marks"
+                src={marksUrl}
+                alt=""
+                aria-hidden="true"
+              />
+              <BookCoverImage
+                book={book}
+                className="book-details__cover"
+                loading="eager"
+                sizes="(max-width: 680px) 60vw, 300px"
+              />
+            </div>
             <img
               className="book-details__little-shelf"
               src={shelfUrl}
@@ -137,7 +154,8 @@ export function BookDetailsContent({ book }: { book: Book }) {
               aria-hidden="true"
             />
             <span className="book-details__cover-note">
-              um livro, tantas possibilidades.
+              <span>um livro, tantas possibilidades.</span>
+              <img src={noteArrowUrl} alt="" aria-hidden="true" />
             </span>
           </div>
           <div className="book-details__presentation">
@@ -225,13 +243,19 @@ export function BookDetailsContent({ book }: { book: Book }) {
             </a>
             <div className="book-details__actions">
               <BookPreview key={book.id} book={book} />
-              {email && <AddToShelf book={book} email={email} />}
+              {email && (
+                <ShelfToggle
+                  key={`${email}:${book.id}`}
+                  book={book}
+                  email={email}
+                />
+              )}
             </div>
             {(book.reading?.viewability === 'PARTIAL' ||
               book.reading?.viewability === 'ALL_PAGES') && (
               <div className="book-details__action-note" aria-hidden="true">
                 <img src={arrowUrl} alt="" />
-                Dê uma espiada nas primeiras páginas
+                <span>Dê uma espiada nas primeiras páginas</span>
               </div>
             )}
           </div>
@@ -305,6 +329,7 @@ export function BookDetailsContent({ book }: { book: Book }) {
 export function BookDetailsPage() {
   const { bookId } = route.useParams()
   const detail = useQuery({
+    meta: { errorMessage: 'Não foi possível abrir os detalhes do livro.' },
     queryKey: bookQueryKeys.detail(bookId),
     queryFn: ({ signal }) => googleBooksClient.getById(bookId, signal),
   })
@@ -314,10 +339,7 @@ export function BookDetailsPage() {
   return (
     <main className="book-details">
       {detail.isPending ? (
-        <div className="book-details__status" role="status">
-          <h1>Abrindo o livro…</h1>
-          <p>Estamos reunindo os detalhes desta edição.</p>
-        </div>
+        <BookLoading />
       ) : detail.isError ? (
         <div className="book-details__status" role="alert">
           <h1>Esta página não abriu.</h1>
@@ -325,7 +347,7 @@ export function BookDetailsPage() {
           <Button onClick={() => void detail.refetch()}>
             Tentar novamente
           </Button>
-          <Link to="/discover">Voltar para descobrir</Link>
+          <BackButton />
         </div>
       ) : (
         <BookDetailsContent book={detail.data} />

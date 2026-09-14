@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Book } from '@/entities/book'
 import { Button } from '@/shared/ui/button'
+import { BookLoading } from '@/shared/ui/book-loading'
 import {
   Dialog,
   DialogContent,
@@ -89,9 +90,6 @@ function Reader({ book }: { book: Book }) {
           Próxima página
         </Button>
       </div>
-      {status === 'loading' && (
-        <p role="status">Abrindo as páginas disponíveis…</p>
-      )}
       {status === 'error' && (
         <div role="alert">
           <p>{errorMessage}</p>
@@ -106,11 +104,24 @@ function Reader({ book }: { book: Book }) {
           </Button>
         </div>
       )}
-      <div
-        ref={container}
-        className="book-reader__canvas"
-        style={{ display: status === 'error' ? 'none' : undefined }}
-      />
+      <div className="book-reader__stage">
+        {status === 'loading' && (
+          <BookLoading
+            compact
+            title="Preparando sua leitura…"
+            description="Abrindo as páginas disponíveis desta edição."
+          />
+        )}
+        <div
+          ref={container}
+          className="book-reader__canvas"
+          aria-hidden={status !== 'ready'}
+          style={{
+            display: status === 'error' ? 'none' : undefined,
+            visibility: status === 'loading' ? 'hidden' : undefined,
+          }}
+        />
+      </div>
       {book.previewUrl && (
         <a
           className="book-details__external"

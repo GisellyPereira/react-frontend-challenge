@@ -1,4 +1,5 @@
-import { QueryClient } from '@tanstack/react-query'
+import { QueryCache, QueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 
 import { ApiError } from '@/shared/api/api-error'
 
@@ -14,6 +15,17 @@ function shouldRetryQuery(failureCount: number, error: unknown) {
 
 export function createQueryClient() {
   return new QueryClient({
+    queryCache: new QueryCache({
+      onError: (error, query) => {
+        const message = query.meta?.errorMessage
+        if (typeof message === 'string') {
+          toast.error(message, {
+            id: `query:${query.queryHash}`,
+            description: error.message,
+          })
+        }
+      },
+    }),
     defaultOptions: {
       queries: {
         staleTime: 1000 * 60 * 5,

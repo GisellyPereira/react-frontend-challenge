@@ -108,7 +108,7 @@ export function BookResults({ onPageChange, search }: BookResultsProps) {
     return null
   }
 
-  if ((result.isDebouncing || result.isPending) && !result.data) {
+  if (result.isPending && !result.data) {
     return <BookResultsSkeleton />
   }
 

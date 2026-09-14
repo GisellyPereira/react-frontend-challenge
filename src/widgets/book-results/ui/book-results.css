@@ -1,6 +1,6 @@
 .book-results__count,
 .book-results-message__label {
-  color: var(--book-teal);
+  color: var(--text-teal);
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.17em;
@@ -23,7 +23,7 @@
 }
 
 .book-results-message__label {
-  color: var(--book-coral);
+  color: var(--text-coral);
 }
 
 .book-results-message__title {
@@ -147,4 +147,8 @@
 
 .book-results__pagination {
   margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.dark .book-results-grid > li:nth-child(3n + 2)::before {
+  background-image: url('../../../shared/assets/discover-doodle-marks-dark.svg');
 }

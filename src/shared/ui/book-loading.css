@@ -1,0 +1,130 @@
+.book-loading {
+  min-height: min(65vh, 38rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1.25rem;
+  color: var(--ink);
+}
+.book-loading__illustration {
+  position: relative;
+  width: 12rem;
+  margin-bottom: 1.25rem;
+}
+.book-loading__book {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+.book-loading__page {
+  transform-origin: 90px 60px;
+  animation: libris-page-turn 2.4s ease-in-out infinite;
+}
+.book-loading__spark {
+  position: absolute;
+  color: var(--text-gold);
+  font-size: 2rem;
+}
+.book-loading__spark--one {
+  left: -0.5rem;
+  top: 0.4rem;
+  transform: rotate(-12deg);
+}
+.book-loading__spark--two {
+  right: -0.25rem;
+  top: -0.4rem;
+  color: var(--text-teal);
+  font-size: 1.6rem;
+}
+.book-loading__eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-teal);
+  margin-bottom: 0.6rem;
+}
+.book-loading__title {
+  font-family: var(--font-family-accent);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  line-height: 1.2;
+}
+.book-loading__description {
+  max-width: 32ch;
+  margin-top: 0.85rem;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+.book-loading__dots {
+  display: flex;
+  gap: 0.45rem;
+  margin-top: 1.5rem;
+}
+.book-loading__dots i {
+  width: 0.35rem;
+  height: 0.35rem;
+  background: var(--book-coral);
+  border-radius: 50%;
+  animation: libris-loading-dot 1.4s ease-in-out infinite;
+}
+.book-loading__dots i:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.book-loading__dots i:nth-child(3) {
+  animation-delay: 0.32s;
+}
+.book-loading--compact {
+  min-height: 18rem;
+  padding-block: 1.5rem;
+}
+.book-loading--compact .book-loading__illustration {
+  width: 9rem;
+  margin-bottom: 0.5rem;
+}
+.book-loading--compact .book-loading__title {
+  font-size: 1.75rem;
+}
+.book-reader__stage {
+  position: relative;
+  min-height: 0;
+}
+.book-reader__stage > .book-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--card);
+}
+@keyframes libris-page-turn {
+  0%,
+  15% {
+    transform: scaleX(1);
+  }
+  65%,
+  85% {
+    transform: scaleX(-1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+@keyframes libris-loading-dot {
+  0%,
+  70%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .book-loading__page,
+  .book-loading__dots i {
+    animation: none;
+  }
+}

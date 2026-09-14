@@ -1,5 +1,5 @@
 .personal-shelf {
-  max-width: 76rem;
+  max-width: 88rem;
   margin: auto;
   padding: 3rem clamp(1.25rem, 4vw, 4rem) 6rem;
   color: var(--ink);
@@ -10,39 +10,570 @@
   line-height: 1.1;
   margin-bottom: 1rem;
 }
+.personal-shelf__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.personal-shelf__heading > div {
+  min-width: 0;
+}
+.personal-shelf__illustration {
+  width: 10rem;
+  height: auto;
+  margin-right: 2rem;
+  flex-shrink: 0;
+}
+.personal-shelf__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1.25rem;
+  margin-top: 1.5rem;
+}
+.personal-shelf__script {
+  display: inline-block;
+  font-family: var(--font-family-accent);
+  font-weight: 400;
+  font-size: 1.13em;
+  letter-spacing: -0.035em;
+  margin-right: 0.12em;
+}
+.personal-shelf__count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--book-teal) 25%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--book-teal) 7%, transparent);
+  font-size: 1rem;
+  color: var(--text-teal);
+}
 .personal-shelf__eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.8rem;
   margin-bottom: 0.7rem;
 }
-.personal-shelf__local {
-  color: var(--ink-soft);
-  font-size: 0.85rem;
-  margin-top: 0.5rem;
+.personal-shelf__rows {
+  container-type: inline-size;
+  min-width: 0;
+  margin-top: 2.25rem;
 }
-.personal-shelf__grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 2rem 1.5rem;
-  margin-top: 3rem;
-  padding-bottom: 3rem;
-  background: url('../../shared/assets/book-detail-shelf.svg') bottom center /
+.shelf-row {
+  margin-bottom: 0.25rem;
+}
+.shelf-row__scroll {
+  overflow-x: auto;
+  padding: 0 0.5rem 0.5rem;
+}
+.shelf-row__books {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 0;
+  height: clamp(16rem, 70cqw, 23.5rem);
+  padding: 0.75rem 0.5rem 1.55rem;
+  background: url('../../shared/assets/personal-shelf-wood.svg') bottom center /
     100% 32px no-repeat;
 }
-.personal-shelf__grid > div {
+.shelf-volume {
+  --volume-height: min(
+    calc(var(--book-height) + 2rem),
+    clamp(12rem, 60cqw, 20.6rem)
+  );
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: var(--spine-width);
+  height: var(--volume-height);
+  border-radius: 4px 6px 2px 2px;
+  transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  outline-offset: 5px;
+}
+.shelf-volume[data-expanded] {
+  width: min(14rem, 46cqw);
+}
+.shelf-volume:focus-visible {
+  outline: 2px solid var(--book-teal);
+}
+.shelf-volume__spine {
+  --action-foreground: var(--paper);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0.45rem;
+  background:
+    linear-gradient(
+      90deg,
+      rgb(0 0 0 / 14%),
+      transparent 16% 78%,
+      rgb(0 0 0 / 18%)
+    ),
+    var(--spine-color);
+  color: var(--action-foreground);
+  border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+  border-radius: inherit;
+  box-shadow:
+    inset 4px 0 0 rgb(255 255 255 / 12%),
+    inset -4px 0 0 rgb(0 0 0 / 12%),
+    4px 1px 3px rgb(0 0 0 / 14%);
+  transition: opacity 180ms ease;
+}
+.shelf-volume__title {
+  writing-mode: vertical-rl;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-height: 75%;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+.shelf-volume__publisher,
+.shelf-volume__number {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+}
+.shelf-volume__publisher {
+  border-bottom: 1px solid rgb(255 255 255 / 45%);
+  padding-bottom: 0.5rem;
+}
+.shelf-volume__number {
+  border-top: 2px solid rgb(255 255 255 / 45%);
+  padding-top: 0.6rem;
+  width: 70%;
+  text-align: center;
+}
+.shelf-volume__front {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  flex-direction: column;
+  opacity: 0;
+  overflow: visible;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+.shelf-volume[data-expanded] .shelf-volume__front {
+  opacity: 1;
+}
+.shelf-volume[data-expanded] .shelf-volume__spine {
+  opacity: 0;
+}
+.shelf-volume__front .book-cover {
+  flex: none;
+  width: fit-content;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  box-shadow:
+    4px 2px 0 rgb(52 68 58 / 15%),
+    7px 4px 12px rgb(52 68 58 / 12%);
+}
+.shelf-volume__front .book-cover::after {
+  content: none;
+}
+.shelf-volume__front .book-cover[data-loading],
+.shelf-volume__front .book-cover--fallback {
+  width: min(100%, calc(var(--volume-height) * 2 / 3));
+  aspect-ratio: 2 / 3;
+}
+.shelf-volume__front .book-cover--fallback {
+  background-color: var(--cover-background);
+}
+.shelf-volume__front .book-cover__image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: var(--volume-height);
+  object-fit: contain;
+}
+.shelf-row__caption {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 8.5rem;
+  padding: 0.75rem 0.5rem 1rem;
+}
+.shelf-row__selection {
+  max-width: 52rem;
+  min-width: 0;
+  flex: 1;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.1rem 1.4rem;
+  background: color-mix(in srgb, var(--card) 65%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 0.35rem 1rem 1rem 0.35rem;
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--shadow-ink) 5%, transparent);
+}
+.shelf-row__info {
   min-width: 0;
 }
-.personal-shelf__grid button {
-  margin-top: 0.8rem;
-  font-size: 0.85rem;
-  white-space: normal;
+.shelf-row__selection h2 {
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  line-height: 1.15;
+  font-weight: 600;
+  margin: 0.4rem 0;
+  overflow-wrap: anywhere;
+}
+.shelf-row__eyebrow {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.shelf-row__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.6rem;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+.shelf-row__facts span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.shelf-row__facts svg {
+  color: var(--text-teal);
+}
+.shelf-row__author {
+  color: var(--ink-soft);
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+.shelf-row__management {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: stretch;
+}
+.shelf-row__reading .shelf-status {
+  width: 100%;
+  height: 2.5rem;
+  margin-top: 0.4rem;
+}
+.shelf-row__buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.shelf-row__details {
+  background: var(--action-background);
+  color: var(--action-foreground);
+}
+.shelf-status {
+  min-width: 8rem;
+  color: var(--ink);
+  background: var(--card);
+}
+.shelf-status[data-status='reading'] {
+  background: var(--surface-gold);
+}
+.shelf-status[data-status='read'] {
+  background: var(--surface-sage);
+}
+.shelf-volume__status-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin-right: 0.25rem;
+  background: var(--paper);
+  border: 1px solid rgb(0 0 0 / 35%);
+}
+.shelf-volume__status-dot[data-status='reading'] {
+  background: #f7cf55;
+}
+.shelf-volume__status-dot[data-status='read'] {
+  background: #9ed3a6;
+}
+.personal-shelf__toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 30rem) 1fr;
+  grid-template-areas: 'search view' 'filters filters';
+  align-items: center;
+  gap: 1.25rem 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.personal-shelf__filters {
+  grid-area: filters;
+}
+.personal-shelf__view {
+  grid-area: view;
+  justify-self: end;
+  padding: 0.3rem;
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, var(--card) 55%, transparent);
+}
+.personal-shelf__view button[aria-pressed='true'] {
+  background: var(--action-background);
+  color: var(--action-foreground);
+}
+.personal-shelf__filters,
+.personal-shelf__view {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.personal-shelf__filters button[aria-pressed='true'] {
+  background: var(--action-background);
+  color: var(--action-foreground);
+}
+.personal-shelf__filters span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  margin-left: 0.35rem;
+}
+.personal-shelf__search-field {
+  grid-area: search;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 0.75rem 0 1rem;
+  background: color-mix(in srgb, var(--card), transparent 5%);
+  border: 1px solid color-mix(in srgb, var(--foreground), transparent 80%);
+  border-radius: 0.8rem;
+  min-width: 0;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+.personal-shelf__search-field > svg {
+  color: var(--text-coral);
+  flex-shrink: 0;
+}
+.personal-shelf__search-field:focus-within {
+  border-color: var(--text-coral);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--book-coral), transparent 92%);
+}
+.personal-shelf__search-field .personal-shelf__search {
+  height: 3.2rem;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding-inline: 0;
+  font-size: 1rem;
+  outline: none;
+}
+.personal-shelf__search::-webkit-search-cancel-button {
+  display: none;
+}
+@media (max-width: 700px) {
+  .personal-shelf__illustration {
+    width: 6rem;
+    margin-right: 0;
+  }
+  .personal-shelf__heading {
+    gap: 0.75rem;
+    align-items: start;
+  }
+  .personal-shelf__toolbar {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'search' 'filters' 'view';
+    gap: 1rem;
+  }
+  .personal-shelf__view {
+    justify-self: start;
+  }
+}
+@media (max-width: 440px) {
+  .personal-shelf__illustration {
+    display: none;
+  }
+}
+.personal-shelf__no-results {
+  padding-block: 3rem;
+}
+.personal-shelf__table-scroll {
+  overflow-x: auto;
+  margin: 1.5rem auto 0;
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+.personal-shelf__pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-inline: auto;
+  padding: 1rem 1.25rem;
+  background: color-mix(in srgb, var(--card) 85%, transparent);
+  border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+.personal-shelf__pagination p {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+.personal-shelf__pagination nav {
+  width: auto;
+  margin: 0;
+}
+.personal-shelf__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+.personal-shelf__table th {
+  font-size: 1rem;
+  letter-spacing: 0.015em;
+  color: var(--ink);
+  font-weight: 600;
+}
+.personal-shelf__table td,
+.personal-shelf__table th {
+  padding: 0.85rem 1.25rem;
+}
+.personal-shelf__table th {
+  padding-block: 1rem;
+  white-space: nowrap;
+  background: color-mix(in srgb, var(--book-sand) 28%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+.personal-shelf__table td {
+  vertical-align: middle;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
+  transition: background-color 180ms ease;
+}
+.personal-shelf__table .personal-shelf__sort-heading {
+  padding-block: 0.35rem;
+}
+.personal-shelf__sort-button {
+  min-height: 2.75rem;
+  height: auto;
+  gap: 0.6rem;
+  margin-left: -0.5rem;
+  padding-inline: 0.5rem;
+  font-size: inherit;
+  letter-spacing: inherit;
+}
+.personal-shelf__sort-button svg {
+  color: var(--ink-soft);
+}
+.personal-shelf__sort-heading[aria-sort] .personal-shelf__sort-button,
+.personal-shelf__sort-heading[aria-sort] .personal-shelf__sort-button svg {
+  color: var(--text-teal);
+}
+.personal-shelf__table td:first-child {
+  width: 42%;
+}
+.personal-shelf__table tbody tr:hover td,
+.personal-shelf__table tbody tr:focus-within td {
+  background: color-mix(in srgb, var(--book-sand) 13%, transparent);
+}
+.personal-shelf__table td:nth-child(2),
+.personal-shelf__table td:nth-child(3) {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+.personal-shelf__table .shelf-status {
+  height: 2rem;
+  min-width: 7rem;
+  border-radius: 2rem;
+  border-color: transparent;
+  font-size: 0.95rem;
+  padding-inline: 0.8rem;
+  box-shadow: none;
+}
+.personal-shelf__table-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.personal-shelf__table-actions > button {
+  color: var(--ink-soft);
+}
+.personal-shelf__table-details {
+  color: var(--text-coral);
+  white-space: nowrap;
+}
+.personal-shelf__table-book {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 16rem;
+  border-radius: 0.35rem;
+  outline-offset: 5px;
+}
+.personal-shelf__table-book .book-cover {
+  width: 3rem;
+  flex-shrink: 0;
+  border-radius: 2px 5px 5px 2px;
+  box-shadow:
+    3px 3px 0 rgb(52 68 58 / 12%),
+    0 4px 10px rgb(52 68 58 / 10%);
+}
+.personal-shelf__table-book strong {
+  display: block;
+  font-size: 1.2rem;
+  line-height: 1.15;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.personal-shelf__table-book small {
+  display: block;
+  color: var(--ink-soft);
+  margin-top: 0.25rem;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+@media (max-width: 700px) {
+  .personal-shelf__table td,
+  .personal-shelf__table th {
+    padding: 0.85rem;
+  }
+  .personal-shelf__table-book {
+    min-width: 13rem;
+    gap: 0.75rem;
+  }
 }
 .personal-shelf__empty {
   padding: 4rem 1rem;
   margin-top: 2rem;
   text-align: center;
-  background: url('../../shared/assets/book-detail-shelf.svg') bottom center /
+  background: url('../../shared/assets/personal-shelf-wood.svg') bottom center /
     100% 32px no-repeat;
 }
 .personal-shelf__empty p {
@@ -50,13 +581,51 @@
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
-@media (max-width: 760px) {
-  .personal-shelf__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+@media (max-width: 600px) {
+  .shelf-volume:not([data-expanded]) {
+    width: 2.75rem;
+  }
+  .shelf-volume__title {
+    font-size: 1.1rem;
+  }
+  .shelf-row__books {
+    padding-inline: 0.5rem;
+  }
+  .shelf-row__caption {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .shelf-row__selection {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+  .shelf-row__management {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: end;
+  }
+  .shelf-row__reading {
+    flex: 1 1 100%;
+  }
+  .shelf-row__buttons {
+    width: 100%;
+  }
+  .shelf-row__buttons .shelf-row__details {
+    flex: 1;
+    min-height: 2.75rem;
+  }
+  .shelf-row__buttons > button {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
   }
 }
-@media (max-width: 480px) {
-  .personal-shelf__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (prefers-reduced-motion: reduce) {
+  .shelf-volume,
+  .shelf-volume__spine,
+  .shelf-volume__front {
+    transition: none;
   }
 }

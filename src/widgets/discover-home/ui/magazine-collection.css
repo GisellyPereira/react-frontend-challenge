@@ -1,0 +1,179 @@
+.magazine-collection {
+  --magazine-gap: clamp(1rem, 2.5vw, 2rem);
+  position: relative;
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  border: 1px solid color-mix(in srgb, var(--book-teal), transparent 79%);
+  border-top: 3px solid var(--book-teal);
+  border-radius: 0.65rem;
+  background: color-mix(in srgb, var(--card), transparent 35%);
+}
+.magazine-collection__heading {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
+  gap: 3rem;
+  align-items: end;
+  padding-bottom: 2.5rem;
+  margin-bottom: 1.4rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--book-teal), transparent 80%);
+}
+.magazine-collection .home-eyebrow {
+  color: var(--text-teal);
+  font-weight: 600;
+  margin-bottom: 0.85rem;
+}
+.discover-home .magazine-collection h2 {
+  max-width: 17ch;
+  font-size: clamp(2.5rem, 4vw, 3.65rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  text-wrap: initial;
+}
+.magazine-collection h2 em {
+  display: block;
+  color: var(--text-teal);
+  margin-top: 0.06em;
+}
+.magazine-collection__intro {
+  width: 100%;
+  max-width: 24rem;
+  justify-self: end;
+}
+.magazine-collection__intro p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+  margin-bottom: 1.15rem;
+}
+.magazine-collection__action {
+  min-height: 2.8rem;
+  padding: 0.6rem 1.15rem;
+  font-size: 1.05rem;
+  border-color: color-mix(in srgb, var(--text-teal), transparent 48%);
+  color: var(--text-teal);
+  background: transparent;
+  border-radius: 0.45rem;
+}
+.magazine-collection__action:hover {
+  color: var(--paper);
+  background: var(--book-teal);
+}
+.magazine-collection__doodle {
+  position: absolute;
+  width: clamp(4rem, 6.5vw, 5.75rem);
+  left: 49%;
+  bottom: 2rem;
+  pointer-events: none;
+}
+.magazine-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.75rem var(--magazine-gap);
+}
+.magazine-card {
+  min-width: 0;
+}
+.magazine-card__link {
+  display: block;
+  height: 100%;
+  border-radius: 0.2rem;
+  outline-offset: 5px;
+}
+.magazine-card__link:focus-visible {
+  outline: 2px solid var(--book-teal);
+}
+.magazine-card__display {
+  position: relative;
+  isolation: isolate;
+  padding: 1rem clamp(0.5rem, 1.8vw, 1.5rem) 0.9rem;
+}
+.magazine-card__display::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 32% calc(var(--magazine-gap) / -2) 0.9rem;
+  background: color-mix(in srgb, var(--book-teal), transparent 93%);
+}
+.magazine-card__display::after {
+  content: '';
+  position: absolute;
+  inset: auto calc(var(--magazine-gap) / -2) -0.1rem;
+  height: 1.3rem;
+  background: url('../../../shared/assets/magazine-display-rail.svg') center /
+    100% 100% no-repeat;
+  pointer-events: none;
+}
+.magazine-card__info {
+  padding: 1rem clamp(0.5rem, 1.8vw, 1.5rem) 0;
+}
+.magazine-card h3 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.magazine-card__info p {
+  margin-top: 0.3rem;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+.magazine-collection__caption {
+  padding-top: 1.75rem;
+  text-align: right;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.magazine-card__skeleton {
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  border-radius: 0.15rem;
+}
+.magazine-card__skeleton-title,
+.magazine-card__skeleton-date {
+  margin: 1rem 1rem 0;
+  height: 1.25rem;
+  width: 70%;
+}
+.magazine-card__skeleton-date {
+  margin-top: 0.4rem;
+  width: 40%;
+  height: 1rem;
+}
+@media (hover: hover) {
+  .magazine-card__link:hover h3 {
+    color: var(--text-teal);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+@media (max-width: 960px) {
+  .magazine-collection__doodle {
+    display: none;
+  }
+  .magazine-collection__heading {
+    gap: 2rem;
+  }
+}
+@media (max-width: 700px) {
+  .magazine-collection__heading {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding-bottom: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .magazine-collection__intro {
+    justify-self: start;
+    max-width: 40ch;
+  }
+  .magazine-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .magazine-collection__caption {
+    text-align: center;
+  }
+}

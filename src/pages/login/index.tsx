@@ -10,6 +10,7 @@ import {
 import { gsap, useGSAP } from '@/shared/lib/gsap'
 import { LibrisLogo } from '@/shared/ui/libris-logo'
 import { BookshelfScene } from '@/widgets/bookshelf-scene'
+import { ThemeToggle } from '@/features/theme'
 
 export function LoginPage() {
   const pageRef = useRef<HTMLElement>(null)
@@ -50,8 +51,11 @@ export function LoginPage() {
   return (
     <main
       ref={pageRef}
-      className="min-h-svh overflow-x-hidden bg-background text-foreground"
+      className="relative min-h-svh overflow-x-hidden bg-background text-foreground"
     >
+      <div className="absolute top-4 right-5 z-10 sm:top-6 sm:right-8 md:right-[calc(56%+2rem)] xl:right-[calc(58%+2rem)]">
+        <ThemeToggle />
+      </div>
       <div className="grid min-h-svh grid-cols-1 md:grid-cols-[minmax(22rem,44%)_minmax(0,1fr)] xl:grid-cols-[42%_58%]">
         <section
           className="flex min-h-svh min-w-0 flex-col px-6 py-6 sm:px-12 sm:py-8 md:px-[clamp(2rem,4vw,4.5rem)] md:py-6 xl:px-[clamp(3rem,5vw,7rem)]"
@@ -64,7 +68,7 @@ export function LoginPage() {
               </div>
 
               <div className="mt-8 sm:mt-10" data-login-reveal>
-                <p className="text-[0.62rem] font-bold tracking-[0.2em] text-book-coral uppercase">
+                <p className="text-[0.62rem] font-bold tracking-[0.2em] text-text-coral uppercase">
                   De volta à sua estante
                 </p>
                 <h1

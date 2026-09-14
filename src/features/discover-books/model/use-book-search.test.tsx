@@ -14,7 +14,7 @@ import type {
 } from '@/entities/book'
 
 import { discoverSearchDefaults, type DiscoverSearch } from './discover-search'
-import { BOOK_SEARCH_DEBOUNCE_MS, useBookSearch } from './use-book-search'
+import { useBookSearch } from './use-book-search'
 
 const firstPage: BookSearchResult = {
   books: [],
@@ -91,15 +91,11 @@ describe('useBookSearch', () => {
       { wrapper: createWrapper() },
     )
 
-    act(() => {
-      vi.advanceTimersByTime(BOOK_SEARCH_DEBOUNCE_MS)
-    })
-
     expect(search).not.toHaveBeenCalled()
     expect(result.current.searchParams).toBeNull()
   })
 
-  it('espera o debounce e consulta somente o último termo digitado', async () => {
+  it('consulta o termo confirmado imediatamente, sem um segundo debounce', () => {
     const { repository, search } = createRepositoryFixture()
     const { result, rerender } = renderHook(
       ({ currentSearch }) => useBookSearch(currentSearch, repository),
@@ -109,28 +105,9 @@ describe('useBookSearch', () => {
       },
     )
 
-    rerender({ currentSearch: withSearch({ q: 'rea' }) })
-
-    act(() => {
-      vi.advanceTimersByTime(300)
-    })
-
     rerender({ currentSearch: withSearch({ q: 'react' }) })
-
-    act(() => {
-      vi.advanceTimersByTime(BOOK_SEARCH_DEBOUNCE_MS - 1)
-    })
-
-    expect(result.current.isDebouncing).toBe(true)
-    expect(search).not.toHaveBeenCalled()
-
-    await act(async () => {
-      await vi.advanceTimersByTimeAsync(1)
-    })
-
-    await vi.waitFor(() => {
-      expect(search).toHaveBeenCalledOnce()
-    })
+    expect(result.current.searchParams?.query).toBe('react')
+    expect(search).toHaveBeenCalledOnce()
 
     expect(search).toHaveBeenCalledWith(
       expect.objectContaining({ query: 'react' }),

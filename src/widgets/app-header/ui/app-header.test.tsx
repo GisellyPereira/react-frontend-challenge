@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-router'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { type AuthSession, useAuthStore } from '@/features/auth'
 
@@ -55,9 +55,18 @@ async function renderHeaderAt(
 
 describe('AppHeader', () => {
   beforeEach(() => {
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      },
+    )
     useAuthStore.setState({ session })
     useAuthStore.persist.clearStorage()
   })
+  afterEach(() => vi.unstubAllGlobals())
 
   it('mantém Descobrir ativo quando a URL contém uma pesquisa', async () => {
     await renderHeaderAt('/discover?q=Romance')
@@ -69,6 +78,24 @@ describe('AppHeader', () => {
     expect(
       screen.getByRole('link', { name: 'Minha estante' }),
     ).not.toHaveAttribute('aria-current')
+  })
+  it('abre a conta pelo avatar e fecha com Escape', async () => {
+    const { user } = await renderHeaderAt('/discover')
+    const trigger = screen.getByRole('button', {
+      name: 'Abrir opções da conta',
+    })
+    await user.click(trigger)
+    expect(screen.getByRole('dialog', { name: 'Sua conta' })).toHaveTextContent(
+      session.email,
+    )
+    expect(screen.getByRole('dialog', { name: 'Sua conta' })).toHaveTextContent(
+      'Sair',
+    )
+    await user.keyboard('{Escape}')
+    expect(
+      screen.queryByRole('dialog', { name: 'Sua conta' }),
+    ).not.toBeInTheDocument()
+    expect(trigger).toHaveFocus()
   })
 
   it('atualiza o marcador ativo durante a navegação', async () => {

@@ -1,5 +1,5 @@
 .radial-fill-button {
-  --radial-fill-color: var(--ink);
+  --radial-fill-color: var(--action-hover);
   --radial-fill-ease: cubic-bezier(0.625, 0.05, 0, 1);
 
   isolation: isolate;

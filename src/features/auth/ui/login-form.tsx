@@ -75,9 +75,9 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
               >
                 Email
               </Label>
-              <div className="group relative rounded-xl border border-ink/20 bg-paper/65 transition-[border-color,box-shadow,background-color] focus-within:border-book-coral focus-within:bg-paper focus-within:shadow-[0_0_0_4px_rgb(216_88_50_/_0.08)]">
+              <div className="group relative rounded-xl border border-border bg-card/65 transition-[border-color,box-shadow,background-color] focus-within:border-book-coral focus-within:bg-card focus-within:shadow-[0_0_0_4px_rgb(216_88_50_/_0.08)]">
                 <Input
-                  className="h-12 rounded-xl border-0 bg-transparent px-4 text-sm font-semibold text-ink shadow-none placeholder:text-ink/35 focus-visible:border-0 focus-visible:ring-0"
+                  className="h-12 rounded-xl border-0 bg-transparent px-4 text-sm font-semibold text-ink shadow-none placeholder:text-muted-foreground focus-visible:border-0 focus-visible:ring-0"
                   id={field.name}
                   name={field.name}
                   type="email"
@@ -124,9 +124,9 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
               >
                 Senha
               </Label>
-              <div className="group relative rounded-xl border border-ink/20 bg-paper/65 transition-[border-color,box-shadow,background-color] focus-within:border-book-coral focus-within:bg-paper focus-within:shadow-[0_0_0_4px_rgb(216_88_50_/_0.08)]">
+              <div className="group relative rounded-xl border border-border bg-card/65 transition-[border-color,box-shadow,background-color] focus-within:border-book-coral focus-within:bg-card focus-within:shadow-[0_0_0_4px_rgb(216_88_50_/_0.08)]">
                 <Input
-                  className="h-12 rounded-xl border-0 bg-transparent px-4 pr-12 text-sm font-semibold text-ink shadow-none placeholder:text-ink/35 focus-visible:border-0 focus-visible:ring-0"
+                  className="h-12 rounded-xl border-0 bg-transparent px-4 pr-12 text-sm font-semibold text-ink shadow-none placeholder:text-muted-foreground focus-visible:border-0 focus-visible:ring-0"
                   id={field.name}
                   name={field.name}
                   type={isPasswordVisible ? 'text' : 'password'}
@@ -141,7 +141,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
                   onChange={(event) => field.handleChange(event.target.value)}
                 />
                 <button
-                  className="absolute top-1/2 right-2 flex size-8 -translate-y-1/2 items-center justify-center rounded-full text-ink/45 transition-colors hover:bg-book-coral/10 hover:text-book-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-book-coral"
+                  className="absolute top-1/2 right-2 flex size-8 -translate-y-1/2 items-center justify-center rounded-full text-ink/45 transition-colors hover:bg-book-coral/10 hover:text-text-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-book-coral"
                   type="button"
                   aria-label={
                     isPasswordVisible ? 'Ocultar senha' : 'Mostrar senha'
@@ -177,7 +177,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
       <form.Subscribe selector={(state) => state.isSubmitting}>
         {(isSubmitting) => (
           <RadialFillButton
-            className="mt-2 h-12 w-full rounded-md border-transparent bg-book-coral px-5 text-sm font-bold text-paper shadow-none hover:border-transparent hover:bg-book-coral focus-visible:border-transparent focus-visible:ring-book-coral/35"
+            className="mt-2 h-12 w-full rounded-md border-transparent bg-action px-5 text-sm font-bold text-action-foreground shadow-none hover:border-transparent hover:bg-action/90 focus-visible:border-transparent focus-visible:ring-book-coral/35"
             type="submit"
             disabled={isSubmitting}
           >

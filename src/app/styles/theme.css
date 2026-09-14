@@ -23,6 +23,22 @@
   --ring: #2c7771;
   --radius: 0.75rem;
 
+  /* Book artwork keeps its original pigments in both themes. */
+  --illustration-ink: #202923;
+  --shadow-ink: #202923;
+  --text-teal: #2c7771;
+  --text-coral: #b64a2a;
+  --text-gold: #956000;
+  --action-background: #d85832;
+  --action-foreground: #fffdf6;
+  --action-hover: #202923;
+  --action-hover-foreground: #fffdf6;
+  --surface-warm: #eee3c9;
+  --surface-sage: #d5e2d6;
+  --surface-olive: #dce2bd;
+  --surface-gold: #eee0b8;
+  --surface-success: #dbe5d7;
+  --footer-surface: color-mix(in srgb, var(--book-sand) 28%, transparent);
   --paper: #fffdf6;
   --ink: #202923;
   --ink-soft: #34443a;
@@ -58,36 +74,50 @@
 }
 
 .dark {
-  --background: oklch(0.205 0.035 164);
-  --foreground: oklch(0.95 0.02 88);
-  --card: oklch(0.255 0.045 164);
-  --card-foreground: oklch(0.95 0.02 88);
-  --popover: oklch(0.255 0.045 164);
-  --popover-foreground: oklch(0.95 0.02 88);
-  --primary: oklch(0.72 0.1 164);
-  --primary-foreground: oklch(0.19 0.034 164);
-  --secondary: oklch(0.71 0.13 82);
-  --secondary-foreground: oklch(0.19 0.034 164);
-  --muted: oklch(0.3 0.038 164);
-  --muted-foreground: oklch(0.74 0.025 88);
-  --accent: oklch(0.41 0.068 164);
-  --accent-foreground: oklch(0.95 0.02 88);
-  --destructive: oklch(0.68 0.19 28);
-  --border: oklch(0.95 0.02 88 / 0.15);
-  --input: oklch(0.95 0.02 88 / 0.2);
-  --ring: oklch(0.68 0.088 164);
+  color-scheme: dark;
+  --background: #1c2421;
+  --surface-paper: #1c2421;
+  --foreground: #f1ebdd;
+  --card: #29332e;
+  --card-foreground: #f1ebdd;
+  --popover: #303c35;
+  --popover-foreground: #f1ebdd;
+  --primary: #a2c9b8;
+  --primary-foreground: #1c2923;
+  --secondary: #dfb46e;
+  --secondary-foreground: #25251e;
+  --muted: #36413a;
+  --muted-foreground: #bbc5bb;
+  --accent: #42564a;
+  --accent-foreground: #f1ebdd;
+  --destructive: #f0a497;
+  --border: #536257;
+  --input: #637167;
+  --ring: #b1d3bf;
 
-  --paper: oklch(0.94 0.018 88);
-  --ink: oklch(0.2 0.038 164);
-  --ink-soft: oklch(0.27 0.052 164);
-  --ink-grid: oklch(0.95 0.02 88 / 0.04);
+  --ink: var(--foreground);
+  --ink-soft: #bbc5bb;
+  --shadow-ink: #080e0b;
+  --text-teal: #a2c9b8;
+  --text-coral: #edac8d;
+  --text-gold: #dfb46e;
+  --action-background: #e59b79;
+  --action-foreground: #1c2923;
+  --action-hover: #f0b697;
+  --action-hover-foreground: #1c2923;
+  --surface-warm: #343e31;
+  --surface-sage: #354c3e;
+  --surface-olive: #414c33;
+  --surface-gold: #4a402d;
+  --surface-success: #354c3e;
+  --footer-surface: #242e28;
 
-  --sidebar: oklch(0.225 0.038 164);
-  --sidebar-foreground: oklch(0.95 0.02 88);
-  --sidebar-primary: var(--book-gold);
-  --sidebar-primary-foreground: oklch(0.19 0.034 164);
-  --sidebar-accent: oklch(0.31 0.052 164);
-  --sidebar-accent-foreground: oklch(0.95 0.02 88);
+  --sidebar: #242e28;
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 }

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Fantasia — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#302b20" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#c68808"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#302b20" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#302b20" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><path d="M74 140V76A43 43 0 0 1 86 46A43 43 0 0 1 148 76V140M82 140V76A35 35 0 0 1 140 76V140" /><path d="M68 140H155M89 133H134M94 125H130M100 116H124M91 101 101 75 111 101ZM117 101 131 65 141 101M96 84V67H106V83M126 78V55L131 46 136 55V82" /><circle cx="111" cy="51" r="8" fill="currentColor" fill-opacity=".12"/><path d="M162 37Q162 44 169 44Q162 44 162 51Q162 44 155 44Q162 44 162 37Z" fill="currentColor" stroke="none"/><path d="M60 89Q60 93 64 93Q60 93 60 97Q60 93 56 93Q60 93 60 89Z" fill="currentColor" stroke="none"/><path d="M93 140 108 106H120L135 140" opacity=".55"/></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

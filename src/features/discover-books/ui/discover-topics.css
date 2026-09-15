@@ -1,0 +1,186 @@
+.discover-topics {
+  min-width: 0;
+}
+
+.discover-suggestions {
+  align-items: end;
+  display: grid;
+  gap: clamp(0.75rem, 1.7vw, 1.35rem);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin-top: 1rem;
+  padding: 0 0.5rem 1.2rem 0;
+}
+.discover-topics__navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--ink-soft);
+}
+.discover-topics__navigation > span {
+  font-size: 1.1rem;
+}
+.discover-topics__navigation > div {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.discover-topics__navigation > div > span {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .discover-suggestions {
+    animation: topics-arrive 240ms ease-out;
+  }
+  @keyframes topics-arrive {
+    from {
+      opacity: 0.3;
+      transform: translateX(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.discover-suggestion {
+  --ink: var(--illustration-ink);
+  --suggestion-background: var(--book-coral);
+  --suggestion-foreground: var(--paper);
+  aspect-ratio: 11 / 14;
+  container-type: inline-size;
+  background: var(--suggestion-background);
+  border: 1px solid color-mix(in oklch, var(--ink), transparent 58%);
+  border-radius: 0.2rem 0.75rem 0.75rem 0.2rem;
+  box-shadow:
+    0.4rem 0.5rem 0 color-mix(in oklch, var(--shadow-ink), transparent 88%),
+    0 1rem 2rem color-mix(in oklch, var(--shadow-ink), transparent 91%);
+  color: var(--suggestion-foreground);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  padding: 12% 10% 10% 16%;
+  position: relative;
+  text-align: left;
+  transform-origin: bottom center;
+  transition:
+    box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.discover-suggestion__artwork {
+  height: 100%;
+  inset: 0;
+  object-fit: fill;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+.discover-suggestion[data-tone='blue'] {
+  --suggestion-background: var(--book-blue);
+}
+
+.discover-suggestion[data-tone='gold'] {
+  --suggestion-background: var(--book-gold);
+  --suggestion-foreground: var(--ink);
+}
+
+.discover-suggestion[data-tone='teal'] {
+  --suggestion-background: var(--book-teal);
+}
+
+.discover-suggestion[data-tone='wine'] {
+  --suggestion-background: var(--book-wine);
+}
+
+.discover-suggestion[data-tone='rose'] {
+  --suggestion-background: var(--book-rose);
+  --suggestion-foreground: var(--ink);
+}
+
+.discover-suggestion[data-tone='olive'] {
+  --suggestion-background: var(--book-olive);
+}
+
+.discover-suggestion[data-tone='sand'] {
+  --suggestion-background: var(--book-sand);
+  --suggestion-foreground: var(--ink);
+}
+
+.discover-suggestion__number {
+  font-size: clamp(0.55rem, 6cqi, 0.72rem);
+  position: relative;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.discover-suggestion__label {
+  font-size: clamp(0.88rem, 13cqi, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  margin-top: auto;
+  max-width: 100%;
+  min-height: 2.04em;
+  display: flex;
+  align-items: end;
+  position: relative;
+  text-wrap: balance;
+  z-index: 1;
+}
+
+.discover-suggestion__subtitle {
+  font-size: clamp(0.43rem, 4.7cqi, 0.63rem);
+  letter-spacing: 0.16em;
+  line-height: 1.45;
+  margin-top: 0.65em;
+  min-height: 2.9em;
+  max-width: 85%;
+  opacity: 0.78;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.discover-suggestion:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 5px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .discover-suggestion:hover {
+    box-shadow:
+      0.52rem 0.65rem 0 color-mix(in oklch, var(--shadow-ink), transparent 84%),
+      0 1.5rem 2.6rem color-mix(in oklch, var(--shadow-ink), transparent 87%);
+    transform: translateY(-0.7rem);
+  }
+}
+
+@media (max-width: 1023px) {
+  .discover-suggestions {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .discover-suggestions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .discover-suggestions {
+    gap: 0.55rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .discover-suggestion {
+    transition-duration: 0.01ms;
+  }
+}

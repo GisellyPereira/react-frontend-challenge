@@ -1,0 +1,29 @@
+[data-sonner-toast].libris-toast {
+  padding: 1rem 1.1rem;
+  border-inline-start: 4px solid var(--text-teal);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--shadow-ink) 15%, transparent);
+  font-family: var(--font-family-ui);
+}
+[data-sonner-toast].libris-toast[data-type='error'] {
+  border-inline-start-color: var(--text-coral);
+}
+.libris-toast [data-icon] {
+  color: var(--text-teal);
+}
+.libris-toast[data-type='error'] [data-icon] {
+  color: var(--text-coral);
+}
+.libris-toast .libris-toast__title {
+  font-size: 1.1rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+.libris-toast .libris-toast__description {
+  color: var(--muted-foreground);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.libris-toast [data-close-button]:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}

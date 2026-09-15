@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 280" fill="none">
+  <title>Literatura brasileira — capa ilustrada</title>
+  <defs>
+    <linearGradient id="cloth" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+    <linearGradient id="spine"><stop stop-color="#000" stop-opacity=".24"/><stop offset=".5" stop-color="#000" stop-opacity=".03"/><stop offset=".8" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient>
+    <pattern id="weave" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H4M.5 0V4" stroke="#fff0c9" stroke-opacity=".045" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="220" height="280" rx="8" fill="#bc472f"/>
+  <rect width="220" height="280" rx="8" fill="url(#cloth)"/>
+  <rect width="220" height="280" rx="8" fill="url(#weave)"/>
+  <path d="M8 0H19V280H8Z" fill="url(#spine)"/>
+  <path d="M20 6H210Q214 6 214 10V270" stroke="#fff0c9" stroke-opacity=".32"/>
+  <path d="M22 0V280" stroke="#000" stroke-opacity=".16"/>
+  <g color="#fff0c9" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(5 4)"><circle cx="146" cy="56" r="25" opacity=".5"/><circle cx="146" cy="56" r="19" opacity=".3"/><path d="M109 143Q99 92 113 46M108 119Q131 104 148 87M106 98Q81 79 72 64" /><g transform="translate(108 116) rotate(-38) scale(0.75)"><path d="M0 0C-24-12-24-40 0-58C24-40 24-12 0 0ZM0 0V-53M0-12-12-26M0-24 13-39M0-34-9-43" /></g><g transform="translate(112 88) rotate(26) scale(0.73)"><path d="M0 0C-24-12-24-40 0-58C24-40 24-12 0 0ZM0 0V-53M0-12-12-26M0-24 13-39M0-34-9-43" /></g><g transform="translate(132 105) rotate(56) scale(0.65)"><path d="M0 0C-24-12-24-40 0-58C24-40 24-12 0 0ZM0 0V-53M0-12-12-26M0-24 13-39M0-34-9-43" /></g><path d="M57 145Q83 131 110 145T176 140M58 151Q88 139 111 151T174 146" opacity=".45"/></g>
+    <path d="M36 167H65M36 172H53" opacity=".7"/>
+    <path d="M173 253H195M181 258H195" opacity=".55"/>
+    <path d="M36 262H151" opacity=".16"/>
+  </g>
+</svg>

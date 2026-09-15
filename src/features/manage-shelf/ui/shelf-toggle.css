@@ -1,0 +1,25 @@
+.shelf-toggle__button {
+  min-height: 2.8rem;
+  padding-inline: 1rem;
+  border-color: var(--text-teal);
+  background: transparent;
+  color: var(--text-teal);
+}
+.shelf-toggle__button:hover {
+  background: var(--book-teal);
+  color: var(--paper);
+}
+.shelf-toggle__button[data-saved='true'] {
+  border-color: var(--text-coral);
+  color: var(--text-coral);
+}
+.shelf-toggle__button[data-saved='true']:hover {
+  background: color-mix(in srgb, var(--text-coral) 12%, transparent);
+}
+.shelf-toggle__error {
+  max-width: 32rem;
+  margin-top: 0.65rem;
+  color: var(--destructive);
+  font-size: 1rem;
+  line-height: 1.4;
+}

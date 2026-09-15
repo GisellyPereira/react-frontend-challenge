@@ -1,0 +1,236 @@
+.discover-page {
+  color: var(--ink);
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+}
+
+.discover-hero {
+  background: transparent;
+  color: var(--foreground);
+  overflow: hidden;
+  position: relative;
+}
+
+.discover-hero__inner {
+  display: grid;
+  margin-inline: auto;
+  max-width: 90rem;
+  min-height: clamp(25rem, 39vw, 29rem);
+  padding: clamp(3.75rem, 5vw, 4.75rem) clamp(1.25rem, 4vw, 4rem)
+    clamp(1.5rem, 2.5vw, 2rem);
+  place-items: center;
+  position: relative;
+}
+
+.discover-hero__content {
+  max-width: 58rem;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.discover-hero__copy {
+  max-width: 58rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.discover-hero__title {
+  color: var(--ink);
+  font-size: clamp(3.2rem, 5.6vw, 5.35rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  margin-inline: auto;
+  max-width: 100%;
+  text-wrap: balance;
+}
+
+.discover-hero__line {
+  display: block;
+  white-space: nowrap;
+}
+
+.discover-script {
+  display: inline-block;
+  font-family: var(--font-family-accent);
+  font-size: 1.03em;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.74;
+  margin-right: 0.1em;
+  transform: rotate(-1deg) translateY(-0.015em);
+  transform-origin: 70% 70%;
+}
+
+.discover-hero__description {
+  color: color-mix(in srgb, var(--ink), transparent 24%);
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  font-weight: 400;
+  letter-spacing: 0.012em;
+  line-height: 1.35;
+  margin: 0.9rem auto 0;
+  max-width: 42ch;
+}
+
+.discover-hero__controls {
+  margin: clamp(1.15rem, 2vw, 1.55rem) auto 0;
+  max-width: 41rem;
+  width: 100%;
+}
+
+.discover-hero__ornament {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.discover-hero__ornament img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.dark .discover-hero__ornament--left img {
+  content: url('../../shared/assets/discover-hero-book-stories-dark.svg');
+}
+.dark .discover-hero__ornament--right img {
+  content: url('../../shared/assets/discover-hero-bookmarks-dark.svg');
+}
+.dark .discover-hero__ornament--daily img {
+  content: url('../../shared/assets/discover-hero-daily-stories-dark.svg');
+}
+
+.discover-hero__ornament--left {
+  left: clamp(0.75rem, 3.5vw, 3.5rem);
+  top: 47%;
+  transform: translateY(-50%);
+  width: clamp(8rem, 14vw, 12rem);
+}
+
+.discover-hero__ornament--right {
+  right: clamp(0.75rem, 3vw, 3rem);
+  top: 34%;
+  transform: translateY(-50%);
+  width: clamp(7rem, 12vw, 10rem);
+}
+
+.discover-hero__ornament--daily {
+  bottom: clamp(1rem, 2vw, 1.75rem);
+  right: clamp(1.25rem, 6vw, 5.75rem);
+  width: clamp(8rem, 12vw, 11rem);
+}
+
+.discover-catalog {
+  margin-inline: auto;
+  max-width: 90rem;
+  padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(1.25rem, 4vw, 4rem) 6rem;
+  position: relative;
+  width: 100%;
+}
+
+.discover-hero + .discover-catalog {
+  margin-top: 1rem;
+  padding-bottom: 3rem;
+}
+
+.discover-browser {
+  display: grid;
+  min-width: 0;
+}
+
+.discover-browser__intro {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.discover-browser__title {
+  font-size: clamp(2.1rem, 3.8vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.discover-browser__description {
+  max-width: 28ch;
+  margin-top: 0.85rem;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: var(--muted-foreground);
+}
+
+.discover-browser__shelf {
+  margin-top: 0;
+  overflow: hidden;
+  pointer-events: none;
+  width: 100%;
+}
+
+.discover-browser__shelf-artwork {
+  display: block;
+  height: auto;
+  user-select: none;
+  width: 100%;
+}
+
+.dark .discover-browser__shelf-artwork {
+  content: url('../../shared/assets/discover-shelf-accent-dark.svg');
+}
+
+@media (max-width: 980px) {
+  .discover-hero__ornament {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .discover-browser__shelf {
+    margin-top: 1.25rem;
+  }
+}
+@media (max-width: 600px) {
+  .discover-browser__shelf-artwork {
+    aspect-ratio: 720 / 280;
+    height: auto;
+    object-fit: contain;
+  }
+  .dark .discover-browser__shelf-artwork {
+    content: url('../../shared/assets/discover-shelf-accent-mobile-dark.svg');
+  }
+}
+
+@media (max-width: 680px) {
+  .discover-hero + .discover-catalog {
+    margin-top: 0.5rem;
+  }
+
+  .discover-hero__inner {
+    min-height: 30rem;
+    padding-bottom: 2.25rem;
+    padding-top: 2.25rem;
+  }
+
+  .discover-hero__title {
+    font-size: clamp(2rem, 7.8vw, 3.9rem);
+    max-width: 100%;
+  }
+
+  .discover-hero__controls {
+    margin-top: 1.8rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .discover-catalog {
+    padding-bottom: 4.5rem;
+  }
+
+  .discover-hero__inner {
+    min-height: 29rem;
+  }
+
+  .discover-hero__description {
+    font-size: 0.9rem;
+    max-width: 30ch;
+  }
+}

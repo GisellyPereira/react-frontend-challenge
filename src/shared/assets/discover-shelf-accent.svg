@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1406 280" fill="none">
+  <defs>
+    <filter id="shelf-board-shadow" x="0" y="215" width="1406" height="58" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#2b2119" flood-opacity=".17"/>
+    </filter>
+    <filter id="shelf-book-shadow" x="640" y="60" width="766" height="205" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="2" dy="3" stdDeviation="2.5" flood-color="#20362f" flood-opacity=".12"/>
+    </filter>
+  </defs>
+
+  <g id="discover-shelf-accent" stroke-linecap="round" stroke-linejoin="round">
+    <g fill="#3f5e54" font-family="Arial Narrow, Arial, sans-serif" font-size="12.5" font-stretch="condensed" font-weight="700" letter-spacing="2.15">
+      <text x="936" y="29">SUA PRÓXIMA</text>
+      <text x="936" y="46">LEITURA PODE</text>
+      <text x="936" y="63">ESTAR AQUI</text>
+    </g>
+
+    <path d="M913 32c-17 3-30 10-38 21-4 6-6 12-6 19" stroke="#29483f" stroke-width="2.2"/>
+    <path d="m862 63 7 9 7-10" stroke="#29483f" stroke-width="2.2"/>
+    <path d="M891 40c-8 4-14 10-18 17" stroke="#71867e" stroke-width="1.25" opacity=".5"/>
+    <path d="m848 107-10-13m4 25-15-6m28-11-2-17" stroke="#46645a" stroke-width="2" opacity=".86"/>
+
+    <g filter="url(#shelf-book-shadow)">
+      <g>
+        <path d="M698 213c0-5 4-8 9-8h140c5 0 8 3 8 8v14H698v-14Z" fill="#df5836" stroke="#5d3824" stroke-width="2"/>
+        <path d="M707 207h132" stroke="#f28a6d" stroke-width="1.2" opacity=".62"/>
+
+        <path d="M704 194c0-5 4-8 9-8h129c5 0 8 3 8 8v13H704v-13Z" fill="#e9c79f" stroke="#5d3824" stroke-width="2"/>
+        <path d="M714 188h120" stroke="#fff3df" stroke-width="1.2" opacity=".8"/>
+
+        <path d="M696 175c0-5 4-8 9-8h137c5 0 8 3 8 8v13H696v-13Z" fill="#2c7771" stroke="#5d3824" stroke-width="2"/>
+        <path d="M706 169h127" stroke="#77aaa2" stroke-width="1.2" opacity=".65"/>
+
+        <path d="M703 156c0-5 4-8 9-8h145c5 0 8 3 8 8v13H703v-13Z" fill="#d68a00" stroke="#5d3824" stroke-width="2"/>
+        <path d="M713 150h134" stroke="#f3b82c" stroke-width="1.3" opacity=".8"/>
+      </g>
+
+      <g transform="rotate(-7 887 229)">
+        <path d="M862 89c0-5 4-9 9-9h32c5 0 9 4 9 9v140h-50V89Z" fill="#315d83" stroke="#29483f" stroke-width="2.2"/>
+        <path d="M870 97h34" stroke="#6489a7" stroke-width="1.2" opacity=".75"/>
+        <circle cx="887" cy="106" r="4" fill="#f3d47a" stroke="#29483f" stroke-width="1.2"/>
+        <path d="M870 213h34" stroke="#f4e2bc" stroke-width="2" opacity=".85"/>
+      </g>
+
+      <path d="M918 127c0-7 6-13 13-13h16c7 0 13 6 13 13v102h-42V127Z" fill="#667539" stroke="#34443a" stroke-width="2.1"/>
+      <path d="M920 134h38m-38 9h38" stroke="#d8cf85" stroke-width="2"/>
+      <path d="M926 213h26" stroke="#d8cf85" stroke-width="1.7" opacity=".8"/>
+
+      <path d="M969 104c0-5 4-8 9-8h27c5 0 9 3 9 8v125h-45V104Z" fill="#d85832" stroke="#5b3528" stroke-width="2.1"/>
+      <path d="M977 116h29" stroke="#f4e2bc" stroke-width="2"/>
+      <text x="988" y="155" fill="#253830" font-family="Arial Narrow, Arial, sans-serif" font-size="8.5" font-weight="700" letter-spacing="1.4" transform="rotate(90 988 155)">CONTOS</text>
+
+      <g transform="rotate(2.5 1043 229)">
+        <path d="M1022 125c0-7 6-13 13-13h16c7 0 13 6 13 13v104h-42V125Z" fill="#d98591" stroke="#754451" stroke-width="2.1"/>
+        <path d="M1030 136c0-4 3-7 7-7h12c4 0 7 3 7 7v44h-26v-44Z" fill="none" stroke="#d68a00" stroke-width="2"/>
+        <rect x="1033" y="184" width="20" height="39" rx="10" fill="#fffdf6" stroke="#cfc8b7" stroke-width="1.2"/>
+        <text x="1043" y="193" fill="#34443a" font-family="Arial Narrow, Arial, sans-serif" font-size="6.6" font-weight="700" letter-spacing=".9" transform="rotate(90 1043 193)">ENSAIOS</text>
+      </g>
+
+      <path d="M1074 111c0-8 6-15 14-15h16c8 0 14 7 14 15v118h-44V111Z" fill="#e9c79f" stroke="#8b6b4a" stroke-width="2.1"/>
+      <circle cx="1096" cy="118" r="4.2" fill="#fffdf6" stroke="#315d83" stroke-width="1.3"/>
+      <path d="M1082 212h28" stroke="#fff3df" stroke-width="1.8"/>
+
+      <path d="M1127 132c0-5 4-8 9-8h29c5 0 9 3 9 8v97h-47v-97Z" fill="#d68a00" stroke="#6d4a12" stroke-width="2.1"/>
+      <path d="M1129 139h43m-43 9h43" stroke="#fff3df" stroke-width="2.1"/>
+      <path d="M1137 214h27" stroke="#f4e2bc" stroke-width="1.7"/>
+
+      <g transform="rotate(-2.5 1208 229)">
+        <path d="M1185 111c0-6 5-10 11-10h24c6 0 11 4 11 10v118h-46V111Z" fill="#701f3c" stroke="#482032" stroke-width="2.1"/>
+        <path d="M1193 121h30" stroke="#281f22" stroke-width="2"/>
+        <text x="1204" y="168" fill="#e9c79f" font-family="Arial Narrow, Arial, sans-serif" font-size="8" font-weight="700" letter-spacing="1.2" transform="rotate(90 1204 168)">FICÇÃO</text>
+      </g>
+
+      <path d="M1242 145c0-7 6-13 13-13h16c7 0 13 6 13 13v84h-42v-84Z" fill="#2c7771" stroke="#29483f" stroke-width="2.1"/>
+      <path d="M1250 151c0-5 4-9 9-9h8c5 0 9 4 9 9v29h-26v-29Z" fill="none" stroke="#d68a00" stroke-width="2.2"/>
+      <path d="M1250 215h26" stroke="#f4e2bc" stroke-width="1.8" opacity=".8"/>
+    </g>
+
+    <g filter="url(#shelf-board-shadow)">
+      <path d="M11 228c243-2 459 1 698 0 232-1 455-3 680 0 4 0 7 3 7 7v13c0 4-3 7-7 7-234-3-460 0-687 0-232 0-458-2-691 0-4 0-7-3-7-7v-13c0-4 3-7 7-7Z" fill="#8b5a35" stroke="#5d3824" stroke-width="2.2"/>
+      <path d="M12 231c263-2 484 1 710 0 229-1 448-3 668 0" stroke="#b67b48" stroke-width="3" opacity=".92"/>
+      <path d="M42 243c176 3 317-2 492 0m75 3c194-4 391 2 582-1m74-4c43-1 77 0 113 2" stroke="#6d442b" stroke-width="1.15" opacity=".48"/>
+      <path d="M155 236c57 3 111 2 166 0m452 6c83-3 152-2 231 1" stroke="#c78a52" stroke-width=".9" opacity=".42"/>
+    </g>
+  </g>
+</svg>

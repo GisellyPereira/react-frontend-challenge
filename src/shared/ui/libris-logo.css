@@ -1,0 +1,16 @@
+.libris-logo {
+  display: block;
+  height: auto;
+}
+
+.libris-logo--compact {
+  width: 3.75rem;
+}
+
+.libris-logo--display {
+  width: clamp(7.75rem, 10vw, 10rem);
+}
+
+.dark .libris-logo {
+  content: url('../assets/libris-logo-dark.svg');
+}

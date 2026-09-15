@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 500" fill="none">
+  <defs>
+    <clipPath id="alcove"><path d="M63 444V216C63 108 130 38 240 38s177 70 177 178v228Z"/></clipPath>
+    <pattern id="grain" width="19" height="21" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="5" r=".6" fill="#fff8df" opacity=".2"/>
+      <path d="m12 15 2-1" stroke="#182e29" stroke-opacity=".13" stroke-width=".7"/>
+    </pattern>
+  </defs>
+  <!-- A quiet reading nook, printed as an illustration on the closed cover. -->
+  <path d="M63 444V216C63 108 130 38 240 38s177 70 177 178v228Z" fill="#2c6861"/>
+  <g clip-path="url(#alcove)">
+    <circle cx="151" cy="148" r="57" fill="#e4b85d"/>
+    <path d="M90 403c80-42 202-23 337-60v109H56Z" fill="#23564f"/>
+    <path d="M196 39v396M333 65v365M65 229h354" stroke="#90a898" stroke-width="1.2" opacity=".6"/>
+    <path d="M64 291c51-9 76-32 107-21 28 10 48 34 69 32 54-6 108-58 179-27" stroke="#a9b692" stroke-width="1" opacity=".35"/>
+    <path d="M68 357c93-22 221 24 349-35" stroke="#a9b692" opacity=".24"/>
+    <path d="M109 88c-6 78-27 137-44 176M370 88c24 49 33 111 47 142" stroke="#fff6df" stroke-width="1.5" opacity=".35"/>
+    <path d="M63 38h354v408H63Z" fill="url(#grain)"/>
+  </g>
+  <path d="M54 444V218C54 103 127 28 240 28s187 75 187 190v226" stroke="#a9aa85" stroke-width="1.1"/>
+  <!-- Low reading chair and cushion. -->
+  <path d="M174 320c-20-17-41-70-26-87 11-14 37-9 52 6l97 72 58-4c28-4 55 3 59 25 3 14-9 29-29 34l-148 19Z" fill="#d4a76b" stroke="#39483b" stroke-width="2"/>
+  <path d="m167 264 43 52 121 16c27 3 59-4 73-8M224 367l-15 71m156-80 17 80" stroke="#39483b" stroke-width="3" stroke-linecap="round"/>
+  <path d="m218 368-14 70h12l16-73m126-4 19 77h11l-13-80" fill="#b48552"/>
+  <!-- Soft trouser folds; the crossed foot is relaxed and the other rests on the floor. -->
+  <path d="M214 299c34-3 91 4 117 17 17 8 21 23 10 34-17 18-53 31-87 52l-17-19c21-17 40-31 61-44-35 0-68-1-93-8Z" fill="#315d83" stroke="#283e40" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M210 320c31-3 66 1 88 18 10 8 14 22 15 36l2 50c-7 5-17 5-25 2-2-19-7-39-13-56-23-4-49-6-69-15-14-6-20-21-13-31Z" fill="#3d708d" stroke="#283e40" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M225 330c28 1 53 8 64 21 10 13 10 40 13 65m-43-31c11-8 22-15 32-20m-18-19 13 4m-17 4 11 3" stroke="#aac2bd" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="m239 384 16 17-10 8c-5-3-10-8-13-14Z" fill="#d79a6c" stroke="#513e32" stroke-width="1.1"/>
+  <path d="M232 395c3 5 9 10 15 13-3 9-14 15-25 21-7 3-17 7-21 3-5-5 2-10 8-15 7-6 13-13 16-20Z" fill="#f5e7c9" stroke="#304338" stroke-width="1.7" stroke-linejoin="round"/>
+  <path d="M291 424c6 2 14 3 22 0l1 12-23 1Z" fill="#d79a6c" stroke="#513e32" stroke-width="1.1"/>
+  <path d="M291 433c7 3 15 3 22 0 4 5 10 8 19 10 9 2 13 5 11 10-2 4-10 4-18 4h-31c-7 0-9-4-8-10l2-10Z" fill="#f5e7c9" stroke="#304338" stroke-width="1.7" stroke-linejoin="round"/>
+  <path d="M202 432c11-1 22-8 29-14m-10-10 6 6m-1-10 6 6m58 42h49m-36-13-3 6m11-4-3 6" stroke="#a89b7f" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Coral knitted top. -->
+  <path d="M221 180c-25-1-44 17-51 45l-18 69c-6 25 17 38 46 37 22-1 43-8 54-22l-7-94Z" fill="#cd6748" stroke="#513e32" stroke-width="2"/>
+  <path d="M172 225c-8 30-12 60-9 74 3 14 23 15 42 10m-11-109-10 54m45 34 13 19m-50-10 10-20" stroke="#9c4535" stroke-width="2" stroke-linecap="round"/>
+  <g stroke="#efb084" stroke-width="1" stroke-linecap="round" opacity=".75">
+    <path d="m177 314 0 10m7-10 0 10m7-11 1 10m7-12 1 10m7-12 2 9m7-13 2 9m6-13 3 9m6-13 4 8"/>
+    <path d="m170 249 4-13m-6 25 2-6m23-44 4-10m-13 82 3-8"/>
+  </g>
+  <!-- Head, hair, and small facial details. -->
+  <path d="m223 160-7 26c7 13 22 17 31 6l-4-28Z" fill="#b8754e" stroke="#513e32" stroke-width="1.6"/>
+  <path d="M208 113c12-19 41-20 56-5 9 10 10 28 9 40l8 12-9 5c-3 17-12 25-26 22-18-4-31-16-37-31Z" fill="#d79a6c" stroke="#513e32" stroke-width="1.7"/>
+  <path d="M213 150c16-1 21-20 24-36 13 6 26 7 37 1-4-26-33-41-55-26-17-3-32 10-31 28-16 15-6 37 1 41-4 24 15 36 30 25l11-10c-13-6-16-13-17-23Z" fill="#29392f"/>
+  <path d="M202 111c4-11 13-15 23-13m-26 29c-8 7-7 19-3 25m8 10c-3 9 3 16 9 17m24-79c8 8 13 10 22 12" stroke="#68765b" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M218 143c-11-9-16 3-8 11l8 3" fill="#d79a6c" stroke="#513e32" stroke-width="1.5"/>
+  <path d="m257 142 8 3m-7-8 8 2m-3 33 7-1" stroke="#513e32" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="216" cy="156" r="3.7" fill="#e8bd60"/>
+  <!-- Arms and the book she is holding. -->
+  <path d="M239 205c10 14 10 36 23 43l32-6 5 17-40 14c-18 1-31-24-40-39" fill="#cd6748" stroke="#513e32" stroke-width="2" stroke-linecap="round"/>
+  <path d="m284 244 14-12 16-2 5 7-15 9-6 13Z" fill="#d79a6c" stroke="#513e32" stroke-width="1.6"/>
+  <path d="m263 211 49 13 39-17-18 65-36 11-39-17Z" fill="#d9ac52" stroke="#34483c" stroke-width="2" stroke-linejoin="round"/>
+  <path d="m267 207 45 13 36-16-19 60-32 12-35-15Z" fill="#fff6df" stroke="#34483c" stroke-width="1.4" stroke-linejoin="round"/>
+  <path d="m312 220-15 56m-24-58 25 8m-27 1 25 8m-27 1 25 8m-27 1 24 8m30-27 18-8m-21 17 18-8m-21 17 18-8" stroke="#b9ac8d" stroke-width="1"/>
+  <path d="M199 250c9 10 24 22 40 26l32-15 8 14-35 24c-24 7-43-8-59-22" fill="#dc7856" stroke="#513e32" stroke-width="2"/>
+  <path d="m265 264 9-8c2-5 6-11 10-12 3-1 5 2 3 5l-3 6 10-5c4-2 7 2 4 5l-9 6 8-3c4-1 6 3 2 5l-9 5c-6 4-11 7-15 7Z" fill="#d79a6c" stroke="#513e32" stroke-width="1.4" stroke-linejoin="round"/>
+  <path d="m277 262 6-6m-3 11 9-6m-12 10 12-6" stroke="#a96f4d" stroke-width="1" stroke-linecap="round"/>
+  <path d="m262 261 10 18m-16-16 10 18" stroke="#efb084" stroke-width="1.4"/>
+  <!-- Plant and a short stack of books anchor the composition. -->
+  <g stroke="#455840" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M443 395c-7-54-11-93 2-132m-5 96 26-33m-28 8-22-37"/>
+    <path d="M444 292c-12-27-2-43 16-54 0 27-2 42-16 54Z" fill="#83904e"/>
+    <path d="M439 334c-25-9-33-26-33-48 23 12 31 25 33 48Z" fill="#a7aa68"/>
+    <path d="M448 352c5-26 24-37 45-36-13 23-23 35-45 36Z" fill="#8f9a59"/>
+    <path d="m416 304 20 24m14 17 27-21m-32-46 9-26" stroke-width="1"/>
+    <path d="m416 386 52 1-9 56h-32Z" fill="#bf7050"/>
+    <path d="m414 382 57 1-2 10-54-1Z" fill="#db9470"/>
+    <path d="m425 400 6 34m29-32-5 31" stroke="#e8b594" stroke-width="1"/>
+  </g>
+  <path d="M77 430h81v15H76Z" fill="#d98591" stroke="#49503d" stroke-width="1.5"/>
+  <path d="M88 416h63v14H87Z" fill="#f0d8a3" stroke="#49503d" stroke-width="1.5"/>
+  <path d="m94 422 50 0m-45 4h44m-60 10h66" stroke="#b29474" stroke-width="1"/>
+  <path d="M42 446c82-2 164-3 230-3m77 2 130 0" stroke="#777c5c" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M285 459c18 2 43 2 61-1" stroke="#777c5c" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+  <g fill="#b49858"><circle cx="463" cy="109" r="2"/><circle cx="102" cy="58" r="1.5"/></g>
+  <path d="m462 142 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z" fill="#d6a44b"/>
+</svg>

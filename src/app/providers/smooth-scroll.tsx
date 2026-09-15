@@ -3,7 +3,6 @@ import { useRouter } from '@tanstack/react-router'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 
-/** One scroll engine for the app; the router still owns scroll restoration. */
 export function SmoothScroll() {
   const router = useRouter()
 
@@ -27,7 +26,6 @@ export function SmoothScroll() {
         smoothWheel: true,
         syncTouch: false,
         anchors: true,
-        // Avoid layout/style checks on every wheel event across book grids.
         allowNestedScroll: false,
         prevent: (node) =>
           node.matches(
@@ -43,7 +41,6 @@ export function SmoothScroll() {
       attributes: true,
       attributeFilter: ['data-scroll-locked'],
     })
-    // Cancel residual inertia before the router restores a different page.
     const unsubscribe = router.subscribe('onBeforeLoad', (event) => {
       if (event.fromLocation?.pathname === event.toLocation.pathname) return
       lenis?.scrollTo(window.scrollY, { immediate: true, force: true })

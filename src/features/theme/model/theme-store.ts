@@ -17,7 +17,6 @@ function systemTheme(): Theme {
     : 'light'
 }
 
-// Storage can be blocked; switching the theme must still work for this visit.
 const safeStorage: StateStorage = {
   getItem: (name) => {
     try {
@@ -30,14 +29,14 @@ const safeStorage: StateStorage = {
     try {
       localStorage.setItem(name, value)
     } catch {
-      /* Keep the in-memory preference. */
+      return
     }
   },
   removeItem: (name) => {
     try {
       localStorage.removeItem(name)
     } catch {
-      /* Storage is unavailable. */
+      return
     }
   },
 }

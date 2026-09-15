@@ -25,7 +25,6 @@ export const SHELF_STORAGE_KEY = 'libris:shelves:v1'
 const accountKey = (email: string) => email.trim().toLowerCase()
 
 const shelfStorage = createJSONStorage<PersistedShelf>(
-  // Defer access so blocked storage still reports failed writes to the actions.
   () => ({
     getItem: (name) => localStorage.getItem(name),
     setItem: (name, value) => localStorage.setItem(name, value),
@@ -34,7 +33,6 @@ const shelfStorage = createJSONStorage<PersistedShelf>(
   {
     reviver: (key, value: unknown) => {
       if (key !== '') return value
-      // The legacy root was the account map, without Zustand's state/version.
       const legacy = shelvesSchema.safeParse(value)
       return legacy.success
         ? { state: { shelves: legacy.data }, version: 0 }
@@ -59,12 +57,10 @@ export const useShelfStore = create<ShelfState>()(
           set({ shelves })
           return true
         } catch {
-          // persist updates memory before writing; restore it even if storage
-          // rejects the rollback write as well. Actions must not report success.
           try {
             set({ shelves: previousShelves })
           } catch {
-            /* The previous in-memory state has already been restored. */
+            return false
           }
           return false
         }

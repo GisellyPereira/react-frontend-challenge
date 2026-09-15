@@ -1,6 +1,5 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 
-// Original vector artwork. Run from the repository root to regenerate the assets.
 const destination = 'src/shared/assets/topic-covers'
 mkdirSync(destination, { recursive: true })
 const path = (d, extra = '') => `<path d="${d}" ${extra}/>`

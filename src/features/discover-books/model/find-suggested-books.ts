@@ -33,7 +33,6 @@ export async function findSuggestedBooks(
         signal,
       )
     } catch (error) {
-      // A service/quota failure is not an empty category: avoid extra requests.
       if (signal?.aborted || books.size === 0) throw error
       break
     }

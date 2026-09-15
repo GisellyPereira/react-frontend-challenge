@@ -10,7 +10,6 @@ export function formatMagazineDate(value: string | null) {
   if (!match) return value
   const month = Number(match[2])
   if (month < 1 || month > 12) return value
-  // The display identifies the issue's month; year-only dates stay year-only.
   const date = new Date(`${match[1]}-${match[2]}-01T12:00:00Z`)
   return monthFormatter.format(date)
 }

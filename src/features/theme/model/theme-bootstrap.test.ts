@@ -4,7 +4,7 @@ import { THEME_STORAGE_KEY } from './theme-store'
 
 const script = html.match(/<script>([\s\S]*?)<\/script>/)?.[1]
 if (!script) throw new Error('Inicialização do tema não encontrada')
-// eslint-disable-next-line @typescript-eslint/no-implied-eval -- Execute the trusted first-paint script from our own HTML entry point.
+// eslint-disable-next-line @typescript-eslint/no-implied-eval
 const bootstrap = new Function(
   'window',
   'document',

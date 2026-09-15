@@ -20,14 +20,12 @@ export function useDiscoverInput(
     timer.current = null
   }, [])
 
-  // Navigation (including Back) and unmount cancel an unfinished search.
   useEffect(() => cancel, [cancel, confirmedQuery])
 
   const changeQuery = (value: string) => {
     cancel()
     setDraft({ source: confirmedQuery, value })
     const query = value.trim()
-    // Clearing lets the reader type a replacement without leaving the results.
     if (!query || query === confirmedQuery.trim()) return
     timer.current = setTimeout(() => {
       timer.current = null

@@ -1,4 +1,3 @@
-// Session-only, bounded cache shared by the catalog and the details page.
 export const loadedBookCovers = new Map<string, string>()
 
 export function rememberBookCover(bookId: string, source: string) {

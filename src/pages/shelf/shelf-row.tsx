@@ -15,12 +15,14 @@ export function ShelfRow({
   startIndex,
   onRemove,
   onStatusChange,
+  carouselActive = true,
 }: {
   books: SavedBook[]
   number: number
   startIndex: number
   onRemove: (id: string) => void
   onStatusChange: (id: string, status: ReadingStatus) => void
+  carouselActive?: boolean
 }) {
   const [active, setActive] = useState<string | null>(books[0]?.id ?? null)
   const selected =
@@ -28,7 +30,11 @@ export function ShelfRow({
       ? undefined
       : (books.find((book) => book.id === active) ?? books[0])
   return (
-    <section className="shelf-row" aria-label={`Prateleira ${number}`}>
+    <section
+      className="shelf-row"
+      data-carousel-active={carouselActive || undefined}
+      aria-label={`Prateleira ${number}`}
+    >
       <div className="shelf-row__scroll">
         <div className="shelf-row__books">
           {books.map((book, index) => {

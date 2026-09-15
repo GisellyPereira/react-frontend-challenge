@@ -1,88 +1,107 @@
-# ⚛️ Desafio React Frontend
+# Libris — entrega do desafio React
 
-Bem-vindo ao repositório de avaliação técnica para a vaga de **Desenvolvedor React Pleno**.
+## Case escolhido
 
-Este não é apenas um teste de codificação; é uma oportunidade para você demonstrar como estrutura aplicações escaláveis, toma decisões arquiteturais e prioriza a experiência do usuário.
+Foi escolhido o case **Libris**, um gerenciador de biblioteca pessoal e estante virtual. A aplicação permite descobrir livros, salvar títulos, acompanhar o status de leitura e consultar os detalhes de cada item.
 
-Estamos buscando profissionais que entendam que "fazer funcionar" é apenas o primeiro passo. O nosso foco está também em: **Manutenibilidade, Performance e Boas Práticas.**
+## Entrega
 
----
+A solução contempla os fluxos principais do desafio:
 
-## 🎯 O Objetivo
+- Descoberta de livros por busca, sugestões e tópicos.
+- Login local e estantes separadas por usuário.
+- Inclusão e remoção de livros da estante.
+- Status de leitura: Quero ler, Lendo e Lido.
+- Busca, filtros, ordenação e paginação.
+- Visualização em prateleiras e em tabela.
+- Detalhes do livro e pré-visualização quando disponível.
+- Estados de carregamento, erro e lista vazia.
+- Tema claro e escuro.
+- Layout responsivo, incluindo navegação de prateleiras em carrossel no mobile.
+- Persistência da sessão e da estante no `localStorage`.
 
-O desafio consiste em desenvolver uma aplicação Front-end que consuma uma API pública, focando na criação de interfaces ricas (Dashboards, Tabelas, Filtros) e na gestão eficiente de estado e dados assíncronos.
+## Critérios e diferenciais atendidos
 
-### 📂 Escolha sua Missão
+- React com TypeScript em modo estrito e Vite.
+- TanStack Query para busca remota, cache e estados assíncronos.
+- Zustand para autenticação e gerenciamento persistido da estante.
+- TanStack Router para rotas protegidas e navegação.
+- TanStack Table para a listagem tabular, com ordenação e paginação controladas.
+- React Hook Form e Zod para validação do formulário de login.
+- Vitest e React Testing Library para testes unitários, de integração e de fluxo.
+- Organização modular inspirada em Feature-Sliced Design.
+- Tratamento de erros de rede, respostas inválidas e limites da API.
+- Acessibilidade com labels, foco visível, navegação por teclado e regiões de status.
+- Adaptação para diferentes larguras de tela e preferência por movimento reduzido.
 
-Você tem a liberdade de escolher **um** dos dois desafios abaixo para implementar. Ambos possuem o mesmo peso e complexidade técnica. Escolha aquele com o qual você se sentir mais criativo:
+## Decisões técnicas
 
-- **[Opção A: CineDash (Filmes)](./cases/01-cinedash.md)** – Crie um dashboard analítico para curadoria de cinema.
-- **[Opção B: Libris (Livros)](./cases/02-libris.md)** – Desenvolva um gerenciador de biblioteca pessoal e estante virtual.
+O estado remoto fica concentrado no TanStack Query, enquanto dados específicos da sessão e da estante são mantidos no Zustand. Essa separação evita misturar cache de API com estado de interação local.
 
----
+As estantes são associadas ao e-mail informado no login e persistidas no navegador. Como o desafio é uma aplicação front-end, não foi criado um servidor próprio ou banco de dados.
 
-## 🛠 Tech Stack Obrigatória
+A tabela usa TanStack Table para manter a lógica de ordenação, filtragem e paginação independente da apresentação. A visualização em prateleiras é uma camada visual alternativa para os mesmos livros.
 
-Para alinhar com a nossa stack atual e garantir uma avaliação justa, exigimos o uso das seguintes tecnologias. **Por favor, não utilize alternativas (ex: Redux ou Context API para estado global complexo) a menos que justificável no seu README.**
+## Organização do código
 
-- **Core:** React 18+, TypeScript (Strict), Vite.
-- **Server State & Cache:** TanStack Query.
-- **Client State:** Zustand.
-- **Routing:** TanStack Router (Preferencial) ou React Router v6 (com Data Loaders).
-- **UI Components:** Shadcn/ui + TailwindCSS.
-- **Formulários:** React Hook Form ou TanStack Form + Zod (validação).
-- **Testes:** Vitest + React Testing Library.
+```text
+src/
+├── entities/   entidades e integração com a Google Books API
+├── features/   autenticação, descoberta, temas, leitura e estante
+├── pages/      composição das telas e estilos específicos
+├── widgets/    blocos maiores reutilizáveis da interface
+└── shared/     componentes, estilos, utilitários e assets compartilhados
+```
 
-> **Diferencial:** Implementação de `TanStack Table` para listagens complexas.
+## Requisitos
 
----
+- Node.js 22 ou superior.
+- npm 10 ou superior.
 
-## 🧠 Critérios de Avaliação (O que olhamos)
+## Como executar
 
-Seu código será revisado como se fosse um Pull Request real para a nossa codebase de produção.
+Instale as dependências:
 
-### 1. Arquitetura e Organização
+```bash
+npm install
+```
 
-- Uso de **Feature-Sliced Design (FSD)**, Clean Architecture ou uma estrutura modular sólida.
-- Separação clara entre UI (Componentes), Lógica (Hooks) e Dados (Services/Adapters).
-- Código limpo, legível e seguindo princípios SOLID.
+Crie o arquivo local de ambiente:
 
-### 2. Qualidade Técnica
+```bash
+cp .env.example .env.local
+```
 
-- Domínio do **TypeScript** (evitar `any`, tipagem correta de generics e props).
-- Uso correto do **TanStack Query** (cache keys, invalidation, prefetching).
-- Tratamento de erros e estados de loading (Skeletons, Error Boundaries).
-- Performance (memorização onde necessário, debouncing em buscas).
+Preencha `VITE_GOOGLE_BOOKS_API_KEY` com uma chave da Google Books API. A aplicação também pode ser iniciada sem a chave, mas as consultas estarão sujeitas aos limites públicos da API.
 
-### 3. Testes e Confiabilidade
+Inicie o projeto:
 
-- Não buscamos 100% de cobertura, mas sim **testes significativos**.
-- Testes unitários em hooks complexos e utilitários.
-- Testes de integração nos fluxos principais (ex: Adicionar item à lista, filtrar tabela).
+```bash
+npm run dev
+```
 
-### 4. Documentação e Git
+## Validação da entrega
 
-- Histórico de commits organizado.
-- Arquivo `INSTRUCTIONS.md` com instruções claras de como rodar o projeto e qual projeto foi escolhido.
-- Arquivo `ARCHITECTURE.md` explicando suas decisões técnicas (Por que usou X? Como resolveu Y?).
+Comandos usados para validar o projeto:
 
----
+```bash
+npm run typecheck
+npm run lint
+npm run format:check
+npm test
+npm run build
+```
 
-## 🚀 Como entregar
+Resultado atual: **42 arquivos de teste aprovados e 204 testes aprovados**.
 
-1.  Faça um **fork** deste repositório para a sua própria conta do GitHub.
-2.  Desenvolva sua solução em uma branch separada (ex: `feature/cinedash-impl` ou `feature/libris-impl`).
-3.  Quando finalizar, abra um **Pull Request** da sua branch de desenvolvimento para a branch `main` do **seu** repositório forkado. **Atenção: Não abra o PR para o repositório original da empresa.**
-4.  No corpo do PR, utilize o template fornecido e inclua uma breve descrição do que foi feito, além do projeto escolhido.
-5.  Envie o link do seu Pull Request (ou do repositório) para o recrutador responsável.
+## Deploy
 
----
+O arquivo `netlify.toml` já define:
 
-## ⏳ Prazo e Escopo
+- Comando de build: `npm run build`.
+- Diretório publicado: `dist`.
+- Redirecionamento de rotas para `index.html`.
 
-Sabemos que este é um desafio complexo.
+No Netlify, a variável `VITE_GOOGLE_BOOKS_API_KEY` deve ser cadastrada nas variáveis de ambiente específicas do projeto e um novo deploy deve ser executado após a configuração.
 
-- **Prazo para entrega:** Você terá o prazo de 7 dias corridos para realização do desafio.
-- **Faltou tempo?** Se não conseguir entregar tudo, **priorize a qualidade sobre a quantidade**. É melhor entregar uma funcionalidade perfeitamente arquitetada e testada do que três funcionalidades quebradas. Documente o que faltou no seu README.
-
-**Boa sorte! Estamos ansiosos para ver seu código.** 🚀
+Arquivos `.env.local` não devem ser versionados. Como variáveis `VITE_` são incluídas no código do navegador, a chave da API deve ser restringida ao domínio usado no deploy.

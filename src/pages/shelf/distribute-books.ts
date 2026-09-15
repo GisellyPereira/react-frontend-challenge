@@ -1,6 +1,12 @@
-export function shelfCapacity(width: number, rem = 16): number {
+export function shelfCapacity(
+  width: number,
+  rem = 16,
+  compact = false,
+): number {
+  if (compact) {
+    return 3
+  }
   const coverWidth = Math.min(14 * rem, width * 0.46)
-  // Reserve edge padding plus the largest spine and its gap.
   return Math.max(
     1,
     Math.min(12, 1 + Math.floor((width - coverWidth - 2 * rem) / (3.6 * rem))),

@@ -1,9 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
+import {
+  createColumnHelper,
+  createPaginatedRowModel,
+  rowPaginationFeature,
+  rowSortingFeature,
+  tableFeatures,
+  useTable,
+  type PaginationState,
+  type SortingState,
+} from '@tanstack/react-table'
 import { useAuthStore } from '@/features/auth'
 import {
   useShelfStore,
   useShelfActions,
+  type SavedBook,
   type ReadingStatus,
 } from '@/features/manage-shelf'
 import { BookCoverImage } from '@/entities/book'
@@ -28,6 +39,15 @@ import {
 } from '@/shared/ui/pagination'
 
 const TABLE_PAGE_SIZE = 10
+const shelfTableFeatures = tableFeatures({
+  rowPaginationFeature,
+  rowSortingFeature,
+  paginatedRowModel: createPaginatedRowModel(),
+})
+const shelfColumnHelper = createColumnHelper<
+  typeof shelfTableFeatures,
+  SavedBook
+>()
 
 export function ShelfPage() {
   const email = useAuthStore((state) => state.session?.email ?? '')
@@ -38,7 +58,11 @@ export function ShelfPage() {
   const [view, setView] = useState<'shelves' | 'table'>('shelves')
   const [filter, setFilter] = useState<ReadingStatus | 'all'>('all')
   const [query, setQuery] = useState('')
-  const [tablePage, setTablePage] = useState(1)
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: TABLE_PAGE_SIZE,
+  })
+  const [shelfPage, setShelfPage] = useState(0)
   const [sort, setSort] = useState<ShelfSort | null>(null)
   const shelfContainer = useRef<HTMLDivElement>(null)
   const [capacity, setCapacity] = useState(1)
@@ -46,11 +70,12 @@ export function ShelfPage() {
   useEffect(() => {
     const element = shelfContainer.current
     if (!element || typeof ResizeObserver === 'undefined') return
+    const compact = window.matchMedia?.('(max-width: 600px)').matches ?? false
     const observer = new ResizeObserver(([entry]) => {
       if (!entry) return
       const rem =
         parseFloat(getComputedStyle(document.documentElement).fontSize) || 16
-      setCapacity(shelfCapacity(entry.contentRect.width, rem))
+      setCapacity(shelfCapacity(entry.contentRect.width, rem, compact))
     })
     observer.observe(element)
     return () => observer.disconnect()
@@ -64,19 +89,125 @@ export function ShelfPage() {
   )
   const onStatusChange = (id: string, status: ReadingStatus) =>
     setError(!setStatus(email, id, status))
+  const tableData = useMemo(
+    () => sortBooks(visibleBooks, sort),
+    [sort, visibleBooks],
+  )
   const totalPages = Math.max(
     1,
-    Math.ceil(visibleBooks.length / TABLE_PAGE_SIZE),
+    Math.ceil(tableData.length / pagination.pageSize),
   )
-  const currentPage = Math.min(tablePage, totalPages)
-  const pageStart = (currentPage - 1) * TABLE_PAGE_SIZE
-  const tableBooks = sortBooks(visibleBooks, sort).slice(
+  const currentPage = Math.min(pagination.pageIndex + 1, totalPages)
+  const effectivePageIndex = currentPage - 1
+  const pageStart = effectivePageIndex * pagination.pageSize
+  const tablePageData = tableData.slice(
     pageStart,
-    pageStart + TABLE_PAGE_SIZE,
+    pageStart + pagination.pageSize,
   )
+  const columns = useMemo(
+    () =>
+      shelfColumnHelper.columns([
+        shelfColumnHelper.accessor('title', {
+          id: 'title',
+          header: 'Título',
+          cell: ({ row }) => {
+            const book = row.original
+            return (
+              <Link
+                className="personal-shelf__table-book"
+                to="/book/$bookId"
+                params={{ bookId: book.id }}
+              >
+                <BookCoverImage book={book} decorative sizes="56px" />
+                <span>
+                  <strong>{book.title || 'Título não informado'}</strong>
+                  <small>
+                    {book.authors.join(', ') || 'Autoria não informada'}
+                  </small>
+                </span>
+              </Link>
+            )
+          },
+        }),
+        shelfColumnHelper.accessor('publishedDate', {
+          id: 'publishedDate',
+          header: 'Publicação',
+          cell: ({ getValue }) => getValue()?.slice(0, 4) || '—',
+          enableSorting: false,
+        }),
+        shelfColumnHelper.accessor('pageCount', {
+          id: 'pageCount',
+          header: 'Páginas',
+          cell: ({ getValue }) => getValue() ?? '—',
+          enableSorting: false,
+        }),
+        shelfColumnHelper.accessor('status', {
+          id: 'status',
+          header: 'Status',
+          cell: ({ row }) => (
+            <ShelfStatus
+              book={row.original}
+              onChange={(id, status) => setError(!setStatus(email, id, status))}
+            />
+          ),
+        }),
+        shelfColumnHelper.display({
+          id: 'actions',
+          header: 'Ações',
+          cell: ({ row }) => {
+            const book = row.original
+            return (
+              <div className="personal-shelf__table-actions">
+                <Button
+                  variant="ghost"
+                  className="personal-shelf__table-details"
+                  asChild
+                >
+                  <Link
+                    to="/book/$bookId"
+                    params={{ bookId: book.id }}
+                    aria-label={`Ver detalhes de ${book.title || 'livro'}`}
+                  >
+                    Detalhes <ArrowUpRight size={16} aria-hidden="true" />
+                  </Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  title="Remover da estante"
+                  aria-label={`Remover ${book.title || 'livro'} da estante`}
+                  onClick={() => setError(!remove(email, book.id))}
+                >
+                  <Trash2 size={16} aria-hidden="true" />
+                </Button>
+              </div>
+            )
+          },
+        }),
+      ]),
+    [email, remove, setStatus],
+  )
+  const sorting = useMemo<SortingState>(
+    () => (sort ? [{ id: sort.field, desc: sort.direction === 'desc' }] : []),
+    [sort],
+  )
+  const table = useTable(
+    {
+      features: shelfTableFeatures,
+      columns,
+      data: tablePageData,
+      manualPagination: true,
+      manualSorting: true,
+      rowCount: tableData.length,
+      state: { pagination, sorting },
+      onPaginationChange: setPagination,
+    },
+    (state) => ({ pagination: state.pagination }),
+  )
+  const tableRows = table.getRowModel().rows
   const onSort = (nextSort: ShelfSort) => {
     setSort(nextSort)
-    setTablePage(1)
+    setPagination((current) => ({ ...current, pageIndex: 0 }))
   }
   const firstVisiblePage = Math.max(
     1,
@@ -87,6 +218,7 @@ export function ShelfPage() {
     (_, index) => firstVisiblePage + index,
   )
   const rows = distributeBooks(visibleBooks, capacity)
+  const activeShelfPage = Math.min(shelfPage, Math.max(0, rows.length - 1))
   return (
     <main className="personal-shelf">
       <header className="personal-shelf__heading">
@@ -132,7 +264,7 @@ export function ShelfPage() {
                 value={query}
                 onChange={(event) => {
                   setQuery(event.target.value)
-                  setTablePage(1)
+                  setPagination((current) => ({ ...current, pageIndex: 0 }))
                 }}
               />
               {query && (
@@ -142,7 +274,7 @@ export function ShelfPage() {
                   aria-label="Limpar busca"
                   onClick={() => {
                     setQuery('')
-                    setTablePage(1)
+                    setPagination((current) => ({ ...current, pageIndex: 0 }))
                   }}
                 >
                   <X size={16} />
@@ -159,7 +291,7 @@ export function ShelfPage() {
                 aria-pressed={filter === 'all'}
                 onClick={() => {
                   setFilter('all')
-                  setTablePage(1)
+                  setPagination((current) => ({ ...current, pageIndex: 0 }))
                 }}
               >
                 Todos <span>{books.length}</span>
@@ -171,7 +303,7 @@ export function ShelfPage() {
                   aria-pressed={filter === value}
                   onClick={() => {
                     setFilter(value as ReadingStatus)
-                    setTablePage(1)
+                    setPagination((current) => ({ ...current, pageIndex: 0 }))
                   }}
                 >
                   {label}{' '}
@@ -207,114 +339,101 @@ export function ShelfPage() {
               Nenhum livro nesta seleção. Experimente outro filtro ou busca.
             </p>
           )}
-          {view === 'shelves'
-            ? rows.map((row, index) => (
-                <ShelfRow
-                  key={index}
-                  books={row}
-                  number={index + 1}
-                  startIndex={rows
-                    .slice(0, index)
-                    .reduce((total, item) => total + item.length, 0)}
-                  onRemove={(id) => setError(!remove(email, id))}
-                  onStatusChange={onStatusChange}
-                />
-              ))
-            : visibleBooks.length > 0 && (
-                <div className="personal-shelf__table-scroll">
-                  <table className="personal-shelf__table">
-                    <caption className="sr-only">
-                      Livros da minha estante
-                    </caption>
-                    <thead>
-                      <tr>
-                        <ShelfSortHeader
-                          field="title"
-                          sort={sort}
-                          onSort={onSort}
-                        />
-                        <th scope="col">Publicação</th>
-                        <th scope="col">Páginas</th>
-                        <ShelfSortHeader
-                          field="status"
-                          sort={sort}
-                          onSort={onSort}
-                        />
-                        <th scope="col">Ações</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tableBooks.map((book) => (
-                        <tr key={book.id}>
-                          <td>
-                            <Link
-                              className="personal-shelf__table-book"
-                              to="/book/$bookId"
-                              params={{ bookId: book.id }}
-                            >
-                              <BookCoverImage
-                                book={book}
-                                decorative
-                                sizes="56px"
-                              />
-                              <span>
-                                <strong>
-                                  {book.title || 'Título não informado'}
-                                </strong>
-                                <small>
-                                  {book.authors.join(', ') ||
-                                    'Autoria não informada'}
-                                </small>
-                              </span>
-                            </Link>
-                          </td>
-                          <td>{book.publishedDate?.slice(0, 4) || '—'}</td>
-                          <td>{book.pageCount ?? '—'}</td>
-                          <td>
-                            <ShelfStatus
-                              book={book}
-                              onChange={onStatusChange}
-                            />
-                          </td>
-                          <td>
-                            <div className="personal-shelf__table-actions">
-                              <Button
-                                variant="ghost"
-                                className="personal-shelf__table-details"
-                                asChild
-                              >
-                                <Link
-                                  to="/book/$bookId"
-                                  params={{ bookId: book.id }}
-                                  aria-label={`Ver detalhes de ${book.title || 'livro'}`}
-                                >
-                                  Detalhes{' '}
-                                  <ArrowUpRight size={16} aria-hidden="true" />
-                                </Link>
-                              </Button>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                title="Remover da estante"
-                                aria-label={`Remover ${book.title || 'livro'} da estante`}
-                                onClick={() =>
-                                  setError(!remove(email, book.id))
-                                }
-                              >
-                                <Trash2 size={16} aria-hidden="true" />
-                              </Button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+          {view === 'shelves' ? (
+            <div className="personal-shelf__shelf-carousel">
+              <div className="personal-shelf__shelf-track">
+                {rows.map((row, index) => (
+                  <ShelfRow
+                    key={index}
+                    books={row}
+                    number={index + 1}
+                    carouselActive={index === activeShelfPage}
+                    startIndex={rows
+                      .slice(0, index)
+                      .reduce((total, item) => total + item.length, 0)}
+                    onRemove={(id) => setError(!remove(email, id))}
+                    onStatusChange={onStatusChange}
+                  />
+                ))}
+              </div>
+              {rows.length > 1 && (
+                <div
+                  className="personal-shelf__shelf-pagination"
+                  aria-label="Navegação das prateleiras"
+                >
+                  <Button
+                    variant="ghost"
+                    aria-label="Prateleira anterior"
+                    disabled={activeShelfPage === 0}
+                    onClick={() =>
+                      setShelfPage((current) => Math.max(0, current - 1))
+                    }
+                  >
+                    Anterior
+                  </Button>
+                  <span aria-live="polite">
+                    {activeShelfPage + 1} / {rows.length}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    aria-label="Próxima prateleira"
+                    disabled={activeShelfPage === rows.length - 1}
+                    onClick={() =>
+                      setShelfPage((current) =>
+                        Math.min(rows.length - 1, current + 1),
+                      )
+                    }
+                  >
+                    Próxima
+                  </Button>
                 </div>
               )}
+            </div>
+          ) : (
+            visibleBooks.length > 0 && (
+              <div className="personal-shelf__table-scroll">
+                <table className="personal-shelf__table">
+                  <caption className="sr-only">Livros da minha estante</caption>
+                  <thead>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                      <tr key={headerGroup.id}>
+                        {headerGroup.headers.map((header) =>
+                          header.column.id === 'title' ||
+                          header.column.id === 'status' ? (
+                            <ShelfSortHeader
+                              key={header.id}
+                              field={header.column.id}
+                              sort={sort}
+                              onSort={onSort}
+                            />
+                          ) : (
+                            <th key={header.id} scope="col">
+                              <table.FlexRender header={header} />
+                            </th>
+                          ),
+                        )}
+                      </tr>
+                    ))}
+                  </thead>
+                  <tbody>
+                    {tableRows.map((row) => (
+                      <tr key={row.id}>
+                        {row.getAllCells().map((cell) => (
+                          <td key={cell.id}>
+                            <table.FlexRender cell={cell} />
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )
+          )}
           {view === 'table' && visibleBooks.length > 0 && (
             <div className="personal-shelf__pagination">
               <p aria-live="polite">
-                Exibindo {pageStart + 1}–{pageStart + tableBooks.length} de{' '}
+                Exibindo {pageStart + 1}–{pageStart + tableRows.length} de{' '}
                 {visibleBooks.length} livros
               </p>
               <Pagination aria-label="Paginação da minha estante">
@@ -324,7 +443,12 @@ export function ShelfPage() {
                       text="Anterior"
                       aria-label="Página anterior"
                       disabled={currentPage === 1}
-                      onClick={() => setTablePage(currentPage - 1)}
+                      onClick={() =>
+                        setPagination((current) => ({
+                          ...current,
+                          pageIndex: effectivePageIndex - 1,
+                        }))
+                      }
                     />
                   </PaginationItem>
                   {pageNumbers.map((page) => (
@@ -332,7 +456,12 @@ export function ShelfPage() {
                       <PaginationLink
                         aria-label={`Página ${page}`}
                         isActive={page === currentPage}
-                        onClick={() => setTablePage(page)}
+                        onClick={() =>
+                          setPagination((current) => ({
+                            ...current,
+                            pageIndex: page - 1,
+                          }))
+                        }
                       >
                         {page}
                       </PaginationLink>
@@ -343,7 +472,12 @@ export function ShelfPage() {
                       text="Próxima"
                       aria-label="Próxima página"
                       disabled={currentPage === totalPages}
-                      onClick={() => setTablePage(currentPage + 1)}
+                      onClick={() =>
+                        setPagination((current) => ({
+                          ...current,
+                          pageIndex: effectivePageIndex + 1,
+                        }))
+                      }
                     />
                   </PaginationItem>
                 </PaginationContent>

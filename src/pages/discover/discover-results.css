@@ -1,4 +1,3 @@
-/* The results share the shell's paper and use a loose, hand-drawn book grid. */
 .discover-catalog--results {
   max-width: 80rem;
   padding: clamp(1.7rem, 3vw, 3rem) clamp(1.25rem, 3.2vw, 2.8rem) 5rem;

@@ -54,8 +54,6 @@ export function loadGoogleViewer(): Promise<ViewerApi> {
           resolve(api)
           return
         }
-        // The legacy loader's window-load callback does not run for a lazy modal.
-        // Observe the API script itself and resolve the current (replaced) namespace.
         document.addEventListener('load', onApiLoad, true)
         api.load({ language: 'pt-BR' })
       } catch {

@@ -19,7 +19,6 @@ const statusOrder: Record<ReadingStatus, number> = {
 function compareTitles(a: SavedBook, b: SavedBook, direction: number) {
   const aTitle = a.title?.trim() ?? ''
   const bTitle = b.title?.trim() ?? ''
-  // Keep missing titles at the end in either direction.
   if (!aTitle || !bTitle) return Number(!aTitle) - Number(!bTitle)
   return titleCollator.compare(aTitle, bTitle) * direction
 }

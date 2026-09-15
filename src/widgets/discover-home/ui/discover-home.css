@@ -21,7 +21,6 @@
   margin-bottom: 1rem;
 }
 .reading-pause {
-  /* The cream book cover is an illustration, with its own readable ink. */
   --ink: var(--illustration-ink);
   --ink-soft: #34443a;
   --text-teal: var(--book-teal);

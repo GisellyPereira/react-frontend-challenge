@@ -18,7 +18,6 @@ const legacyBook = {
   publishedDate: book.publishedDate,
 }
 
-// A new module instance exercises startup hydration, as on a page refresh.
 async function reloadShelf() {
   vi.resetModules()
   return (await import('./shelf-store')).useShelfStore

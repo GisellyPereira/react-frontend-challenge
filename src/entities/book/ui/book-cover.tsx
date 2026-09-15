@@ -75,8 +75,6 @@ function CoverArtwork({
       try {
         if (typeof image.decode === 'function') await image.decode()
         if (cancelled) return
-        // Reject extreme strips/spine scans, but keep portrait, square and
-        // ordinary landscape covers in their original proportions.
         const ratio = image.naturalWidth / image.naturalHeight
         if (
           Number.isFinite(ratio) &&

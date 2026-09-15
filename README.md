@@ -80,28 +80,5 @@ Inicie o projeto:
 npm run dev
 ```
 
-## Validação da entrega
+## Veja o projeto aqui:
 
-Comandos usados para validar o projeto:
-
-```bash
-npm run typecheck
-npm run lint
-npm run format:check
-npm test
-npm run build
-```
-
-Resultado atual: **42 arquivos de teste aprovados e 204 testes aprovados**.
-
-## Deploy
-
-O arquivo `netlify.toml` já define:
-
-- Comando de build: `npm run build`.
-- Diretório publicado: `dist`.
-- Redirecionamento de rotas para `index.html`.
-
-No Netlify, a variável `VITE_GOOGLE_BOOKS_API_KEY` deve ser cadastrada nas variáveis de ambiente específicas do projeto e um novo deploy deve ser executado após a configuração.
-
-Arquivos `.env.local` não devem ser versionados. Como variáveis `VITE_` são incluídas no código do navegador, a chave da API deve ser restringida ao domínio usado no deploy.

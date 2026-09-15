@@ -264,7 +264,7 @@
     color: var(--ink);
   }
   .dark .app-header__navigation-link[data-status='active'] {
-    color: var(--action-foreground);
+    color: var(--foreground);
   }
   .app-header__navigation-link:not([data-status='active']):hover {
     color: var(--ink);

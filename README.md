@@ -27,7 +27,7 @@ A solução contempla os fluxos principais do desafio:
 - Zustand para autenticação e gerenciamento persistido da estante.
 - TanStack Router para rotas protegidas e navegação.
 - TanStack Table para a listagem tabular, com ordenação e paginação controladas.
-- React Hook Form e Zod para validação do formulário de login.
+- TanStack Form e Zod para validação do formulário de login.
 - Vitest e React Testing Library para testes unitários, de integração e de fluxo.
 - Organização modular inspirada em Feature-Sliced Design.
 - Tratamento de erros de rede, respostas inválidas e limites da API.

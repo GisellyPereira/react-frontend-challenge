@@ -1,12 +1,24 @@
-# Libris — entrega do desafio React
+# Libris
 
-## Case escolhido
+Sua próxima leitura começa aqui. O Libris é uma biblioteca pessoal para descobrir livros, montar uma estante virtual e acompanhar o que você quer ler, está lendo ou já leu.
 
-Foi escolhido o case **Libris**, um gerenciador de biblioteca pessoal e estante virtual. A aplicação permite descobrir livros, salvar títulos, acompanhar o status de leitura e consultar os detalhes de cada item.
+[Acessar o Libris](https://libris-tests.netlify.app/login) · [Código-fonte](https://github.com/GisellyPereira/react-frontend-challenge)
 
-## Entrega
+## A experiência
 
-A solução contempla os fluxos principais do desafio:
+A identidade visual traz livros ilustrados, textura de papel e uma composição editorial que aproxima a interface do universo da leitura. A aplicação oferece temas claro e escuro e se adapta ao computador e ao celular.
+
+### Acesso à biblioteca
+
+![Tela de acesso do Libris, com marca autoral e uma estante ilustrada](docs/images/libris-login.png)
+
+### Descoberta de livros
+
+![Tela Descobrir do Libris, com busca por título, autoria ou assunto e sugestões de leitura](docs/images/libris-discover.png)
+
+## Funcionalidades
+
+Da descoberta à organização da estante:
 
 - Descoberta de livros por busca, sugestões e tópicos.
 - Login local e estantes separadas por usuário.
@@ -20,14 +32,14 @@ A solução contempla os fluxos principais do desafio:
 - Layout responsivo, incluindo navegação de prateleiras em carrossel no mobile.
 - Persistência da sessão e da estante no `localStorage`.
 
-## Critérios e diferenciais atendidos
+## Tecnologias e arquitetura
 
 - React com TypeScript em modo estrito e Vite.
 - TanStack Query para busca remota, cache e estados assíncronos.
 - Zustand para autenticação e gerenciamento persistido da estante.
 - TanStack Router para rotas protegidas e navegação.
 - TanStack Table para a listagem tabular, com ordenação e paginação controladas.
-- React Hook Form e Zod para validação do formulário de login.
+- TanStack Form e Zod para validação do formulário de login.
 - Vitest e React Testing Library para testes unitários, de integração e de fluxo.
 - Organização modular inspirada em Feature-Sliced Design.
 - Tratamento de erros de rede, respostas inválidas e limites da API.
@@ -38,7 +50,7 @@ A solução contempla os fluxos principais do desafio:
 
 O estado remoto fica concentrado no TanStack Query, enquanto dados específicos da sessão e da estante são mantidos no Zustand. Essa separação evita misturar cache de API com estado de interação local.
 
-As estantes são associadas ao e-mail informado no login e persistidas no navegador. Como o desafio é uma aplicação front-end, não foi criado um servidor próprio ou banco de dados.
+As estantes são associadas ao e-mail informado no login e persistidas no navegador. A sessão é local: o login permite separar as estantes neste navegador e não representa uma autenticação em servidor. Para experimentar, use um e-mail válido e uma senha com pelo menos 7 caracteres.
 
 A tabela usa TanStack Table para manter a lógica de ordenação, filtragem e paginação independente da apresentação. A visualização em prateleiras é uma camada visual alternativa para os mesmos livros.
 
@@ -80,5 +92,28 @@ Inicie o projeto:
 npm run dev
 ```
 
-## Veja o projeto aqui:
-https://libris-tests.netlify.app/login
+## Qualidade
+
+Comandos para verificar o projeto:
+
+```bash
+npm run typecheck
+npm run lint
+npm run format:check
+npm test
+npm run build
+```
+
+A suíte reúne **42 arquivos e 204 testes**, cobrindo componentes, integrações e os principais fluxos de uso.
+
+## Deploy
+
+O arquivo `netlify.toml` já define:
+
+- Comando de build: `npm run build`.
+- Diretório publicado: `dist`.
+- Redirecionamento de rotas para `index.html`.
+
+No Netlify, a variável `VITE_GOOGLE_BOOKS_API_KEY` deve ser cadastrada nas variáveis de ambiente específicas do projeto e um novo deploy deve ser executado após a configuração.
+
+Arquivos `.env.local` não devem ser versionados. Como variáveis `VITE_` são incluídas no código do navegador, a chave da API deve ser restringida ao domínio usado no deploy.
